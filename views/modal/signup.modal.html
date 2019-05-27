@@ -1,0 +1,111 @@
+<div class="modal_backdrop"></div>
+<div class="modal_container" style="min-width: 800px;">
+	<div class="action_btns_container">
+		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img src="assets/img/icons/back.png"></div>
+		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
+	</div>
+	<form name="signup_form" ng-if="signup_view">
+		<h1>Sign Up</h1>
+		<p>Lorem Ipsum dolor met</p>
+		<div class="btn member_btn" ng-click="memberView()">Become a member</div>
+		<div class="two_cols">
+			<div>
+				<div class="field_container">
+					<label>Name</label>
+					<input type="text" name="name" ng-model="signup.fullName">
+				</div>
+				<div class="field_container">
+					<label>Email</label>
+					<input type="email" name="email" ng-model="signup.email">
+				</div>
+				<div class="field_container">
+					<label>Referral Code</label>
+					<input type="text" name="promocode" ng-model="signup.promocode">
+				</div>
+			</div>
+			<div>
+				<div class="field_container">
+					<label>Country</label>
+					<select ng-model="signup.country">
+						<option value="">Select Country</option>
+						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}</option>
+					</select>
+				</div>
+				<div class="field_container">
+					<label>Password</label>
+					<input type="password" name="password" ng-model="signup.password">
+				</div>
+			</div>
+		</div>
+		<div class="btn_container signup">
+			<button ng-click="submitForm()">Sign Up</button>
+		</div>
+		<div class="social_login_title_container">
+			<div>Social Login</div>
+		</div>
+		<ul id="social_icons">
+			<li ng-click="fbLogin()"><img src="assets/img/icons/fb.png"></li>
+			<li ng-click="googleLogin()"><img src="assets/img/icons/google.png"></li>
+		</ul>
+	</form>
+
+	<form name="member_form" ng-if="member_view">
+		<h1>Become A Member</h1>
+		<p>Lorem Ipsum dolor met</p>
+		<div class="two_cols">
+			<div>
+				<div class="field_container">
+					<label>Name</label>
+					<input type="text" name="name" ng-model="member.fullName">
+				</div>
+				<div class="field_container">
+					<label>Email</label>
+					<input type="email" name="email" ng-model="member.email">
+				</div>
+				<div class="field_container">
+					<label>Category</label>
+					<select ng-model="member.channelCategory" class="capitalize">
+						<option value="">Select Category</option>
+						<option ng-repeat="category in categories" value="{{category.id}}" class="capitalize">{{category.name}}</option>
+					</select>
+				</div>
+				<div class="field_container">
+					<label>City</label>
+					<select ng-model="member.city">
+						<option value="">Select City</option>
+						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<div class="field_container">
+					<label>Channel Name</label>
+					<input type="text" name="channelName" ng-model="member.channelName">
+				</div>
+				<div class="field_container">
+					<label>Contact Number</label>
+					<input type="number" name="phoneNumber" ng-model="member.phoneNumber">
+				</div>
+				<div class="field_container">
+					<label>Country</label>
+					<select ng-model="member.country">
+						<option value="">Select Country</option>
+						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}</option>
+					</select>
+				</div>
+				<div class="field_container">
+					<label>State</label>
+					<select ng-model="member.state">
+						<option value="">Select State</option>
+						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="btn_container signup">
+			<button ng-click="requestForm()">Request</button>
+		</div>
+	</form>
+</div>
+
+<link rel="stylesheet" type="text/css" href="assets/css/modal.css">

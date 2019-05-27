@@ -1,0 +1,42 @@
+<div class="other-page-breadcumb-area bg-with-ebony">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-10 col-md-9 col-sm-9 col-12">
+				<div class="op-breadcumb">
+					<ul>
+						<li>
+							<a href="#!/home">
+								<span>
+									<i class="fa fa-home" aria-hidden="true"></i>
+								</span>
+								Home
+							</a>
+						</li>
+						<li><a href="#!/subscription">Subscription</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="subscription">
+    <div class="container">
+        <h1>Subscription</h1>
+        <ul>
+            <li ng-repeat="package in plan">
+                <div class="package">
+                    <div class="package_icon"><img  style="max-width: 50px; margin: auto;" src="assets/img/icons/like.png"></div>
+                    <div class="package_name" ng-if="package.product_nickname">{{package.product_nickname}}</div>
+                    <div class="package_name" ng-if="!package.product_nickname">Product Name Here</div>
+                    <div class="package_price">${{package.amount}}</div>
+                    <div class="package_desc">{{package.description}}</div>
+                    <div class="package_btn" ng-click="subscribe(package)"> 
+                        <p>Get started</p>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="assets/css/subscription.css">

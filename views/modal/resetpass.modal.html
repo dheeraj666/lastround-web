@@ -1,0 +1,33 @@
+<div class="modal_backdrop"></div>
+<div class="modal_container" style="min-width: 500px;">
+	<div class="action_btns_container">
+		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img src="assets/img/icons/back.png"></div>
+		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
+	</div>
+	<form name="reset_form" ng-if="email_view">
+		<h1>Reset Password</h1>
+		<p>Enter your Email Address to receive One-time pin</p>
+		<div class="field_container">
+			<label>Email</label>
+			<input type="email" name="email" ng-model="reset.email">
+		</div>
+		<div class="btn_container">
+			<button ng-click="submitEmail()">Reset Password</button>
+		</div>
+	</form>
+
+	<form name="otp_form" ng-if="otp_view">
+		<h1>Enter OTP</h1>
+		<p>Enter your OTP sent to your email to reset ou password</p>
+		<div class="field_container">
+			<label>OTP</label>
+			<input type="number" name="otp" ng-model="reset.otp">
+		</div>
+		<div class="btn_container">
+			<button ng-click="submitForm()">Reset Password</button>
+		</div>
+	</form>
+
+</div>
+
+<link rel="stylesheet" type="text/css" href="assets/css/modal.css">

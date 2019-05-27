@@ -1,0 +1,19 @@
+<div class="modal_backdrop"></div>
+<div class="modal_container" style="min-width: 500px;">
+	<div class="action_btns_container">
+		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img src="assets/img/icons/back.png"></div>
+		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
+	</div>
+	<form name="verify_email_form">
+		<h1>Verify Email</h1>
+		<p>Please enter you active email address and check your inbox after a few minutes and click the verification link to finish setting up your account.</p>
+		<div id="email_input" style="text-align: center; margin-bottom: 20px;">
+			<input type="email" name="verification_email" placeholder="Enter Email" ng-model="email" style="width: 50%; margin: auto; border: 0; border-bottom: 1px solid #000; padding: 10px 5px;">
+		</div>
+		<div class="btn_container signup">
+			<button ng-click="submitForm()">Verify Email</button>
+		</div>
+	</form>
+</div>
+
+<link rel="stylesheet" type="text/css" href="assets/css/modal.css">

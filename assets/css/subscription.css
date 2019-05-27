@@ -1,0 +1,73 @@
+.subscription{
+	background-color: #fff;
+	text-align: center;
+	padding: 50px 0;
+}
+
+.subscription h1{
+	color: #000;
+}
+
+.subscription ul{
+	list-style: none;
+	padding: 0;
+	margin: 50px 0;
+}
+
+.subscription ul li{
+	display: inline-block;
+	margin: 0 20px; 
+	border: 1px solid transparent;
+	border-radius: 5px;
+	padding: 20px 10px;
+	max-width: 200px;
+	cursor: pointer;
+	-webkit-box-shadow: 3px 3px 5px 6px #ccc;
+	-moz-box-shadow:    3px 3px 5px 6px #ccc;
+	box-shadow:         3px 3px 5px 6px #ccc; 
+}
+
+.subscription ul li:hover{
+	background-color: #ff1744;
+}
+
+.subscription ul li:hover .package_name,
+.subscription ul li:hover .package_price,
+.subscription ul li:hover .package_desc{ color: #fff; }
+
+.package_icon{ margin-top: 20px; }
+.package_name{
+	margin: 15px 0 3px 0;
+	font-weight: bolder;
+	text-transform: uppercase;
+	font-size: 16px;
+	letter-spacing: 1.5px;
+}
+
+.package_price{
+	font-size: 32px;
+	font-weight: bolder;
+	margin: 5px 0 30px 0;
+}
+
+.package_desc{
+	border-top: 1px solid #999;
+	padding: 10px 0;
+	font-size: 12px;
+}
+
+.package_btn{
+	background-color: #0c0b21;
+    width: auto;
+    display: inline-block;
+    padding: 5px 30px;
+    border-radius: 100px;
+    cursor: pointer;
+}
+
+.package_btn p{
+	margin: 0;
+	color: #fff;
+	font-weight: bolder;
+	text-transform: uppercase;
+}
