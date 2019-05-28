@@ -37,6 +37,9 @@
 				</div>
 			</div>
 		</div>
+		<div class="sign-up-error" ng-if="signupError">
+			{{signupError}}
+		</div>
 		<div class="btn_container signup">
 			<button ng-click="submitForm()">Sign Up</button>
 		</div>
