@@ -5,8 +5,8 @@
         .module('app')
         .controller('SignupController', SignupController);
 
-    SignupController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList'];
-    function SignupController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList) {
+    SignupController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList',  '$http'];
+    function SignupController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, $http) {
 
         $scope.signup_view = true;
         $scope.close = close;
@@ -99,7 +99,7 @@
 
         $scope.submitForm = function(){
             console.log('signup');
-            close({type: 'success', message: 'success message'});
+            // close({type: 'success', message: 'success message'});
         	// let url = API.BaseUrl+'users';
         	// QueryService.Post(url, $scope.signup)
         	// .then(function(res){
@@ -108,7 +108,27 @@
         	// })
         	// .catch(function(res){
         	// 	toaster.pop('error', res.data.msg);
-        	// });
+            // });
+            let signupData = {
+                "fullName": $scope.signup.fullName,
+                "email": $scope.signup.email,
+                "password":$scope.signup.password,
+                "country": $scope.signup.country,
+                "promocode": $scope.signup.promocode
+            };
+            $http.post(API.BaseUrl+'users', signupData,{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            .then(function(res){
+                console.log('then', res);
+                close({type: 'success', message: 'success message'});
+            }).catch(function(res){
+                console.log('catch', res);
+                $scope.signupError = res.data.msg;
+            });
         }
 
         function sendEmail(email){

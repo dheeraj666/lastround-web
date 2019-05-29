@@ -3972,3 +3972,8 @@ body.home-3 a:hover {
 #social_icons li img{
     max-width: 35px;
 }
+
+.sign-up-error {
+    color: #ff1744;
+    text-align: center;
+}
