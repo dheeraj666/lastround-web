@@ -764,6 +764,30 @@ header {}
     right: 10px;
 }
 
+#for_res_menu{
+    position: absolute;
+    background-color: #333;
+    width: 100%;
+    left: 0;
+    top: 86px;
+    z-index: 7;
+    padding: 10px 0;
+
+    transition: all .5s ease-in-out;
+
+
+   /* -webkit-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;*/
+}
+
+#for_res_menu li{
+    padding: 10px 20px;
+    font-size: 15px;
+    color: #fff;
+}
+
 .account {
     padding: 25px 0;
     text-align: right;

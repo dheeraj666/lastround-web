@@ -60,9 +60,20 @@
         app.controller('MainController', [ '$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService',
         function MainController( $rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService ) {
 
+            $scope.menuList = false;
+
             $('#preloader').fadeOut('slow', function () {
                 $(this).remove();
             });
+
+            $scope.showMenu = function(){
+                if($scope.menuList){
+                    $scope.menuList = false;    
+                }else{
+                    $scope.menuList = true;
+                }
+                
+            }
 
             $scope.login = function(){
                 ModalService.showModal({

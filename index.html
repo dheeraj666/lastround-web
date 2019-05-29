@@ -23,10 +23,10 @@
     <link rel="stylesheet" href="assets/css/magnific-popup.css">
     <link rel="stylesheet" href="assets/css/slicknav.min.css">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-    <link rel="stylesheet" href="assets/css/responsive.css">
     <link rel="stylesheet" type="text/css" href="assets/css/toaster.min.css"/>
 
     <link rel="stylesheet" type="text/css" href="assets/css/app.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 
 
     <!-- FIRST LOAD SCRIPT -->
@@ -52,8 +52,33 @@
                             </div>
                         </div>
                         <div class="col-lg-9 col-md-8 col-sm-12 col-12">
-                            <div class="responsive-menu d-lg-none"></div>
-                            <div class="menu d-none d-lg-block">
+                            <div id="res_menu" ng-click="showMenu()">Menu</div>
+                            <div ng-show="menuList">
+                                <ul id="for_res_menu">
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/">Home</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/events">Upcoming Events</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/catchup">Catchup</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/live">Live</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/subscription">Subscription</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/about">About</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/contact">Contact Us</a>
+                                    </li>
+                                </ul>                    
+                            </div>        
+                            <div class="menu d-none d-lg-block" id="main_menu">
                                 <nav>
                                     <ul id="menu">
                                         <li>
@@ -81,7 +106,7 @@
                                 </nav>
                             </div>
                         </div>
-                        <div class="col-lg-1 col-md-2 col-sm-12 col-12">
+                        <div class="col-lg-1 col-md-2 col-sm-6 col-6">
                             <div class="account">
                                 <a ng-click="login()">
                                     <span>
@@ -127,7 +152,7 @@
 
         <div class="ng-cloak" ng-view></div>
 
-        <footer>
+        <!--<footer>
             <div class="footer-top-area">
                 <div class="container">
                     <div class="row">
@@ -270,10 +295,10 @@
                     </div>
                 </div>
             </div>
-        </footer>
+        </footer> -->
     </div>
 
-    <script type="text/javascript">
+<!--     <script type="text/javascript">
         (function(){
             let p = document.createElement('script');
             p.type = 'text/javascript';
@@ -331,7 +356,7 @@
         'hideEasing': 'swing',
         'showMethod': 'swing',
         'hideMethod': 'swing'
-    }"></toaster-container>
+    }"></toaster-container> -->
 
     <!-- Angular Essentials -->
     <script src="https://kendo.cdn.telerik.com/2018.2.620/js/kendo.all.min.js"></script>
