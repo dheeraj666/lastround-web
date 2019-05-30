@@ -19,4 +19,34 @@
     .search-signup>div{ text-align: center; }
     .search-signup .signup{ margin: 25px 0 0 0; }
     #login.modal_container, #signup.modal_container{ min-width: 400px !important; }
+    .sb-content-box{ width: 100%; }
+    .sb-content-box .title{ 
+        font-size: 26px;
+        font-weight: 600;
+        line-height: 25px;
+        margin: 0 0 14px;
+        text-transform: uppercase; 
+    }
+    .sb-content-box .text{
+        font-size: 11px;
+        font-weight: 300;
+        line-height: 1;
+        color: #fff;
+    }
+    .top-movie-area{ position: relative; top: 0; margin: 20px 0 0 0; }
+    .section-title h2{ padding: 0 10px 30px; }
+    .about > div:first-child, .about > div:last-child{ width: 100%;  }
+    .about > div{ padding: 10px; float: none; display: block; }
+    .about_logo{ max-width: 200px; margin: auto; }
+    .contact > div{ width: 100%; }
+}
+
+@media only screen and (min-width: 200px) and (max-width: 380px){
+    .search-input-box input[type="text"] {
+        max-width: 200px;
+    }
+    .upcoming_events ul li{ width: 80%; margin: auto; float: none; display: block; }
+    #login.modal_container, #signup.modal_container{ min-width: 350px !important; }
+    .signup, .social_login_title_container{ width: 100% !important; }
+    .two_cols > div{ width: 100% !important; }
 }
