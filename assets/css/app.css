@@ -270,6 +270,11 @@ small {
     line-height: inherit;
 }
 
+.far{ line-height: 2.2; }
+.far.fa-play-circle{ line-height: 1.2; }
+.owl-prev .fas,
+.owl-next .fas{ line-height: 2.5; color: #fff; }
+
 /*  blockquotes */
 
 blockquote {
