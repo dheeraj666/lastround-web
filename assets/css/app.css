@@ -985,6 +985,9 @@ footer {
     width: 30px;
 }
 
+.address .fas,
+.social .fab{ line-height: 2.5; }
+
 .fw-info {}
 
 .fw-info .flogo {
@@ -998,6 +1001,7 @@ footer {
     font-weight: 300;
     line-height: 24px;
     margin: 0 0 20px;
+    color: #fff;
 }
 
 .fw-info .address {
@@ -1014,6 +1018,7 @@ footer {
     margin: 0 0 9px;
     padding-left: 54px;
     position: relative;
+    color: #fff;
 }
 
 .fw-info .address li:last-child {
@@ -1077,7 +1082,7 @@ footer {
 
 .fw-twitter {
     background: #18172c none repeat scroll 0 0;
-    height: 94%;
+    height: auto;
     padding: 48px 18px 20px;
 }
 
@@ -1160,6 +1165,28 @@ footer {
     font-size: 14px;
 }
 
+footer{ color: #fff; }
+
+footer .input_container{
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+footer .input_container input,
+footer .input_container button{ 
+    float: left; 
+    appearance: none;
+    -webkit-appearance: none;
+    background-color: transparent;
+    padding: 10px 5px;
+    border: 1px solid #55555b;
+    color: #FFF;
+}
+
+footer .input_container input{ width: 68%; }
+footer .input_container button{ width: 30%; float: right; }
+footer .downloads_container{ overflow: hidden; }
+footer .downloads_container > div{ padding: 10px 0; }
 /*----------------------------------------*/
 
 /*  2. Home Two
@@ -3833,7 +3860,7 @@ body.home-3 a:hover {
     background-color: #fff;
     border-radius: 4px;
     padding: 15px 15px 36px 15px;
-    /* max-height: 100%; */
+    max-height: 100%;
     min-width: 500px;
     color: #000;
 }
