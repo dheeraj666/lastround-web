@@ -201,11 +201,6 @@ section{ overflow: hidden; }
     width: 100%;
 }
 
-.far{ line-height: 2.2; }
-.far.fa-play-circle{ line-height: 1.2; }
-.owl-prev .fas,
-.owl-next .fas{ line-height: 2.5; color: #fff; }
-
 @-webkit-keyframes popyou {
     0% {
         -webkit-transform: scale(1);

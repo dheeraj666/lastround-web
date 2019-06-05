@@ -1,3 +1,28 @@
+@media only screen and (min-width: 900px) and (max-width: 1024px){
+    .menu{ text-align: left; }
+    .menu ul li{ margin-left: 3.5%; }
+}
+
+@media only screen and (min-width: 550px) and (max-width: 800px){
+    .logo{
+        position: relative;
+        text-align: center;
+        left: 0;
+    }
+
+    #main_menu{ display: none; }
+    #res_menu{
+        display: inline-block;
+        float: left;
+        padding-top: 33px;
+        color: #fff;
+    }
+    .search-input-box input[type="text"] {
+        max-width: auto;
+    }
+}
+
+
 @media only screen and (min-width: 300px) and (max-width: 500px){
     .logo{
         position: relative;
@@ -9,7 +34,7 @@
     #res_menu{
         display: inline-block;
         float: left;
-        padding-top: 40px;
+        padding-top: 33px;
         color: #fff;
     }
     .account{ display: inline-block; float: right; }
@@ -39,6 +64,10 @@
     .about > div{ padding: 10px; float: none; display: block; }
     .about_logo{ max-width: 200px; margin: auto; }
     .contact > div{ width: 100%; }
+    .profile{ width: 90%; }
+    .camera_img{ right: 34%; }
+    .subscription ul li{ margin-bottom: 20px; }
+    .subscription{ padding: 50px 0 0 0; }
 }
 
 @media only screen and (min-width: 200px) and (max-width: 380px){

@@ -49,6 +49,11 @@
                 controller: 'ContactController',
                 templateUrl: 'views/contact.view.html'
             })
+            .when('/profile',{
+                cache: false,
+                controller: 'ProfileController',
+                templateUrl: 'views/profile.view.html'
+            })
 
 
             .otherwise({ redirectTo: '/' });
@@ -61,6 +66,8 @@
         function MainController( $rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService ) {
 
             $scope.menuList = false;
+
+            $scope.isLoggedIn = true;
 
             $('#preloader').fadeOut('slow', function () {
                 $(this).remove();
@@ -76,17 +83,21 @@
             }
 
             $scope.login = function(){
-                ModalService.showModal({
-                    templateUrl: "views/modal/login.modal.html",
-                    controller: "LoginController"
-                }).then(function(modal){
-                    modal.close.then(function(res){
-                        console.log(res);
-                        if(res.type == "resetPass"){
-                            resetPassword();
-                        }
+                if($scope.isLoggedIn){
+                    $location.path('/profile');
+                }else{
+                    ModalService.showModal({
+                        templateUrl: "views/modal/login.modal.html",
+                        controller: "LoginController"
+                    }).then(function(modal){
+                        modal.close.then(function(res){
+                            console.log(res);
+                            if(res.type == "resetPass"){
+                                resetPassword();
+                            }
+                        });
                     });
-                });
+                }
             }
 
             function resetPassword(){
@@ -102,6 +113,7 @@
 
 
             $scope.signup = function(){
+                console.log('signup');
                 ModalService.showModal({
                     templateUrl: "views/modal/signup.modal.html",
                     controller: "SignupController"
