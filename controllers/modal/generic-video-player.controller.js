@@ -28,12 +28,11 @@
          }
         });
 
-    GenericVideoPlayer.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoLink', '$http'];
-    function GenericVideoPlayer($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoLink, $http) {
-        console.log(videoLink);
+    GenericVideoPlayer.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject', '$http'];
+    function GenericVideoPlayer($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject, $http) {
         $scope.dataIsLoaded = false;
         $scope.close = close;
-        $scope.link = videoLink;
+        $scope.videoObject = videoObject;
         $scope.videoElement = null;
 
         $scope.pauseOrPlay = function(ele){

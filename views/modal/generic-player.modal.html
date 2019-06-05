@@ -1,17 +1,26 @@
 <div>
 	<div class="modal_backdrop"></div>
-<div class="modal_container" style="min-width: 800px;">
+<div style="bottom: auto" class="modal modal_container" style="min-width: 800px;">
 	<div class="action_btns_container">
 		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img src="assets/img/icons/back.png"></div>
 		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
 	</div>
 	<div id="playerElement">
 		<video autoplay="true" call-api="callApi()" style="width: 100%;height:auto" preload="auto" controls ng-click="pauseOrPlay($event)">
-			<source src="{{link}}" type="video/mp4" />
+			<source src="{{videoObject.videoLink}}" type="video/mp4" />
 		</video>
 	</div>
-</div>
-</div>
+	<br>
+	<div style="font-weight: bolder;margin-left: 0.2em;">
+			<div>
+					Title: {{videoObject.title}}
+				</div>
+				<div>
+					Description: {{videoObject.description}}
+				</div>
+	</div>
 
+</div>
+</div>
 
 <link rel="stylesheet" type="text/css" href="assets/css/modal.css">
