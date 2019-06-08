@@ -22,24 +22,36 @@
 <div class="container profile">
     <form>
         <div class="profile_image_container">
-            <div class="user_image"><img src="assets/img/icons/user.png"></div>
+            <div class="user_image" ng-model="profile.image"><img src="assets/img/icons/user.png"></div>
             <div class="camera_img"><img src="assets/img/icons/camera.png"></div>
         </div>
         <div class="details_container">
-            <div class="field_container"><input type="text" name="full_name" placeholder="Name"></div>
             <div class="field_container">
-                <select>
-                    <option value="" disabled>Country</option>
-                    <option value="canada">Canada</option>
-                    <option value="united states">United States</option>
-                    <option value="mexico">Mexico</option>
+                <input type="text" name="full_name" placeholder="Name" ng-model="profile.full_name">
+            </div>
+            <div class="field_container">
+                <select ng-model="profile.country" ng-change="getState(profile.country)">
+                    <option value="">Select Country</option>
+                    <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
                 </select>
             </div>
-            <div class="field_container"><input type="email" name="email" placeholder="Email"></div>
-            <div class="field_container"><input type="password" name="password" placeholder="Password"></div>
+            <div class="field_container">
+                <select ng-model="profile.state" ng-change="getCity(profile.state)">
+                    <option value="">Select State</option>
+                    <option ng-repeat="state in states" value="{{state}}">{{state}}</option>
+                </select>
+            </div>
+            <div class="field_container">
+                    <select ng-model="profile.city">
+                        <option value="">Select City</option>
+                        <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
+                    </select>
+                </div>
+            <div class="field_container"><input type="email" name="email" placeholder="Email" ng-model="profile.email"></div>
+            <div class="field_container"><input type="password" name="password" placeholder="Password" ng-model="profile.password"></div>
         </div>
         <div class="btn_container">
-            <button>Save Profile</button>
+            <button ng-click="submitProfile()">Save Profile</button>
         </div>
     </form>
 </div>

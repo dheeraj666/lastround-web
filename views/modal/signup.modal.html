@@ -19,6 +19,10 @@
 					<input type="email" name="email" ng-model="signup.email">
 				</div>
 				<div class="field_container">
+					<label>Password</label>
+					<input type="password" name="password" ng-model="signup.password">
+				</div>
+				<div class="field_container">
 					<label>Referral Code</label>
 					<input type="text" name="promocode" ng-model="signup.promocode">
 				</div>
@@ -26,14 +30,24 @@
 			<div>
 				<div class="field_container">
 					<label>Country</label>
-					<select ng-model="signup.country">
+					<select ng-model="signup.country" ng-change="getState(signup.country)">
 						<option value="">Select Country</option>
-						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}</option>
+						<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
 					</select>
 				</div>
 				<div class="field_container">
-					<label>Password</label>
-					<input type="password" name="password" ng-model="signup.password">
+					<label>State</label>
+					<select ng-model="signup.state" ng-change="getCity(signup.state)">
+						<option value="">Select State</option>
+						<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
+					</select>
+				</div>
+				<div class="field_container">
+					<label>City</label>
+					<select ng-model="signup.city">
+						<option value="">Select City</option>
+						<option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
+					</select>
 				</div>
 			</div>
 		</div>

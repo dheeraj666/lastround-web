@@ -17,11 +17,33 @@
             email: ""
         }
 
+        $scope.cities = [];
+
         getCountryList();
 
         function getCountryList(){
             countryList.then(function(res){
-                $scope.countries = res.data.countries;
+                $scope.countries = res.data;
+            })
+        }
+
+        $scope.getState = function(value){
+            countryList.then(function(res){
+                angular.forEach(res.data, function(x,y){
+                    if(value == x.name){
+                        $scope.states = Object.keys(x.states);
+                    }
+                })
+            })
+        }
+
+        $scope.getCity = function(value){
+            countryList.then(function(res){
+                angular.forEach(res.data, function(x,y){
+                    angular.forEach(x.states[value], function(x,y){
+                        $scope.cities.push(x)
+                    })
+                })
             })
         }
 
@@ -98,7 +120,6 @@
         }
 
         $scope.submitForm = function(){
-            console.log('signup');
             // close({type: 'success', message: 'success message'});
         	// let url = API.BaseUrl+'users';
         	// QueryService.Post(url, $scope.signup)
@@ -114,8 +135,11 @@
                 "email": $scope.signup.email,
                 "password":$scope.signup.password,
                 "country": $scope.signup.country,
+                "state": $scope.signup.state,
+                "city": $scope.signup.city,
                 "promocode": $scope.signup.promocode
             };
+
             $http.post(API.BaseUrl+'users', signupData,{
                 headers: {
                     'Content-Type': 'application/json'
