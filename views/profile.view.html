@@ -22,8 +22,14 @@
 <div class="container profile">
     <form>
         <div class="profile_image_container">
-            <div class="user_image" ng-model="profile.image"><img src="assets/img/icons/user.png"></div>
-            <div class="camera_img"><img src="assets/img/icons/camera.png"></div>
+            <div class="user_image" ng-model="profile.image" ng-show="!filepreview"><img src="assets/img/icons/user.png"></div>
+            <div class="user_image" ng-show="filepreview" ng-model="profile.image"><img ng-src="{{filepreview}}" height="300px" width="300px"></div>
+            <div class="upload_container">
+                <div>
+                    <input type="file" name="upload_image" file-input="files">
+                    <div class="camera_img"><img src="assets/img/icons/camera.png"></div>
+                </div>
+            </div>
         </div>
         <div class="details_container">
             <div class="field_container">

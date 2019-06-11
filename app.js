@@ -7,6 +7,28 @@
         .constant('API', { BaseUrl: 'http://18.224.19.144:5000/' })
         .service('countryList',['$http', function($http){
             return $http.get('assets/json/countries.json');
+        }])
+        .directive('fileInput', ['$parse', function($parse){
+            return {
+                $scope:{
+                    fileinput: '=',
+                    filepreview: '='
+                },
+                link: function($scope, element, attribute){
+                    element.bind('change', function(changeEvent){
+                        $scope.fileinput = changeEvent.target.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function(loadEvent){
+                            $scope.$apply(function(){
+                                $scope.filepreview = loadEvent.target.result;
+                            });
+                        }
+                        reader.readAsDataURL($scope.fileinput);
+                        $scope.name = $scope.fileinput.name;
+                        $scope.size = $scope.fileinput.size;
+                    })
+                }
+            }
         }]);
 
         config.$inject = ['$routeProvider', '$httpProvider'];
