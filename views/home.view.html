@@ -12,7 +12,7 @@
 		<div class="top-movie-area">
             <div class="container">
                 <div class="top-movie-carousel owl-carousel">
-                    <div ng-repeat="video in videoList.data.featuredArray" class="single-top-movie">
+                    <div ng-repeat="video in videoList.featuredArray" class="single-top-movie">
 						<div class="img">
 							<a href="04_movie-details.html">
 								<img ng-src="{{video.event_thumbnail}}" alt="">
@@ -49,19 +49,19 @@
                         <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
                             <div class="tab-carousel owl-carousel">
 
-                                    <div ng-repeat="video in videoList.data.upcomingArray" class="single-top-movie">
+                                    <div ng-repeat="video in videoList.upcomingArray" class="single-top-movie">
                                             <div class="img">
                                                 <a href="04_movie-details.html">
                                                     <img ng-src="{{video.event_thumbnail}}" alt="">
                                                 </a>
                                             </div>
                                             <span class="view-counter">{{video.views}} Views</span>
-                                            <a class="popup-youtube" ng-click="playVideo(sampleVideoObject)">
+                                            <a class="popup-youtube" ng-click="playVideo(video.media_url)">
                                                 <i class="far fa-play-circle"></i>
                                             </a>
                                             <div class="content">
                                                 <h2 class="name">
-                                                    <a href="04_movie-details.html">The Music Video</a>
+                                                    <a href="04_movie-details.html">{{video.event_name}}</a>
                                                 </h2>
                                                 <p class="date">{{video.createdAt  | date:'medium'}}</p>
                                                 <p class="duration">02 :50 :12</p>
@@ -199,7 +199,7 @@
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
                             <div class="tab-carousel owl-carousel">
-                                    <div ng-repeat="video in videoList.data.upcomingArray" class="single-top-movie">
+                                    <div ng-repeat="video in videoList.upcomingArray" class="single-top-movie">
                                             <div class="img">
                                                 <a href="04_movie-details.html">
                                                     <img ng-src="{{video.event_thumbnail}}" alt="">
@@ -225,5 +225,4 @@
         </div>
 	</section>
 </div>
-
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">
