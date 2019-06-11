@@ -4022,3 +4022,11 @@ body.home-3 a:hover {
     border-bottom: 1px solid #000;
     padding: 5px 0;
 }
+
+.single-top-movie > .img > a > img {
+    height: max-content;
+}
+
+.single-top-movie {
+    height: 405px;
+}

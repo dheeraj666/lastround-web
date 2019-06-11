@@ -4,6 +4,7 @@
     var app = angular
         .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngMessages', 'ngStorage', 'ngTable', 'ngFileUpload', 'ui.bootstrap', 'toaster', 'angularModalService'])
         .config(config)
+        .run(run)
         .constant('API', { BaseUrl: 'http://18.224.19.144:5000/' })
         .service('countryList',['$http', function($http){
             return $http.get('assets/json/countries.json');
@@ -82,6 +83,28 @@
 
             $httpProvider.defaults.useXDomain = true;
             delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        }
+
+        run.$inject = ['$http', '$rootScope', 'API', '$httpParamSerializer'];
+        function run($http, $rootScope, API, $httpParamSerializer) {
+            $rootScope.getToken = function() {
+                let login_details = {
+                    username: 'superadmin@gmail.com',
+                    password: '123',
+                    grant_type: 'password',
+                    userType: '1'
+                }
+    
+                return $http({
+                    url: API.BaseUrl+'login',
+                    method: 'POST',
+                    data: $httpParamSerializer(login_details), // Make sure to inject the service you choose to the controller
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
+                      'Authorization': 'Basic VFY6TFVJU1RWQDEyMw==' 
+                    }
+                  });
+            }
         }
 
         app.controller('MainController', [ '$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService',

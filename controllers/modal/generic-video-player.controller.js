@@ -35,15 +35,6 @@
         $scope.videoObject = videoObject;
         $scope.videoElement = null;
 
-        $scope.pauseOrPlay = function(ele){
-            $scope.videoElement = angular.element(ele.currentTarget)[0];
-            if (!$scope.videoElement.paused) {
-                $scope.videoElement.pause();
-            } else {
-                $scope.videoElement.play();
-            }
-        }
-
         $scope.callApi = function () {
             $http.put(API.BaseUrl+'user/event/shown/fifteen', null, {headers:  {
                 "Authorization": "Bearer 916f880e07d774f8736a4bc2362496c494b84746" //token to be used from session
@@ -53,7 +44,17 @@
             }).catch(function(res){
                 console.log('catch', res);
             });
-        }        
+        } 
+        
+        angular.element(".generic-vid-player").click(function (e) {
+            if(e.offsetY < ($(this).height() - 36)) // Check to see if controls where clicked
+            {
+                if(this.paused)
+                    this.play();
+                else
+                    this.pause();
+            }
+        });
     }
 
 })();

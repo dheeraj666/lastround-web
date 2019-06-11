@@ -6,7 +6,7 @@
 		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
 	</div>
 	<div id="playerElement">
-		<video autoplay="true" call-api="callApi()" style="width: 100%;height:auto" preload="auto" controls ng-click="pauseOrPlay($event)">
+		<video class="generic-vid-player" autoplay="true" call-api="callApi()" style="width: 100%;height:auto" preload="auto" controls ng-click="pauseOrPlay($event)">
 			<source src="{{videoObject.videoLink}}" type="video/mp4" />
 		</video>
 	</div>

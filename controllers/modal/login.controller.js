@@ -17,8 +17,6 @@
         }
 
         $scope.submitForm = function(){
-            console.log('submit');
-
             let login_details = {
                 username: $scope.login.username,
                 password: $scope.login.password,
