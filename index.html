@@ -125,22 +125,20 @@
                         <div class="col-lg-9 col-md-12 col-sm-12 col-12">
                             <div class="search-signup">
                                 <div class="search">
-                                    <form action="#">
                                         <div class="search-input-box">
                                             <select>
                                                 <option>Events</option>
                                                 <option>Catchup</option>
                                                 <option>Live</option>
                                             </select>
-                                            <input type="text">
-                                            <button>
+                                            <input type="text" ng-model="searchTerm" ng-keydown="searchVideos($event)">
+                                            <button ng-click="searchVideos()">
                                                 <i class="fas fa-search"></i>
                                             </button>
                                         </div>
-                                    </form>
                                 </div>
                                 <div class="signup" ng-if="!isLoggedIn">
-                                    <a ng-click="signup()" style-="cursor: pointer;">Sign up</a>
+                                    <a style-="cursor: pointer;">Sign up</a>
                                 </div>
                             </div>
                         </div>
@@ -148,8 +146,9 @@
                 </div>
             </div>
         </header>
-
         <div class="ng-cloak" ng-view></div>
+        
+        </div>
 
         <footer>
             <div class="footer-top-area">
@@ -361,6 +360,8 @@
     <script src="assets/js/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="assets/js/plugins/owl.carousel.min.js"></script>
     <script src="assets/js/plugins/angular-modal-service.js"></script>
+    <script src="assets/js/plugins/angular-socialshare.js"></script>
+
     <script type="text/javascript" src="//player.wowza.com/player/latest/wowzaplayer.min.js"></script>
 
     <!-- Main js -->
@@ -386,8 +387,22 @@
     <script src="controllers/modal/verify.controller.js"></script>
     <script src="controllers/modal/player.controller.js"></script>
     <script src="controllers/modal/generic-video-player.controller.js"></script>
+    <script src="controllers/search.controller.js"></script>
 
     <link rel="stylesheet" href="assets/css/responsive.css">
 
+
+    <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId            : '2421212391272385',
+            autoLogAppEvents : true,
+            xfbml            : true,
+            version          : 'v3.3'
+          });
+        };
+      </script>
+      <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+          
 </body>
 </html>

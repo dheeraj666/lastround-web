@@ -1,0 +1,31 @@
+<div>
+	<section>
+            <div class="section-title">
+                    <h2 style="padding-left: 8em;">Search Results</h2>
+                </div>
+		<div class="top-movie-area">
+            <div class="container">
+                <div class="top-movie-carousel owl-carousel">
+                    <div ng-repeat="video in videoList" class="single-top-movie">
+						<div class="img">
+							<a href="04_movie-details.html">
+								<img ng-src="{{video.event_thumbnail}}" alt="">
+							</a>
+						</div>
+						<span class="view-counter">{{video.views}} Views</span>
+						<a class="popup-youtube" ng-click="playVideo(video)">
+							<i class="far fa-play-circle"></i>
+						</a>
+						<div class="content">
+							<h2 class="name">
+								<a href="04_movie-details.html">{{video.event_name}}</a>
+							</h2>
+							<p class="date">{{video.createdAt  | date:'medium'}}</p>
+						</div>
+					</div>
+                </div>
+            </div>
+        </div>  
+    </section>
+</div>
+<link rel="stylesheet" type="text/css" href="assets/css/home.css">

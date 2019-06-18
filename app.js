@@ -77,6 +77,11 @@
                 controller: 'ProfileController',
                 templateUrl: 'views/profile.view.html'
             })
+            .when('/search/:searchTerm',{
+                cache: false,
+                controller: 'SearchController',
+                templateUrl: 'views/search.view.html'
+            })            
 
 
             .otherwise({ redirectTo: '/' });
@@ -108,8 +113,20 @@
         }
 
         app.controller('MainController', [ '$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService',
-        function MainController( $rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService ) {
+        function MainController( $rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService) {
 
+            $scope.searchTerm = undefined;
+            $scope.searchVideos = function(event) {
+                if ($scope.searchTerm) {
+                    if (event) {
+                        if (event.keyCode == 13) {
+                            $location.path( "/search/"+$scope.searchTerm);
+                        }
+                    } else {
+                            $location.path( "/search/"+$scope.searchTerm);
+                    }
+                }
+            }
             $scope.menuList = false;
 
             $scope.isLoggedIn = true;
