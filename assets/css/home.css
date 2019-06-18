@@ -399,3 +399,11 @@ section{ overflow: hidden; }
     color: white;
     font-size: 85%;
 }
+
+.no-result {
+    margin-left: 36%;
+    margin-top: 11%;
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 35px;
+}
