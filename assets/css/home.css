@@ -393,3 +393,9 @@ section{ overflow: hidden; }
 .tab-carousel .owl-nav .owl-next {
     margin-left: 5px;
 }
+
+
+.arrow-left {
+    color: white;
+    font-size: 85%;
+}

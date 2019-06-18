@@ -5,8 +5,8 @@
         .module('app')
         .controller('SearchController', SearchController);
 
-     SearchController.$inject = ['$rootScope', '$scope', 'API', '$location', '$http', 'ModalService'];
-    function SearchController($rootScope,$scope, API, $location, $http, ModalService) {
+     SearchController.$inject = ['$rootScope', '$scope', 'API', '$location', '$http', 'ModalService', '$window'];
+    function SearchController($rootScope,$scope, API, $location, $http, ModalService, $window) {
 
         $scope.searchTerm = $location.search().searchTerm;
 
@@ -185,6 +185,10 @@
                     console.log(res);
                 });
             });
+        }
+
+        $scope.back = function() {
+            $window.history.back();
         }
 
 
