@@ -94,7 +94,7 @@
         }
 
         var sp_translations = {
-            "home": "casa",
+            "home": "Casa",
             "upcoming_events": "Próximos Eventos",
             "catchup": "Alcanzar",
             "live": "Vivir",
@@ -410,7 +410,6 @@
                     modal.close.then(function (result) {
                         if (result && result.type == 'success') {
                             verifyEmail();
-                            // toaster.pop('success', result.message)
                         } else if (result && result.type == 'login') {
                             login()
                         }

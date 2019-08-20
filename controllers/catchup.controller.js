@@ -37,12 +37,16 @@
         $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('accessToken');
         $scope.completeFeaturedArray = []
         $scope.onLoadFeaturedEvt = function () {
-            if ($rootScope.isLoggedIn) {// && $rootScope.isSubscribe
+            if ($rootScope.isLoggedIn && $rootScope.isSubscribed) {// && $rootScope.isSubscribe
                 $http.get(API.BaseUrl + 'get/events/home', {
                 }).then(function (resp) {
                     let respData = resp.data;
                     if (respData != undefined) {
                         $scope.completeFeaturedArray = respData.data.featuredArray;
+                    }
+                }).catch(function (res) {
+                    if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
+                        $scope.$emit("login_required", '');
                     }
                 });
             } else {

@@ -20,32 +20,11 @@
                     $scope.upcomingEventArray = respData.data.upcomingArray;
                     console.log($scope.upcomingEventArray)
                 }
+            }).catch(function (res) {
+                if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
+                    $scope.$emit("login_required", '');
+                }
             });
-            // if($rootScope.isLoggedIn){
-            //    $http.get(API.BaseUrl+'get/events/home', {
-            //     }).then(function(resp){
-            //         let respData = resp.data;
-            //         if(respData != undefined) {
-            //             $scope.upcomingEventArray = respData.data.upcomingArray;
-            //             console.log($scope.upcomingEventArray)
-            //         }
-            //     });
-            // } else {
-            //     ModalService.showModal({
-            //         templateUrl: "views/modal/login.modal.html",
-            //         controller: "LoginController"
-            //     }).then(function(modal){
-            //         modal.close.then(function(res){
-            //             if(res != undefined) {
-            //                 if(res.type == "resetPass"){
-            //                     resetPassword();
-            //                 }
-            //             }
-
-            //         });
-            //     });
-            // }
-
         }
         $scope.playVideo = function (videoObject) {
             ModalService.showModal({

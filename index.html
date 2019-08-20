@@ -104,7 +104,7 @@
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-12 col-12">
                             <div class="logo">
-                                <a href="index.html">
+                                <a href="#!/">
                                     <img src="assets/img/logo.jpeg" alt="">
                                 </a>
                             </div>
@@ -114,25 +114,25 @@
                             <div ng-show="menuList">
                                 <ul id="for_res_menu">
                                     <li ng-click="showMenu()">
-                                        <a href="#!/"> Home</a>
+                                        <a href="#!/"> {{ 'home' | translate }}</a>
+                                    </li>
+                                    <li ng-if="isLoggedIn" ng-click="showMenu()">
+                                        <a href="#!/events">{{ 'upcoming_events' | translate }}</a>
+                                    </li>
+                                    <li ng-if="isLoggedIn" ng-click="showMenu()">
+                                        <a href="#!/catchup">{{ 'catchup' | translate }}</a>
+                                    </li>
+                                    <li ng-if="isLoggedIn" ng-click="showMenu()">
+                                        <a href="#!/live">{{ 'live' | translate }}</a>
+                                    </li>
+                                    <li ng-if="isLoggedIn" ng-click="showMenu()">
+                                        <a href="#!/subscription">{{ 'subscription' | translate }}</a>
                                     </li>
                                     <li ng-click="showMenu()">
-                                        <a href="#!/events">Upcoming Events</a>
+                                        <a href="#!/about">{{ 'about' | translate }}</a>
                                     </li>
                                     <li ng-click="showMenu()">
-                                        <a href="#!/catchup">Catchup</a>
-                                    </li>
-                                    <li ng-click="showMenu()">
-                                        <a href="#!/live">Live</a>
-                                    </li>
-                                    <li ng-click="showMenu()">
-                                        <a href="#!/subscription">Subscription</a>
-                                    </li>
-                                    <li ng-click="showMenu()">
-                                        <a href="#!/about">About</a>
-                                    </li>
-                                    <li ng-click="showMenu()">
-                                        <a href="#!/contact">Contact Us</a>
+                                        <a href="#!/contact">{{ 'contact_us' | translate }}</a>
                                     </li>
                                 </ul>
                             </div>
@@ -143,15 +143,15 @@
                                             <a href="#!/">{{ 'home' | translate }}</a>
                                         </li>
                                         <li>
-                                            <a href="#!/events">{{ 'upcoming_events' | translate }}</a>
+                                            <a ng-if="isLoggedIn" href="#!/events">{{ 'upcoming_events' | translate }}</a>
                                         </li>
-                                        <li ng-if="isLoggedIn && isSubscribe">
+                                        <li ng-if="isLoggedIn">
                                             <a href="#!/catchup">{{ 'catchup' | translate }}</a>
                                         </li>
-                                        <li ng-if="isLoggedIn && isSubscribe">
+                                        <li ng-if="isLoggedIn">
                                             <a href="#!/live">{{ 'live' | translate }}</a>
                                         </li>
-                                        <li>
+                                        <li ng-if="isLoggedIn">
                                             <a href="#!/subscription">{{ 'subscription' | translate }}</a>
                                         </li>
                                         <li>
@@ -167,7 +167,8 @@
                         <div class="col-lg-2 col-md-2 col-sm-12 col-6">
                             <!-- <div class="col-xs-12"> -->
                             <p style="padding-top: 32px;float: left;padding-left: 15px;"><span
-                                    style="color:#fff;font-size: 17px;">Lang</span> <span class="material-switch" style="margin-left: 10px;">
+                                    style="color:#fff;font-size: 17px;">Lang</span> <span class="material-switch"
+                                    style="margin-left: 10px;">
                                     <!-- <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
                                     <label for="someSwitchOptionDefault" class="label-default"></label> -->
 
@@ -185,6 +186,9 @@
                                     <span>
                                         <i class="far fa-user"></i>
                                     </span>
+                                    <!-- <span>
+                                        <i ng-click="logout()">Logout</i>
+                                    </span> -->
                                 </a>
                             </div>
                             <!-- </div> -->
@@ -199,7 +203,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-3"></div>
                         <div class="col-lg-9 col-md-12 col-sm-12 col-12">
                             <div class="search-signup">
-                                <div class="search">
+                                <div class="search" ng-if="isLoggedIn">
                                     <div class="search-input-box">
                                         <select>
                                             <option>{{ 'events' | translate }}</option>

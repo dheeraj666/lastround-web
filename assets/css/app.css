@@ -3862,7 +3862,8 @@ body.home-3 a:hover {
     display: -webkit-flex; 
     display: flex;
     flex-direction: column;
-
+    min-width:auto;
+    overflow: auto;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -3875,7 +3876,7 @@ body.home-3 a:hover {
     border-radius: 4px;
     padding: 15px 15px 36px 15px;
     max-height: 100%;
-    min-width: 500px;
+    /* min-width: 500px; */
     color: #000;
 }
 

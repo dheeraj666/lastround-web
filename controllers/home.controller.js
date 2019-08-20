@@ -171,7 +171,9 @@
                         $(this).remove();
                     });
                 }).catch(function (res) {
-                    console.log('catch', res);
+                    if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
+                        $scope.$emit("login_required", '');
+                    }
                 });
             // $rootScope.getToken()
             //     .then(function (res) {

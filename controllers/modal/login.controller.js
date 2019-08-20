@@ -86,12 +86,18 @@
                     $rootScope.isLoggedIn = true;
                     toaster.pop('success', 'Wellcome back! ' + res.data.data.username)
                     close()
+                    loadSuccess(function () {
+                        location.reload();
+                    })
                 }
             }).catch(function (res) {
                 toaster.pop('error', res.data.msg)
             });
         }
-
+    }
+    function loadSuccess(cb) {
+        toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
+        cb()
     }
 
 })();

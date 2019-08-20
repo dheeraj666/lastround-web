@@ -26,7 +26,7 @@
             //     console.log(subscriptionResp)
             // })
 
-            if ($rootScope.isLoggedIn) {
+            if ($rootScope.isLoggedIn && $rootScope.isSubscribed) {
                 $http.get(API.BaseUrl + 'get/events/home', {
                 }).then(function (resp) {
                     let respData = resp.data;
@@ -34,6 +34,10 @@
                         let respData = resp.data;
                         $scope.liveEventArray = $scope.liveEventArray.concat(respData.data.liveArray);
                         // $scope.liveEventArray = $scope.liveEventArray.concat(respData.data.upcomingArray);
+                    }
+                }).catch(function (res) {
+                    if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
+                        $scope.$emit("login_required", '');
                     }
                 });
             } else {
