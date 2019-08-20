@@ -566,7 +566,7 @@ header {}
 
 .menu ul li {
     display: inline-block;
-    margin-left: 4.5%;
+    margin-left: 3%;
     position: relative;
 }
 
@@ -890,7 +890,8 @@ header {}
     background: transparent none repeat scroll 0 0;
     border: 0 none;
     color: #ffffff;
-    min-width: 502px;
+    /*min-width: 90%;*/
+    /*min-width: 502px;*/
 }
 
 .search-input-box button {
@@ -2733,7 +2734,8 @@ body.home-3 a:hover {
 
 .other-page-breadcumb-area {
     background: rgba(0, 0, 0, 0) url("../img/details/breadcumb-bg.jpg") no-repeat scroll left top / cover;
-    padding: 110px 0;
+    /*padding: 110px 0;*/
+    padding: 40px 0;
 }
 
 .other-page-breadcumb-area::before {
@@ -3883,9 +3885,16 @@ body.home-3 a:hover {
 }
 
 /*reusable*/
-.other-page-breadcumb-area {
+/*.other-page-breadcumb-area {
     background: rgba(0, 0, 0, 0) url('../img/background/breadcumb-bg.jpg') no-repeat scroll left top / cover;
     padding: 110px 0;
+}
+*/
+
+.other-page-breadcumb-area {
+    background: rgba(0, 0, 0, 0) url('../img/background/breadcumb-bg.jpg') no-repeat scroll left top / cover;
+    /*padding: 110px 0;*/
+    background-size: 100% 100px;
 }
 
 
@@ -3921,11 +3930,13 @@ body.home-3 a:hover {
 }
 
 .op-breadcumb ul li a::after {
-    content: "ï„…";
+    /*content: "ï„…";*/
+    content: ">";
     font-family: FontAwesome;
     position: absolute;
-    right: -5px;
-    top: 1px;
+    right: -8px;
+    top: 3px;
+    font-weight: bold;
 }
 
 .op-breadcumb ul li:last-child a::after {
@@ -4028,5 +4039,6 @@ body.home-3 a:hover {
 }
 
 .single-top-movie {
-    height: 405px;
+    /*height: 405px;*/
+    height: 260px;
 }

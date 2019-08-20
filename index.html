@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,7 +24,7 @@
     <link rel="stylesheet" href="assets/css/magnific-popup.css">
     <link rel="stylesheet" href="assets/css/slicknav.min.css">
     <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
-    <link rel="stylesheet" type="text/css" href="assets/css/toaster.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/toaster.min.css" />
 
     <link rel="stylesheet" type="text/css" href="assets/css/app.css">
 
@@ -31,10 +32,68 @@
     <!-- FIRST LOAD SCRIPT -->
     <script src="assets/js/plugins/jquery.min.js"></script>
     <script src="assets/js/angular-1.7.2/angular.js"></script>
-    <!-- <script src="https://js.stripe.com/v2/"></script> -->
-</head>
+    <script data-require="angular-translate@*" data-semver="2.5.0"
+        src="https://cdn.rawgit.com/angular-translate/bower-angular-translate/2.5.0/angular-translate.js"></script>
+
+    <script src="https://js.stripe.com/v2/"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
+
+    <!-- css for toggle button -->
+    <style type="text/css">
+        .material-switch>input[type="checkbox"] {
+            display: none;
+        }
+
+        .material-switch>label {
+            cursor: pointer;
+            height: 0px;
+            position: relative;
+            width: 40px;
+        }
+
+        .material-switch>label::before {
+            background: red;
+            box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            content: '';
+            height: 16px;
+            margin-top: -8px;
+            position: absolute;
+            opacity: 0.7;
+            transition: all 0.4s ease-in-out;
+            width: 40px;
+        }
+
+        .material-switch>label::after {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+            content: '';
+            height: 24px;
+            left: -4px;
+            margin-top: -8px;
+            position: absolute;
+            top: -4px;
+            transition: all 0.3s ease-in-out;
+            width: 24px;
+        }
+
+        .material-switch>input[type="checkbox"]:checked+label::before {
+            background: red;
+            opacity: 1;
+        }
+
+        .material-switch>input[type="checkbox"]:checked+label::after {
+            background: #fff;
+            left: 20px;
+        }
+    </style>
+    <!-- ends here ~ css for toggle button -->
+
 
 <body ng-controller="MainController">
+
+
     <div id="preloader"></div>
 
     <div class="content_container">
@@ -50,12 +109,12 @@
                                 </a>
                             </div>
                         </div>
-                        <div class="col-lg-9 col-md-9 col-sm-6 col-12">
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12">
                             <div id="res_menu" ng-click="showMenu()"><img src="assets/img/icons/menu.png"></div>
                             <div ng-show="menuList">
                                 <ul id="for_res_menu">
                                     <li ng-click="showMenu()">
-                                        <a href="#!/">Home</a>
+                                        <a href="#!/"> Home</a>
                                     </li>
                                     <li ng-click="showMenu()">
                                         <a href="#!/events">Upcoming Events</a>
@@ -75,37 +134,52 @@
                                     <li ng-click="showMenu()">
                                         <a href="#!/contact">Contact Us</a>
                                     </li>
-                                </ul>                    
-                            </div>        
+                                </ul>
+                            </div>
                             <div class="menu d-none d-lg-block" id="main_menu">
                                 <nav>
                                     <ul id="menu">
                                         <li>
-                                            <a href="#!/">Home</a>
+                                            <a href="#!/">{{ 'home' | translate }}</a>
                                         </li>
                                         <li>
-                                            <a href="#!/events">Upcoming Events</a>
+                                            <a href="#!/events">{{ 'upcoming_events' | translate }}</a>
+                                        </li>
+                                        <li ng-if="isLoggedIn && isSubscribe">
+                                            <a href="#!/catchup">{{ 'catchup' | translate }}</a>
+                                        </li>
+                                        <li ng-if="isLoggedIn && isSubscribe">
+                                            <a href="#!/live">{{ 'live' | translate }}</a>
                                         </li>
                                         <li>
-                                            <a href="#!/catchup">Catchup</a>
+                                            <a href="#!/subscription">{{ 'subscription' | translate }}</a>
                                         </li>
                                         <li>
-                                            <a href="#!/live">Live</a>
+                                            <a href="#!/about">{{ 'about' | translate }}</a>
                                         </li>
                                         <li>
-                                            <a href="#!/subscription">Subscription</a>
-                                        </li>
-                                        <li>
-                                            <a href="#!/about">About</a>
-                                        </li>
-                                        <li>
-                                            <a href="#!/contact">Contact Us</a>
+                                            <a href="#!/contact">{{ 'contact_us' | translate }}</a>
                                         </li>
                                     </ul>
                                 </nav>
                             </div>
                         </div>
-                        <div class="col-lg-1 col-md-1 col-sm-6 col-6">
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-6">
+                            <!-- <div class="col-xs-12"> -->
+                            <p style="padding-top: 32px;float: left;padding-left: 15px;"><span
+                                    style="color:#fff;font-size: 17px;">Lang</span> <span class="material-switch" style="margin-left: 10px;">
+                                    <!-- <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
+                                    <label for="someSwitchOptionDefault" class="label-default"></label> -->
+
+
+                                    <input id="changeLangId" name="changeLang" ng-model="changeLang" type="checkbox"
+                                        ng-change="changeSiteLang()" />
+                                    <label for="changeLangId" class="label-default"></label>
+                                </span>
+                            </p>
+                            <!-- </div>
+                            <div class="col-xs-6">
+ -->
                             <div class="account">
                                 <a ng-click="login()">
                                     <span>
@@ -113,6 +187,7 @@
                                     </span>
                                 </a>
                             </div>
+                            <!-- </div> -->
                         </div>
                     </div>
                 </div>
@@ -121,24 +196,24 @@
             <div class="header-bottom-area">
                 <div class="container">
                     <div class="row">
-                        <div class="col-lg-3 col-md-12 col-sm-12 col-12"></div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-3"></div>
                         <div class="col-lg-9 col-md-12 col-sm-12 col-12">
                             <div class="search-signup">
                                 <div class="search">
-                                        <div class="search-input-box">
-                                            <select>
-                                                <option>Events</option>
-                                                <option>Catchup</option>
-                                                <option>Live</option>
-                                            </select>
-                                            <input type="text" ng-model="searchTerm" ng-keydown="searchVideos($event)">
-                                            <button ng-click="searchVideos()">
-                                                <i class="fas fa-search"></i>
-                                            </button>
-                                        </div>
+                                    <div class="search-input-box">
+                                        <select>
+                                            <option>{{ 'events' | translate }}</option>
+                                            <option>{{ 'catchup' | translate }}</option>
+                                            <option>{{ 'live' | translate }}</option>
+                                        </select>
+                                        <input type="text" ng-model="searchTerm" ng-keydown="searchVideos($event)">
+                                        <button ng-click="searchVideos()">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="signup" ng-if="!isLoggedIn">
-                                    <a style-="cursor: pointer;">Sign up</a>
+                                <div class="signup" ng-click="signup()" ng-if="!isLoggedIn">
+                                    <a style="cursor: pointer;">{{ 'sign_up' | translate }}</a>
                                 </div>
                             </div>
                         </div>
@@ -147,131 +222,132 @@
             </div>
         </header>
         <div class="ng-cloak" ng-view></div>
-        
-        </div>
 
-        <footer>
-            <div class="footer-top-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-5 col-md-6 col-sm-12 col-12">
-                            <div class="fw-info footer-widget">
-                                <div class="flogo">
-                                    <img src="assets/img/logo.jpeg" alt="">
-                                </div>
-                                <p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting.Lorem Ipsum is simply dummy
-                                    text of the print.</p>
-                                <ul class="address">
-                                    <li>
-                                        <span>
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </span> 165 Lastround, Lorem ipsum dolor</li>
-                                    <li>
-                                        <span>
-                                            <i class="fas fa-phone"></i>
-                                        </span> +(012) 456 789 2566</li>
-                                    <li>
-                                        <span>
-                                            <i class="far fa-envelope"></i>
-                                        </span> lastround@gmail.com</li>
-                                </ul>
-                                <ul class="social">
-                                    <li>
-                                        <a href="#" target="_blank">
-                                            <i class="fab fa-facebook-f"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank">
-                                            <i class="fab fa-twitter"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank">
-                                            <i class="fab fa-pinterest-p"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank">
-                                            <i class="fab fa-youtube"></i>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" target="_blank">
-                                            <i class="fab fa-vimeo-v"></i>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-md-6 col-sm-12 col-12">
-                            <div class="fw-list footer-widget">
-                                <h4 class="title">Events</h4>
-                                <ul class="list">
-                                    <li>
-                                        <a href="#">Upcoming Events</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Catchup</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Live</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Subscription</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">About</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">Contact Us</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-4 col-md-12 col-sm-12 col-12">
-                            <div class="fw-twitter footer-widget">
-                                <h4 class="title">NEWSLETTER</h4>
-                                <form name="newsletter_form">
-                                    <p>Signup for our mailing list to get latest updates videos and upcoming movies</p>
-                                    <div class="input_container">
-                                        <input type="email" name="email" placeholder="Email Address">
-                                        <button>Subscribe</button>
-                                    </div>
-                                </form>
-                                <div class="downloads_container">
-                                    <h3>Last Round</h3>
-                                    <div class="two_cols">
-                                        <div>Get it on Google play</div>
-                                        <div>Get it on Appstore</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom-area">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div class="fba-left">
-                                <p>@2019 Last Round. All Rights Reserved</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-12">
-                            <div class="fba-right">
-                                <p>Terms of Use | Privacy Policy</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer> 
     </div>
 
-<!--     <script type="text/javascript">
-        (function(){
+    <footer>
+        <div class="footer-top-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5 col-md-6 col-sm-12 col-12">
+                        <div class="fw-info footer-widget">
+                            <div class="flogo">
+                                <img src="assets/img/logo.jpeg" alt="">
+                            </div>
+                            <p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting.Lorem Ipsum
+                                is simply dummy
+                                text of the print.</p>
+                            <ul class="address">
+                                <li>
+                                    <span>
+                                        <i class="fas fa-map-marker-alt"></i>
+                                    </span> 165 Lastround, Lorem ipsum dolor</li>
+                                <li>
+                                    <span>
+                                        <i class="fas fa-phone"></i>
+                                    </span> +(012) 456 789 2566</li>
+                                <li>
+                                    <span>
+                                        <i class="far fa-envelope"></i>
+                                    </span> lastround@gmail.com</li>
+                            </ul>
+                            <ul class="social">
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-facebook-f"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-twitter"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-pinterest-p"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-youtube"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" target="_blank">
+                                        <i class="fab fa-vimeo-v"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 col-sm-12 col-12">
+                        <div class="fw-list footer-widget">
+                            <h4 class="title">{{ 'events' | translate }}</h4>
+                            <ul class="list">
+                                <li>
+                                    <a href="#">{{ 'upcoming_events' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ 'catchup' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ 'live' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ 'subscription' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ 'about' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">{{ 'contact_us' | translate }} Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-12">
+                        <div class="fw-twitter footer-widget">
+                            <h4 class="title">NEWSLETTER</h4>
+                            <form name="newsletter_form">
+                                <p>Signup for our mailing list to get latest updates videos and upcoming movies</p>
+                                <div class="input_container">
+                                    <input type="email" name="email" placeholder="Email Address">
+                                    <button>Subscribe</button>
+                                </div>
+                            </form>
+                            <div class="downloads_container">
+                                <h3>Last Round</h3>
+                                <div class="two_cols">
+                                    <div>Get it on Google play</div>
+                                    <div>Get it on Appstore</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="fba-left">
+                            <p>@2019 Last Round. All Rights Reserved</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                        <div class="fba-right">
+                            <p>Terms of Use | Privacy Policy</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <script type="text/javascript">
+        (function () {
             let p = document.createElement('script');
             p.type = 'text/javascript';
             p.async = true;
@@ -282,38 +358,40 @@
         })();
     </script>
 
-    <script>
-        window.fbAsyncInit = function() {
+    <!-- <script>
+        window.fbAsyncInit = function () {
             FB.init({
-                appId      : '771489746599611',
-                cookie     : true,
-                xfbml      : true,
-                version    : 'v3.3',
-                status     : true
+                appId: '771489746599611',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.3',
+                status: true
             });
 
-            FB.getLoginStatus(function(response){
-                if(response.status == 'connected'){
+            FB.getLoginStatus(function (response) {
+                if (response.status == 'connected') {
                     console.log('connected');
-                }else if(response === 'not_authorized'){
+                } else if (response === 'not_authorized') {
                     console.log('not_authorized');
-                }else{
+                } else {
                     console.log('not login');
                 }
             });
         };
 
-        (function(d, s, id){
+        (function (d, s, id) {
             var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
+            if (d.getElementById(id)) { return; }
             js = d.createElement(s); js.id = id;
             js.src = "https://connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
-    </script>
+    </script> -->
 
     <script>
-        Stripe.setPublishableKey('alksjdlkajsdlakjsd');
+        // Stripe.setPublishableKey('alksjdlkajsdlakjsd');
+        Stripe.setPublishableKey('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
+        // Stripe.setPublishableKey('pk_test_G18WJ7nnDE2tpSpYHkDfjjIW000qhTin69');
     </script>
 
     <toaster-container toaster-options="{
@@ -328,9 +406,11 @@
         'hideEasing': 'swing',
         'showMethod': 'swing',
         'hideMethod': 'swing'
-    }"></toaster-container> -->
+    }"></toaster-container>
 
     <!-- Angular Essentials -->
+    <!-- <script src="https://sdk.amazonaws.com/js/aws-sdk-2.503.0.min.js"></script> -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.283.1.min.js"></script>
     <script src="assets/js/angular-1.7.2/ng-file-upload.min.js"></script>
     <script src="assets/js/angular-1.7.2/angular-animate.min.js"></script>
     <script src="assets/js/angular-1.7.2/angular-route.min.js"></script>
@@ -362,6 +442,12 @@
     <script src="assets/js/plugins/angular-modal-service.js"></script>
     <script src="assets/js/plugins/angular-socialshare.js"></script>
 
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
+    <!-- <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+        data-key="pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ"></script> -->
+
+
+
     <script type="text/javascript" src="//player.wowza.com/player/latest/wowzaplayer.min.js"></script>
 
     <!-- Main js -->
@@ -379,6 +465,7 @@
     <script src="controllers/about.controller.js"></script>
     <script src="controllers/contact.controller.js"></script>
     <script src="controllers/profile.controller.js"></script>
+    <script src="controllers/live.controller.js"></script>
 
     <!-- MODALS -->
     <script src="controllers/modal/signup.controller.js"></script>
@@ -387,22 +474,24 @@
     <script src="controllers/modal/verify.controller.js"></script>
     <script src="controllers/modal/player.controller.js"></script>
     <script src="controllers/modal/generic-video-player.controller.js"></script>
+    <script src="controllers/modal/payment.controller.js"></script>
     <script src="controllers/search.controller.js"></script>
 
     <link rel="stylesheet" href="assets/css/responsive.css">
 
 
     <script>
-        window.fbAsyncInit = function() {
-          FB.init({
-            appId            : '2421212391272385',
-            autoLogAppEvents : true,
-            xfbml            : true,
-            version          : 'v3.3'
-          });
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '2421212391272385',
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: 'v3.3'
+            });
         };
-      </script>
-      <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
-          
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
 </body>
+
 </html>

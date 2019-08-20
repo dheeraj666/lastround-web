@@ -14,13 +14,20 @@ section{ overflow: hidden; }
 .section-title { margin: 0 0 30px; }
 .section-title h2 {
     border-bottom: 1px solid #3d3c4d;
-    font-size: 36px;
+    /*font-size: 36px;*/
     font-weight: 500;
     line-height: 40px;
     padding: 0 0 30px;
 }
+
+@media (min-width: 746px) {
+    .section-title h2 {
+        font-size: 36px;
+    }
+}
+
 /*FEATURED*/
-#featured{ margin-top: -8%; }
+/*#featured{ margin-top: -8%; }*/
 .single-top-movie {
     position: relative;
     -webkit-transition: all 0.3s ease 0s;
@@ -406,4 +413,7 @@ section{ overflow: hidden; }
     color: white;
     font-family: 'Roboto', sans-serif;
     font-size: 35px;
+}
+.section-title {
+    text-align: center;
 }

@@ -38,8 +38,8 @@
         color: #fff;
     }
     .account{ display: inline-block; float: right; }
-    .search-signup .search, .search-input-box, .search-input-box input[type="text"]{ width: 100%; min-width: auto; }
-    .search-input-box input[type="text"]{ max-width: 250px; }
+    .search-signup .search, .search-input-box{ width: 100%; min-width: auto; }
+    .search-input-box input[type="text"]{ /*max-width: 250px;*/ }
     .signup{ width: 100%; }
     .search-signup>div{ text-align: center; }
     .search-signup .signup{ margin: 25px 0 0 0; }
@@ -72,7 +72,7 @@
 
 @media only screen and (min-width: 200px) and (max-width: 380px){
     .search-input-box input[type="text"] {
-        max-width: 200px;
+        /*max-width: 200px;*/
     }
     .upcoming_events ul li{ width: 80%; margin: auto; float: none; display: block; }
     #login.modal_container, #signup.modal_container{ min-width: 350px !important; }

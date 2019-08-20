@@ -58,5 +58,28 @@
     border-radius: 5px;
 }
 
+.signup .lgbt {
+    color: #000;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
 #email_input{ text-align: center; }
 #email_input input{ width: 50%; margin: auto; }
+#social_icons li {
+    cursor: pointer;
+}
+.ads-player {
+    
+}
+.skip-ad {
+    position: absolute;
+    z-index: 100;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 5px;
+    background: rgb(0, 0, 0,0.4)
+}
+.skip-ad:hover {
+    background: rgb(0, 0, 0,0.8)
+}

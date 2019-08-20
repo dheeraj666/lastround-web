@@ -26,38 +26,38 @@
             <div class="user_image" ng-show="filepreview" ng-model="profile.image"><img ng-src="{{filepreview}}" height="300px" width="300px"></div>
             <div class="upload_container">
                 <div>
-                    <input type="file" name="upload_image" file-input="files">
+                    <input type="file" name="upload_image" file-input="files" id="profileImageUpload">
                     <div class="camera_img"><img src="assets/img/icons/camera.png"></div>
                 </div>
             </div>
         </div>
         <div class="details_container">
             <div class="field_container">
-                <input type="text" name="full_name" placeholder="Name" ng-model="profile.full_name">
+                <input type="text" name="full_name" placeholder="{{ 'name' | translate }}" ng-model="profile.full_name">
             </div>
             <div class="field_container">
                 <select ng-model="profile.country" ng-change="getState(profile.country)">
-                    <option value="">Select Country</option>
+                    <option value="">{{ 'select_country' | translate }}</option>
                     <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
                 </select>
             </div>
             <div class="field_container">
                 <select ng-model="profile.state" ng-change="getCity(profile.state)">
-                    <option value="">Select State</option>
+                    <option value="">{{ 'select_state' | translate }}</option>
                     <option ng-repeat="state in states" value="{{state}}">{{state}}</option>
                 </select>
             </div>
             <div class="field_container">
                     <select ng-model="profile.city">
-                        <option value="">Select City</option>
+                        <option value="">{{ 'select_city' | translate }}</option>
                         <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
                     </select>
                 </div>
-            <div class="field_container"><input type="email" name="email" placeholder="Email" ng-model="profile.email"></div>
-            <div class="field_container"><input type="password" name="password" placeholder="Password" ng-model="profile.password"></div>
+            <div class="field_container"><input type="email" name="email" placeholder="{{ 'email' | translate }}" ng-model="profile.email"></div>
+            <div class="field_container"><input type="password" name="password" placeholder="{{ 'password' | translate }}" ng-model="profile.password"></div>
         </div>
         <div class="btn_container">
-            <button ng-click="submitProfile()">Save Profile</button>
+            <button ng-click="submitProfile()">{{ 'save_profile' | translate }}</button>
         </div>
     </form>
 </div>

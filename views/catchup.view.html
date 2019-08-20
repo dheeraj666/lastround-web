@@ -1,23 +1,23 @@
 <div class="other-page-breadcumb-area bg-with-ebony">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-md-9 col-sm-9 col-12">
-				<div class="op-breadcumb">
-					<ul>
-						<li>
-							<a href="#!/home">
-								<span>
-									<i class="fa fa-home" aria-hidden="true"></i>
-								</span>
-								Home
-							</a>
-						</li>
-						<li><a href="#!/events">Catchup</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
+                <div class="op-breadcumb">
+                    <ul>
+                        <li>
+                            <a href="#!/home">
+                                <span>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </span>
+                                Home
+                            </a>
+                        </li>
+                        <li><a href="#!/events">Catchup</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="upcoming-movie-area">
     <div class="container">
@@ -30,9 +30,29 @@
         </div>
     </div>
     <div class="container upcoming_events">
-    	<div class="row">
-        	<ul>
-        		<li>
+        <div class="row">
+            <ul>
+                <li ng-repeat="event in completeFeaturedArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="single-top-movie">
+                        <div class="img">
+                            <a href="04_movie-details.html">
+                                <img src="{{event.event_thumbnail}}" alt="">
+                            </a>
+                        </div>
+                        <span class="view-counter">759k Views</span>
+                        <a class="popup-youtube" ng-click="playVideo(event)">
+                            <i class="far fa-play-circle"></i>
+                        </a>
+                        <div class="content">
+                            <h2 class="name">
+                                <a href="04_movie-details.html">{{event.event_name}}</a>
+                            </h2>
+                            <p class="date">{{event.start_time}}</p>
+                            <p class="duration">02 :50 :12</p>
+                        </div>
+                    </div>
+                </li>
+                <!-- <li>
                     <div class="single-top-movie">
                         <div class="img">
                             <a href="04_movie-details.html">
@@ -51,151 +71,9 @@
                             <p class="duration">02 :50 :12</p>
                         </div>
                     </div>      
-                </li>
-        		<li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-                <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-                <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-        	</ul>
-            <ul>
-                <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-                <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-                <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-                <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li>
-            </ul>
+                </li> -->
         </div>
+        <p style="display: none;" ng-init="onLoadFeaturedEvt()">
     </div>
 </div>
 

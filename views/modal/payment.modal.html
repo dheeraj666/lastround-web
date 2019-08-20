@@ -1,0 +1,44 @@
+<div class="modal_backdrop"></div>
+<div id="make_payment" class="modal_container" style="min-width: 550px;">
+	<div class="action_btns_container">
+		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img
+				src="assets/img/icons/close.png"></div>
+	</div>
+	<form name="p_form">
+		<h1>Make your Subscription</h1>
+		<div class="field_container mar-bot-30">
+			<label>Card Holder's Name</label>
+			<input type="text" name="name" required ng-model="card.fullName">
+		</div>
+		<div class="field_container mar-bot-30">
+			<label>Card Number</label>
+			<input type="number" name="number" required ng-model="card.number">
+		</div>
+		<div class="field_container mar-bot-30">
+			<label>Card Expiry Date</label>
+			<div class="row no-gutters">
+				<div class="col-md-6">
+					<select ng-model="card.month">
+						<option ng-repeat="it in [01,02,03,04,05,06,07,08,09,10,11,12]" value="{{it}}">{{it}}
+						</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<select ng-model="card.year">
+						<option ng-repeat="y in years" value="{{y}}">{{y}}
+						</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="field_container">
+			<label>Card CVV</label>
+			<input type="number" style="width:50%" name="cvv" required ng-model="card.cvv">
+		</div>
+		<div class="btn_container">
+			<button ng-click="submitForm()" ng-disabled="loading">Puchase</button>
+		</div>
+	</form>
+</div>
+
+<link rel="stylesheet" type="text/css" href="assets/css/modal.css">

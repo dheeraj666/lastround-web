@@ -1,26 +1,82 @@
 <div>
-	<div class="modal_backdrop"></div>
-<div style="bottom: auto" class="modal modal_container" style="min-width: 800px;">
-	<div class="action_btns_container">
-		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img src="assets/img/icons/back.png"></div>
-		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
-	</div>
-	<div id="playerElement">
-		<video class="generic-vid-player" autoplay="true" call-api="callApi()" style="width: 100%;height:auto" preload="auto" controls ng-click="pauseOrPlay($event)">
-			<source src="{{videoObject.videoLink}}" type="video/mp4" />
-		</video>
-	</div>
-	<br>
-	<div style="font-weight: bolder;margin-left: 0.2em;">
-			<div>
+    <div class="modal_backdrop"></div>
+    <div style="bottom: auto" class="modal modal_container" style="min-width: 800px;">
+        <div class="action_btns_container">
+            <div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img
+                    src="assets/img/icons/back.png"></div>
+            <div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img
+                    src="assets/img/icons/close.png"></div>
+        </div>
+        <div id="playerElement">
+            <div class="skip-ad" ng-show="adsUrl && showSkip" ng-click="skipAd()">Skip Ad</div>
+            <video class="generic-vid-player" ng-show="!adsUrl" autoplay="true" call-api="callApi()"
+                style="width: 100%;height:auto" preload="auto" controls ng-click="pauseOrPlay($event)">
+                <source src="{{videoObject.videoLink}}" type="video/mp4" />
+            </video>
+            <video disable-Seeking class="ads-vid-player ads-player" ng-if="adsUrl" autoplay="true"
+                style="width: 100%;height:auto" preload="auto" controls ng-click="pauseOrPlay($event)">
+                <source src="{{adsUrl}}" type="video/mp4" />
+            </video>
+        </div>
+        <br>
+        <div style="font-weight: bolder;margin-left: 0.2em;">
+            <!-- <div>
 					Title: {{videoObject.title}}
 				</div>
 				<div>
 					Description: {{videoObject.description}}
-				</div>
-	</div>
+				</div> -->
 
-</div>
+
+            <!-- share page -->
+
+            <div class="about_socials">
+                <label>Share:</label>
+                <ul class="social">
+                    <li data-href="https://developers.facebook.com/docs/plugins/">
+                        <a a target="_blank" ng-click="shareLink('facebook')" class="fb-xfbml-parse-ignore">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="shareLink('twitter')">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-click="shareLink('whatsapp')">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" target="_blank">
+                            <i class="fab fa-vimeo-v"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- ends here ~ share page -->
+
+
+            <!-- details -->
+            <span><b>Title: </b></span> {{videoObject.title}} <br />
+            <span><b>Description: </b></span> {{videoObject.description}} <br />
+            <span><b>Channel Name: </b></span> {{videoObject.channelName}} <br />
+            <span><b>Channel Admin: </b></span> {{videoObject.channelAdmin.fullName}} <br />
+            <span><b>Start Time: </b></span> {{videoObject.startTime}} <br />
+            <!-- ends here ~ details -->
+
+        </div>
+
+    </div>
 </div>
 
 <link rel="stylesheet" type="text/css" href="assets/css/modal.css">
+<link rel="stylesheet" type="text/css" href="assets/css/about.css">

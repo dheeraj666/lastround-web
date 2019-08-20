@@ -1,71 +1,33 @@
 <div ng-cloak>
-	<section>
-		<div class="home_banner">
-			<div><img src="assets/img/home/slider-1.jpg" align="middle"></div>
-			<div class="banner_description">
-				<h1>Live TV</h1>
-				<p>Lorem Ipsum available but the majority</p>
-			</div>
-		</div>
-	</section>
-	<section id="featured">
-		<div class="top-movie-area">
+    <section>
+        <div class="home_banner">
+            <div><img src="assets/img/home/slider-1.jpg" align="middle"></div>
+            <div class="banner_description">
+                <h1>{{ 'live_tv' | translate }}</h1>
+                <p>Lorem Ipsum available but the majority</p>
+            </div>
+        </div>
+    </section>
+    <section id="featured">
+        <div class="top-movie-area">
             <div class="container">
                 <div class="top-movie-carousel owl-carousel">
-                    <div ng-repeat="video in videoList.featuredArray" class="single-top-movie">
-						<div class="img">
-							<a href="04_movie-details.html">
-								<img ng-src="{{video.event_thumbnail}}" alt="">
-							</a>
-						</div>
-						<span class="view-counter">{{video.views}} Views</span>
-						<a class="popup-youtube" ng-click="playVideo(video)">
-							<i class="far fa-play-circle"></i>
-						</a>
-						<div class="content">
-							<h2 class="name">
-								<a href="04_movie-details.html">{{video.event_name}}</a>
-							</h2>
-							<p class="date">{{video.createdAt  | date:'medium'}}</p>
-						</div>
-					</div>
-                </div>
-            </div>
-        </div>  
-	</section>
-    <section id="upcoming">
-        <div class="movie-tab-area">
-            <div class="container">
-                <div class="row">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <h2>Upcoming Movies</h2>
+                    <div ng-repeat="video in videoList.featuredArray">
+                        <div class="single-top-movie" ng-click="playVideo(video)">
+                            <div class="img">
+                                <a href="04_movie-details.html">
+                                    <img ng-src="{{video.event_thumbnail}}" alt="">
+                                </a>
                             </div>
-                        </div>
-                    </div>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
-                            <div class="tab-carousel owl-carousel">
-
-                                    <div ng-repeat="video in videoList.upcomingArray" class="single-top-movie">
-                                            <div class="img">
-                                                <a href="04_movie-details.html">
-                                                    <img ng-src="{{video.event_thumbnail}}" alt="">
-                                                </a>
-                                            </div>
-                                            <span class="view-counter">{{video.views}} Views</span>
-                                            <a class="popup-youtube" ng-click="playVideo(video)">
-                                                <i class="far fa-play-circle"></i>
-                                            </a>
-                                            <div class="content">
-                                                <h2 class="name">
-                                                    <a href="04_movie-details.html">{{video.event_name}}</a>
-                                                </h2>
-                                                <p class="date">{{video.createdAt  | date:'medium'}}</p>
-                                                <p class="duration">02 :50 :12</p>
-                                            </div>
-                                    </div>                                
+                            <span class="view-counter">{{video.views}} {{ 'views' | translate }}</span>
+                            <a class="popup-youtube" ng-click="playVideo(video,true)">
+                                <i class="far fa-play-circle"></i>
+                            </a>
+                            <div class="content">
+                                <h2 class="name">
+                                    <a href="04_movie-details.html">{{video.event_name}}</a>
+                                </h2>
+                                <p class="date">{{video.createdAt  | date:'medium'}}</p>
                             </div>
                         </div>
                     </div>
@@ -73,17 +35,59 @@
             </div>
         </div>
     </section>
-	<section id="catchup">
-		<div class="movie-tab-area">
+    <section id="upcoming">
+        <div class="movie-tab-area">
             <div class="container">
                 <div class="row">
                     <div class="row">
-	                    <div class="col-12">
-	                        <div class="section-title">
-	                            <h2>Catchup Videos</h2>
-	                        </div>
-	                    </div>
-	                </div>
+                        <div class="col-12">
+                            <div class="section-title">
+                                <h2>{{ 'upcoming_events' | translate }}</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
+                            <div class="tab-carousel owl-carousel">
+
+                                <div ng-repeat="video in videoList.upcomingArray">
+                                    <div class="single-top-movie" ng-click="playVideo(video)">
+                                        <div class="img">
+                                            <a href="04_movie-details.html">
+                                                <img ng-src="{{video.event_thumbnail}}" alt="">
+                                            </a>
+                                        </div>
+                                        <span class="view-counter">{{video.views}} Views</span>
+                                        <a class="popup-youtube" ng-click="playVideo(video,true)">
+                                            <i class="far fa-play-circle"></i>
+                                        </a>
+                                        <div class="content">
+                                            <h2 class="name">
+                                                <a href="04_movie-details.html">{{video.event_name}}</a>
+                                            </h2>
+                                            <p class="date">{{video.createdAt  | date:'medium'}}</p>
+                                            <p class="duration">02 :50 :12</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="catchup" ng-if="isLoggedIn && isSubscribe">
+        <div class="movie-tab-area">
+            <div class="container">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section-title">
+                                <h2>Catchup Videos</h2>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
                             <div class="tab-carousel owl-carousel">
@@ -105,123 +109,52 @@
                                         <p class="duration">02 :50 :12</p>
                                     </div>
                                 </div>
-                                <div class="single-top-movie">
-                                    <div class="img">
-                                        <a href="04_movie-details.html">
-                                            <img src="assets/img/home/top-movie-2.jpeg" alt="">
-                                        </a>
-                                    </div>
-                                    <span class="view-counter">759k Views</span>
-                                    <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                                        <i class="far fa-play-circle"></i>
-                                    </a>
-                                    <div class="content">
-                                        <h2 class="name">
-                                            <a href="04_movie-details.html">TDarkness World</a>
-                                        </h2>
-                                        <p class="date">October 26, 2018</p>
-                                        <p class="duration">02 :50 :12</p>
-                                    </div>
-                                </div>
-                                <div class="single-top-movie">
-                                    <div class="img">
-                                        <a href="04_movie-details.html">
-                                            <img src="assets/img/home/top-movie-3.jpeg" alt="">
-                                        </a>
-                                    </div>
-                                    <span class="view-counter">759k Views</span>
-                                    <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                                        <i class="far fa-play-circle"></i>
-                                    </a>
-                                    <div class="content">
-                                        <h2 class="name">
-                                            <a href="04_movie-details.html">World War 5</a>
-                                        </h2>
-                                        <p class="date">October 26, 2018</p>
-                                        <p class="duration">02 :50 :12</p>
-                                    </div>
-                                </div>
-                                <div class="single-top-movie">
-                                    <div class="img">
-                                        <a href="04_movie-details.html">
-                                            <img src="assets/img/home/top-movie-4.jpeg" alt="">
-                                        </a>
-                                    </div>
-                                    <span class="view-counter">759k Views</span>
-                                    <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                                        <i class="far fa-play-circle"></i>
-                                    </a>
-                                    <div class="content">
-                                        <h2 class="name">
-                                            <a href="04_movie-details.html">Nature Beauty 2</a>
-                                        </h2>
-                                        <p class="date">October 26, 2018</p>
-                                        <p class="duration">02 :50 :12</p>
-                                    </div>
-                                </div>
-                                <div class="single-top-movie">
-                                    <div class="img">
-                                        <a href="04_movie-details.html">
-                                            <img src="assets/img/home/top-movie-1.jpeg" alt="">
-                                        </a>
-                                    </div>
-                                    <span class="view-counter">759k Views</span>
-                                    <a class="popup-youtube" href="https://www.youtube.com/watch?v=6ZfuNTqbHE8">
-                                        <i class="far fa-play-circle"></i>
-                                    </a>
-                                    <div class="content">
-                                        <h2 class="name">
-                                            <a href="04_movie-details.html">Darkness World</a>
-                                        </h2>
-                                        <p class="date">October 26, 2018</p>
-                                        <p class="duration">02 :50 :12</p>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-	</section>
-	<section id="live">
-		<div class="movie-tab-area">
+    </section>
+    <section id="live" ng-if="isLoggedIn && isSubscribe">
+        <div class="movie-tab-area">
             <div class="container">
                 <div class="row">
                     <div class="row">
-	                    <div class="col-12">
-	                        <div class="section-title">
-	                            <h2>Live Events</h2>
-	                        </div>
-	                    </div>
-	                </div>
+                        <div class="col-12">
+                            <div class="section-title">
+                                <h2>{{ 'live_events' | translate }}</h2>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
                             <div class="tab-carousel owl-carousel">
-                                    <div ng-repeat="video in videoList.liveArray" class="single-top-movie">
-                                            <div class="img">
-                                                <a href="04_movie-details.html">
-                                                    <img ng-src="{{video.event_thumbnail}}" alt="">
-                                                </a>
-                                            </div>
-                                            <span class="view-counter">{{video.views}} Views</span>
-                                            <a class="popup-youtube" ng-click="playLiveVideo(video.live_web_url)">
-                                                <i class="far fa-play-circle"></i>
-                                            </a>
-                                            <div class="content">
-                                                <h2 class="name">
-                                                    <a href="04_movie-details.html">{{video.event_name}}</a>
-                                                </h2>
-                                                <p class="date">{{video.createdAt  | date:'medium'}}</p>
-                                                <p class="duration">02 :50 :12</p>
-                                            </div>
+                                <div ng-repeat="video in videoList.liveArray" class="single-top-movie">
+                                    <div class="img">
+                                        <a href="04_movie-details.html">
+                                            <img ng-src="{{video.event_thumbnail}}" alt="">
+                                        </a>
                                     </div>
+                                    <span class="view-counter">{{video.views}} Views</span>
+                                    <a class="popup-youtube" ng-click="playLiveVideo(video)">
+                                        <i class="far fa-play-circle"></i>
+                                    </a>
+                                    <div class="content">
+                                        <h2 class="name">
+                                            <a href="04_movie-details.html">{{video.event_name}}</a>
+                                        </h2>
+                                        <p class="date">{{video.createdAt  | date:'medium'}}</p>
+                                        <p class="duration">02 :50 :12</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-	</section>
+    </section>
 </div>
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">

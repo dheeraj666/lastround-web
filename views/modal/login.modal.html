@@ -1,25 +1,36 @@
 <div class="modal_backdrop"></div>
 <div id="login" class="modal_container" style="min-width: 500px;">
 	<div class="action_btns_container">
-		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img src="assets/img/icons/back.png"></div>
-		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img src="assets/img/icons/close.png"></div>
+		<div ng-if="member_view" class="back" ng-click="back()" style="width: 50%; float: left;"><img
+				src="assets/img/icons/back.png"></div>
+		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img
+				src="assets/img/icons/close.png"></div>
 	</div>
 	<form name="login_form">
-		<h1>Log In</h1>
-		<p>Lorem Ipsum dolor met</p>
+		<h1>{{ 'login' | translate }}</h1>
 		<div style="margin-top: 10px;">
 			<div class="field_container">
-				<label>Email</label>
+				<label>{{ 'email' | translate }}</label>
 				<input type="email" name="name" ng-model="login.username">
 			</div>
 			<div class="field_container">
-				<label>Password</label>
+				<label>{{ 'password' | translate }}</label>
 				<input type="password" name="email" ng-model="login.password">
 			</div>
 		</div>
-		<div style="text-align: right; cursor: pointer;" ng-click="forgotPass()">Forgot Password?</div>
+		<div ng-if="loginError">
+			<p class="text-danger">{{loginError}}
+			</p>
+		</div>
+		<div style="text-align: right; cursor: pointer;" ng-click="close('resetPass')">{{ 'forgot_password' | translate }}?</div>
 		<div class="btn_container signup">
-			<button ng-click="submitForm()">Log In</button>
+			<button ng-click="submitForm()">{{ 'login' | translate }}</button>
+			<div>
+				<span>{{ 'dont_have_acc_text' | translate }}?</span>
+				<span class="lgbt" ng-click="close('signup')">
+					{{ 'create_new_one' | translate }}
+				</span>
+			</div>
 		</div>
 		<div class="social_login_title_container" style="width: 60%;">
 			<div>Social Login</div>
