@@ -17,13 +17,13 @@
 		<div class="field_container mar-bot-30">
 			<label>Card Expiry Date</label>
 			<div class="row no-gutters">
-				<div class="col-md-6">
+				<div class="col-md-6" style="margin: 10px 0;">
 					<select ng-model="card.month">
 						<option ng-repeat="it in [01,02,03,04,05,06,07,08,09,10,11,12]" value="{{it}}">{{it}}
 						</option>
 					</select>
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-6" style="margin: 10px 0;">
 					<select ng-model="card.year">
 						<option ng-repeat="y in years" value="{{y}}">{{y}}
 						</option>

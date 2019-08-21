@@ -143,7 +143,8 @@
                                             <a href="#!/">{{ 'home' | translate }}</a>
                                         </li>
                                         <li>
-                                            <a ng-if="isLoggedIn" href="#!/events">{{ 'upcoming_events' | translate }}</a>
+                                            <a ng-if="isLoggedIn"
+                                                href="#!/events">{{ 'upcoming_events' | translate }}</a>
                                         </li>
                                         <li ng-if="isLoggedIn">
                                             <a href="#!/catchup">{{ 'catchup' | translate }}</a>
@@ -182,7 +183,7 @@
                             <div class="col-xs-6">
  -->
                             <div class="account">
-                                <a ng-click="login()">
+                                <a ng-click="login()" ng-if="isLoggedIn">
                                     <span>
                                         <i class="far fa-user"></i>
                                     </span>

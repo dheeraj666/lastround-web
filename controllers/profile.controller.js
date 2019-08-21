@@ -40,9 +40,6 @@
         }
 
     	$scope.submitProfile = function(){
-
-        
-
             console.log($rootScope.s3.config.credentials)
 
     		// add image directly to s3 bucket

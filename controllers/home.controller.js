@@ -8,7 +8,22 @@
     HomeController.$inject = ['$rootScope', '$scope', 'countryList', 'QueryService', 'API', 'ModalService', '$http', '$timeout'];
     function HomeController($rootScope, $scope, countryList, QueryService, API, ModalService, $http, $timeout) {
 
-
+        $scope.resetPassClick = function () {
+            $scope.$emit("forgot_passs", '');
+        }
+        $scope.signUpClick = function () {
+            $scope.$emit("signup_required", '');
+        }
+        $scope.submitLogin = function () {
+            let login_details = {
+                username: $scope.login.username,
+                password: $scope.login.password,
+                grant_type: 'password',
+                userType: '1'
+            }
+            $scope.$emit('submit_login', login_details)
+            return
+        }
         function slider() {
             setTimeout(function () {
                 var owl = $(".slider-carousel");

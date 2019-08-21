@@ -1,23 +1,23 @@
 <div class="other-page-breadcumb-area bg-with-ebony">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-md-9 col-sm-9 col-12">
-				<div class="op-breadcumb">
-					<ul>
-						<li>
-							<a href="#!/home">
-								<span>
-									<i class="fa fa-home" aria-hidden="true"></i>
-								</span>
-								Home
-							</a>
-						</li>
-						<li><a href="#!/events">Live</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
+                <div class="op-breadcumb">
+                    <ul>
+                        <li>
+                            <a href="#!/home">
+                                <span>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </span>
+                                Home
+                            </a>
+                        </li>
+                        <li><a href="#!/events">Live</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="upcoming-movie-area">
     <div class="container">
@@ -33,23 +33,21 @@
         <div class="row">
             <ul>
                 <li ng-repeat="event in liveEventArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                     <div class="single-top-movie">
+                    <div class="single-top-movie" ng-click="playVideo(event)">
                         <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="{{event.event_thumbnail}}" alt="">
-                            </a>
+                            <img src="{{event.event_thumbnail}}" alt="">
                         </div>
-                        <a class="popup-youtube" ng-click="playVideo(event)">
+                        <a class="popup-youtube">
                             <i class="far fa-play-circle"></i>
                         </a>
                         <div class="content">
                             <h2 class="name">
-                                <a href="04_movie-details.html">{{event.event_name}}</a>
+                                {{event.event_name}}
                             </h2>
                             <p class="date">{{event.start_time}}</p>
                             <!-- <p class="duration">02 :50 :12</p> -->
                         </div>
-                    </div>      
+                    </div>
                     <!-- <div class="single-top-movie" ng-if="event.section != 'upcoming'">
                         <div class="img">
                             <a href="04_movie-details.html">
@@ -74,9 +72,9 @@
     </div>
     <!-- call on load function -->
     <p style="display: none;" ng-init="onLoadLiveEvt()">
-    <!-- ends here ~ call on load function -->
+        <!-- ends here ~ call on load function -->
 
-    <!-- <div class="container upcoming_events">
+        <!-- <div class="container upcoming_events">
     	<div class="row">
         	<ul>
         		<li>

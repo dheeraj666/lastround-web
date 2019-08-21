@@ -1,8 +1,8 @@
 (function () {
     'use strict';
     var globalConstant = {
-        BaseUrl: '/api/',
-        MEDIA: '/api/',
+        BaseUrl: '/',
+        MEDIA: '/',
         s3_region: 'us-east-2',
         s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
         s3_bucketName: 'wowza-live-stream',
@@ -223,9 +223,21 @@
     //     }
     // }
 
-    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster',
-        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster) {
-            $scope.$on("login_required", login);
+    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer',
+        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer) {
+            $scope.$on("login_required", function () {
+                login()
+            });
+            $scope.$on("forgot_passs", function () {
+                resetPassword()
+            });
+            $scope.$on("signup_required", function () {
+                signup()
+            });
+            $scope.$on("submit_login", function (event, login_details) {
+                submitLoginForm(login_details)
+            });
+
             /* aws configuration */
 
             //             AWS.config.update({
@@ -341,11 +353,13 @@
                 $rootScope.isLoggedIn = false;
                 $rootScope.isSubscribe = false;
             } else {
-                $rootScope.isSubscribed = window.localStorage.getItem('isSubscribed', $rootScope.isSubscribed);
+                let sub = window.localStorage.getItem('isSubscribed', $rootScope.isSubscribed);
+                if (sub == 'true')
+                    $rootScope.isSubscribed = true;
+                else
+                    $rootScope.isSubscribed = false;
                 $rootScope.isLoggedIn = true;
             }
-
-            console.log($rootScope.userAccessToken)
 
             $rootScope.$watch('isLoggedIn', function (old, newval) {
                 console.log(old, ' >< ', newval)
@@ -365,7 +379,6 @@
                 }
 
             }
-
             $scope.login = login;
             function login() {
                 if ($rootScope.isLoggedIn) {
@@ -437,10 +450,92 @@
                 }
             }
             // $rootScope.stripe = Stripe('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
+
+            //Handle Global Login
+            $scope.googleLogin = function () {
+                let params = {
+                    "clientid": '602509218867-0h5dplbcuoc4vea48o1l8v0qvqnj3v0k.apps.googleusercontent.com',
+                    "cookiepolicy": 'single_host_origin',
+                    "callback": function (result) {
+                        if (result['status']['signed_in']) {
+                            var request = gapi.client.plus.people.get(
+                                {
+                                    'userId': 'me'
+                                }
+                            );
+                            request.execute(function (resp) {
+                                $scope.$apply(function () {
+                                    $scope.signup.fullName = resp.displayName;
+                                    $scope.signup.email = resp.emails[0].value;
+                                    $scope.signup.country = resp.country;
+                                });
+                            })
+                        }
+                    },
+                    "approvalprompt": 'force',
+                    "scope": 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
+                };
+
+                gapi.auth.signIn(params);
+            }
+
+            $scope.fbLogin = function () {
+                FB.login(function (res) {
+                    if (res.authResponse) {
+                        FB.api('/me', 'GET', { fields: 'email, first_name, name, id' }, function (response) {
+                            console.log(response);
+                            $scope.$apply(function () {
+                                $scope.signup.fullName = response.name;
+                                $scope.signup.email = response.email;
+                            });
+                        });
+                    } else {
+                        console.log('not authorized');
+                    }
+                }, {
+                        scope: 'email',
+                        return_scopes: true
+                    });
+            }
+
+            // $scope.submitLoginForm = submitLoginForm;
+            function submitLoginForm(login) {
+                let login_details = {
+                    username: login.username,
+                    password: login.password,
+                    grant_type: 'password',
+                    userType: '1'
+                }
+
+                $http({
+                    url: API.BaseUrl + 'login',
+                    method: 'POST',
+                    data: $httpParamSerializer(login_details), // Make sure to inject the service you choose to the controller
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
+                        'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
+                    }
+                }).then(function (res) {
+                    if (res.data.status == 1) {
+                        $rootScope.isSubscribed = res.data.data.isSubscribed;
+                        window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
+                        window.localStorage.setItem('accessToken', res.data.data.accessToken);
+                        $rootScope.isLoggedIn = true;
+                        toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000)
+                        $ccope.$apply();
+                    }
+                }).catch(function (res) {
+                    if (res.data && res.data.msg)
+                        toaster.pop('error', res.data.msg)
+                });
+            }
         }]);
 
     //#region  Handle Socket
-    var socket = io.connect('https://www.lastroundtv.com/', {
+    var socket = io.connect('/', {
         path: '/api/socket.io'
     });
     socket.on('connect', function (data) {

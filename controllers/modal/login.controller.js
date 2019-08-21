@@ -14,8 +14,6 @@
 
 
 
-
-
         $scope.googleLogin = function () {
             let params = {
                 "clientid": '602509218867-0h5dplbcuoc4vea48o1l8v0qvqnj3v0k.apps.googleusercontent.com',
@@ -69,7 +67,8 @@
                 grant_type: 'password',
                 userType: '1'
             }
-
+            $scope.$emit('submit_login', login_details)
+            return
             $http({
                 url: API.BaseUrl + 'login',
                 method: 'POST',
@@ -86,18 +85,22 @@
                     $rootScope.isLoggedIn = true;
                     toaster.pop('success', 'Wellcome back! ' + res.data.data.username)
                     close()
-                    loadSuccess(function () {
-                        location.reload();
+                    loadSuccess(res.data.data.username, function () {
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000)
                     })
                 }
             }).catch(function (res) {
-                toaster.pop('error', res.data.msg)
+                if (res.data && res.data.msg)
+                    toaster.pop('error', res.data.msg)
             });
         }
-    }
-    function loadSuccess(cb) {
-        toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
-        cb()
+
+        function loadSuccess(msg, cb) {
+            toaster.pop('success', 'Wellcome back! ' + msg);
+            cb()
+        }
     }
 
 })();
