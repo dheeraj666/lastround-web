@@ -1,8 +1,10 @@
 (function () {
     'use strict';
     var globalConstant = {
-        BaseUrl: 'http://13.59.58.222:5000/',
-        MEDIA: 'http://13.59.58.222:5000/',
+        BaseUrl: '/api/',
+        MEDIA: '/api/',
+        // BaseUrl: 'http://13.59.58.222:5000/',
+        // MEDIA: 'http://13.59.58.222:5000/',
         GatewayIO: 'http://18.224.19.144:5000/',
 
         s3_region: 'us-east-2',
