@@ -5,7 +5,7 @@
         MEDIA: '/api/',
         // BaseUrl: 'http://13.59.58.222:5000/',
         // MEDIA: 'http://13.59.58.222:5000/',
-        GatewayIO: 'http://18.224.19.144:5000/',
+        GatewayIO: 'https://www.lastroundtv.com/api/',
 
         s3_region: 'us-east-2',
         s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
@@ -444,7 +444,7 @@
         }]);
 
     //#region  Handle Socket
-    var socket = io.connect(globalConstant.BaseUrl);
+    var socket = io.connect(globalConstant.GatewayIO);
     socket.on('connect', function (data) {
         console.log('socket connected')
         // window.socketId = socket.id;
