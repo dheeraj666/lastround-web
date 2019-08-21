@@ -161,6 +161,9 @@
                                         <li>
                                             <a href="#!/contact">{{ 'contact_us' | translate }}</a>
                                         </li>
+                                        <li>
+                                            <a href="#!/logout">{{ 'logout' | translate }}</a>
+                                        </li>
                                     </ul>
                                 </nav>
                             </div>
@@ -183,7 +186,7 @@
                             <div class="col-xs-6">
  -->
                             <div class="account">
-                                <a ng-click="login()" ng-if="isLoggedIn">
+                                <a href="#!/profile" ng-if="isLoggedIn">
                                     <span>
                                         <i class="far fa-user"></i>
                                     </span>
