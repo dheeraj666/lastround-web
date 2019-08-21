@@ -1,8 +1,8 @@
 (function () {
     'use strict';
     var globalConstant = {
-        BaseUrl: '/',
-        MEDIA: '/',
+        BaseUrl: '/api/',
+        MEDIA: '/api/',
         s3_region: 'us-east-2',
         s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
         s3_bucketName: 'wowza-live-stream',
