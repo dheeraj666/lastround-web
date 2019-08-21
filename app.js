@@ -440,7 +440,7 @@
         }]);
 
     //#region  Handle Socket
-    var socket = io.connect('/', {
+    var socket = io.connect('https://www.lastroundtv.com/', {
         path: '/api/socket.io'
     });
     socket.on('connect', function (data) {
