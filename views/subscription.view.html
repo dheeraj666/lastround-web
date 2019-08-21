@@ -9,10 +9,10 @@
 								<span>
 									<i class="fa fa-home" aria-hidden="true"></i>
 								</span>
-								Home
+								{{ 'home' | translate }}
 							</a>
 						</li>
-						<li><a href="#!/subscription">Subscription</a></li>
+						<li><a href="#!/subscription">{{ 'subscription' | translate }}</a></li>
 					</ul>
 				</div>
 			</div>
@@ -21,7 +21,7 @@
 </div>
 <div class="subscription">
 	<div class="container">
-		<h1>Subscription</h1>
+		<h1>{{ 'subscription' | translate }}</h1>
 		<ul>
 			<li ng-repeat="package in plan">
 				<div class="package">

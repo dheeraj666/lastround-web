@@ -9,7 +9,7 @@
                                 <span>
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                 </span>
-                                Home
+                                {{ 'home' | translate }}
                             </a>
                         </li>
                         <li><a href="#!/events">{{ 'upcoming_events' | translate }}</a></li>
@@ -20,6 +20,15 @@
     </div>
 </div>
 <div class="upcoming-movie-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>{{ 'upcoming_events' | translate }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="container upcoming_events">
         <ul>
             <li ng-repeat="event in upcomingEventArray" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">

@@ -57,12 +57,12 @@
         }
         var onAdRq = function (data) {
             if (data && data.data) {
-                if (data.event_id != $scope.videoObject.id)
+                if (data.data.event_id != $scope.videoObject.id)
                     return
                 if (data.data.action == 'stop') {
                     $scope.adsUrl = '';
                 } else if (data.data.action == 'start') {
-                    $scope.adsUrl = '//content.jwplatform.com/videos/1g8jjku3-cIp6U8lV.mp4'; //data.data.advertisement_url
+                    $scope.adsUrl = data.data.advertisement_url;// '//content.jwplatform.com/videos/1g8jjku3-cIp6U8lV.mp4';
                     let rad = Math.floor(Math.random() * (30 - 25 + 1) + 25)
                     setTimeout(function () {
                         $scope.showSkip = true;
