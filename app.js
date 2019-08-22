@@ -100,7 +100,10 @@
             "submit": "Submit",
             "save_profile": "Save Profile",
             "logout": "Logout",
-            "return": "Return"
+            "return": "Return",
+            'help_contact':`Last Round TV welcomes your questions or comments regarding the Terms.
+                            Email address: LastRoundTV2@gmail.com.
+                            Effective as of April 11, 2019`
         }
 
         var sp_translations = {
@@ -150,7 +153,8 @@
             "submit": "Enviar",
             "save_profile": "Guardar perfil",
             "logout": "Logout",
-            "return": "Regreso"
+            "return": "Regreso",
+            'help_contact':'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
         $translateProvider.translations('en', en_translations);
@@ -245,8 +249,10 @@
                 $rootScope.isSubscribed = false;
                 window.localStorage.removeItem('isSubscribed');
                 window.localStorage.removeItem('accessToken');
-                $rootScope.isLoggedIn = true;
-                login()
+                window.localStorage.removeItem('refreshToken');
+                $rootScope.isLoggedIn = false;
+                location.href = '/'
+                // login()
             });
             $scope.$on("forgot_passs", function () {
                 resetPassword()

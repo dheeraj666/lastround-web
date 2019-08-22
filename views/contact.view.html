@@ -9,20 +9,26 @@
                                 <span>
                                     <i class="fa fa-home" aria-hidden="true"></i>
                                 </span>
-                                Home
+                                {{ 'home' | translate }}
                             </a>
                         </li>
-                        <li><a href="#!/contact">Contact Us</a></li>
+                        <li><a href="#!/contact">{{ 'contact_us' | translate }}</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div class="container contact">
-    <div>
-        <h2>{{ 'contact_us' | translate }}</h2>
-        <form name="contact_form">
+<div class="container contact"
+    style="color: #fff; display: flex; flex-direction: column;justify-content: center;align-items: center;text-align: center">
+
+    <div style="max-width: 400px">
+        <img style="width: 100%" src="assets/img/02.png" alt="{{ 'contact_us' | translate }}">
+    </div>
+    <p>
+        {{ 'help_contact' | translate }}
+    </p>
+    <!-- <form name="contact_form">
             <div class="two_cols">
                 <div><input type="name" name="name" ng-model="contact.name" placeholder="{{ 'name' | translate }}">
                 </div>
@@ -37,21 +43,8 @@
             <div class="btn_container">
                 <button>{{ 'submit' | translate }}</button>
             </div>
-        </form>
-    </div>
-    <div>
-        <!-- <h2>{{ 'office_address' | translate }}</h2> -->
-        <p>
-            {{ 'help_contact' | translate }}
-        </p>
-    </div>
-    <!-- <div>
-        <h1>{{ 'office_address' | translate }}</h1>
-        <p>Moview Inc. 935 W. Webster Ave. New Streets Chicago, IL 60614, NY Newyork USA</p>
-        <p>{{ 'mobile' | translate }}: +2346 17 38 93</p>
-        <p>{{ 'fax' | translate }}: 1-714-252-0026</p>
-        <p>{{ 'email_address' | translate }}: support@gmail.com</p>
-    </div> -->
+        </form> -->
+
 </div>
 
 <link rel="stylesheet" type="text/css" href="assets/css/contact.css">
