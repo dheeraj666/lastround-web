@@ -28,7 +28,11 @@
                         "license": "PLAY2-3tXAt-fjG4n-BE7pu-jpB3E-pvamT",
                         "title": "",
                         "description": "",
-                        "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
+                        // "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
+                        "sources": [
+                            { "sourceURL": "http://" + link },
+                            { "sourceURL": "https://" + link }
+                        ],
                         "autoPlay": true,
                         "volume": "75",
                         "mute": false,
