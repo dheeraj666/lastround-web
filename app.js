@@ -6,15 +6,15 @@
         // BaseUrl: 'http://13.59.58.222:5000/',
         // MEDIA: 'http://13.59.58.222:5000/',
 
-        // s3_region: 'ap-south-1',
-        // s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
-        // s3_bucketName: 'lrtv-new-media-bucket',
-        // s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
+        s3_region: 'ap-south-1',
+        s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
+        s3_bucketName: 'lrtv-new-media-bucket',
+        s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
 
-        s3_region: 'us-east-2',
-        s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
-        s3_bucketName: 'wowza-live-stream',
-        s3_url: 'https://wowza-live-stream.s3.us-east-2.amazonaws.com'
+        // s3_region: 'us-east-2',
+        // s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
+        // s3_bucketName: 'wowza-live-stream',
+        // s3_url: 'https://wowza-live-stream.s3.us-east-2.amazonaws.com/'
     };
     var app = angular
         .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngMessages', 'ngStorage', 'ngTable', 'ngFileUpload', 'ui.bootstrap', 'toaster', 'angularModalService', 'pascalprecht.translate'])
