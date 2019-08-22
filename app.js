@@ -1,20 +1,20 @@
 (function () {
     'use strict';
     var globalConstant = {
-        BaseUrl: '/api/',
-        MEDIA: '/api/',
-        // BaseUrl: 'http://13.59.58.222:5000/',
-        // MEDIA: 'http://13.59.58.222:5000/',
+        // BaseUrl: '/api/',
+        // MEDIA: '/api/',
+        BaseUrl: 'http://13.59.58.222:5000/',
+        MEDIA: 'http://13.59.58.222:5000/',
 
-        s3_region: 'ap-south-1',
-        s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
-        s3_bucketName: 'lrtv-new-media-bucket',
-        s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
+        // s3_region: 'ap-south-1',
+        // s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
+        // s3_bucketName: 'lrtv-new-media-bucket',
+        // s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
 
-        // s3_region: 'us-east-2',
-        // s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
-        // s3_bucketName: 'wowza-live-stream',
-        // s3_url: 'https://wowza-live-stream.s3.us-east-2.amazonaws.com'
+        s3_region: 'us-east-2',
+        s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
+        s3_bucketName: 'wowza-live-stream',
+        s3_url: 'https://wowza-live-stream.s3.us-east-2.amazonaws.com'
     };
     var app = angular
         .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngMessages', 'ngStorage', 'ngTable', 'ngFileUpload', 'ui.bootstrap', 'toaster', 'angularModalService', 'pascalprecht.translate'])
@@ -252,30 +252,29 @@
                 submitLoginForm(login_details)
             });
 
+
+
+
             /* aws configuration */
 
-            AWS.config.update({
-                region: API.s3_region,
-                credentials: new AWS.CognitoIdentityCredentials({
-                    IdentityPoolId: API.s3_IdentityPoolId
-                })
-            });
-
-            console.log(API.s3_region, ' < > ', API.s3_IdentityPoolId, ' > < ', API.s3_bucketName)
-
-
-
-            $rootScope.s3 = new AWS.S3({
-                apiVersion: '2006-03-01',
-                params: { Bucket: API.s3_bucketName, IdentityPoolId: API.s3_IdentityPoolId }
-            });
-            var cognitoidentity = new AWS.CognitoIdentity();
-            cognitoidentity.getId({
-                IdentityPoolId: API.s3_IdentityPoolId, AccountId: '12'
-            }, function (err, data) {
-                if (err) console.log(err, err.stack); // an error occurred
-                else console.log(data);           // successful response
-            });
+            // AWS.config.update({
+            //     region: API.s3_region,
+            //     credentials: new AWS.CognitoIdentityCredentials({
+            //         IdentityPoolId: API.s3_IdentityPoolId
+            //     })
+            // });
+            // console.log(API.s3_region, ' < > ', API.s3_IdentityPoolId, ' > < ', API.s3_bucketName)
+            // $rootScope.s3 = new AWS.S3({
+            //     apiVersion: '2019-08-22',
+            //     params: { Bucket: API.s3_bucketName, IdentityPoolId: API.s3_IdentityPoolId }
+            // });
+            // var cognitoidentity = new AWS.CognitoIdentity({ apiVersion: '2019-08-22', });
+            // cognitoidentity.getId({
+            //     IdentityPoolId: API.s3_IdentityPoolId, AccountId: '12'
+            // }, function (err, data) {
+            //     if (err) console.log(err, err.stack); // an error occurred
+            //     else console.log(data);           // successful response
+            // });
 
 
 
@@ -290,46 +289,44 @@
 
             //Initialize
 
-            // let cognitoIdentity = new AWS.CognitoIdentity({ apiVersion: 'latest', region: API.s3_region });
+            let cognitoIdentity = new AWS.CognitoIdentity({ apiVersion: 'latest', region: API.s3_region });
 
-            // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            //     IdentityPoolId: API.s3_IdentityPoolId
-            // });
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: API.s3_IdentityPoolId
+            });
+            AWS.config.update({
+                region: API.s3_region,
+                accessKeyId: 'AKIAIKT6KGXSQX2A572Q',
+                secretAccessKey: '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'
+            })
             // AWS.config.update({
-            //     region: API.s3_region,
-            //     accessKeyId: 'AKIAIKT6KGXSQX2A572Q',
-            //     secretAccessKey: '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'
-            // })
-            // // AWS.config.update({
-            // //            region: API.s3_region,
-            // //            credentials: new AWS.CognitoIdentityCredentials({
-            // //              IdentityPoolId:  API.s3_IdentityPoolId
-            // //            })
-            // //          });
+            //            region: API.s3_region,
+            //            credentials: new AWS.CognitoIdentityCredentials({
+            //              IdentityPoolId:  API.s3_IdentityPoolId
+            //            })
+            //          });
 
-            // $rootScope.s3 = new AWS.S3({
-            //     apiVersion: 'latest',
-            //     params: { Bucket: API.s3_bucketName }
-            // });
+            $rootScope.s3 = new AWS.S3({
+                apiVersion: 'latest',
+                params: { Bucket: API.s3_bucketName }
+            });
 
-            // //Setup params for authentication
+            //Setup params for authentication
 
-            // var params = {
-            //     IdentityId: API.s3_IdentityPoolId
+            let params = {
+                IdentityId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb'// API.s3_IdentityPoolId,
+            }
+            // Get credentials for user
 
-            // }
-
-            // // Get credentials for user
-
-            // cognitoIdentity.getCredentialsForIdentity(params, function (err, data) {
-            //     //log error or sucessful response
-            //     if (err) {
-            //         console.log(err, err.stack); // an error occurred
-            //     }
-            //     else {
-            //         console.log(data);           // successful response
-            //     }
-            // });
+            cognitoIdentity.getCredentialsForIdentity(params, function (err, data) {
+                //log error or sucessful response
+                if (err) {
+                    console.log(err, err.stack); // an error occurred
+                }
+                else {
+                    console.log(data);           // successful response
+                }
+            });
             // ends here ~ test
 
 
