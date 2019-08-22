@@ -19,7 +19,7 @@
         $scope.videoObject = videoObject;
 
         function initializePlayer() {
-            var link = `http://${videoObject.live_ip}:${videoObject.port_no}/${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
+            var link = `${videoObject.live_ip}:${videoObject.port_no}/${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
 
             console.log(link)
             setTimeout(function () {
@@ -28,7 +28,7 @@
                         "license": "PLAY2-3tXAt-fjG4n-BE7pu-jpB3E-pvamT",
                         "title": "",
                         "description": "",
-                        "sourceURL": link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
+                        "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
                         "autoPlay": true,
                         "volume": "75",
                         "mute": false,
