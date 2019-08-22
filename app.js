@@ -72,6 +72,8 @@
             "email": "Email",
             "state": "State",
             "password": "Password",
+            "current_password": "Current Password",
+            "new_password": "New Password",
             "city": "City",
             "referral_code": "Referral Code",
             "select_country": "Select Country",
@@ -97,7 +99,8 @@
             "message": "Message",
             "submit": "Submit",
             "save_profile": "Save Profile",
-            "logout": "Logout"
+            "logout": "Logout",
+            "return": "Return"
         }
 
         var sp_translations = {
@@ -119,6 +122,8 @@
             "email": "Email",
             "state": "Estado",
             "password": "Contraseña",
+            "current_password": "contraseña actual",
+            "new_password": "nueva contraseña",
             "city": "Ciudad",
             "referral_code": "código de referencia",
             "select_country": "Seleccionar país",
@@ -144,7 +149,8 @@
             "message": "Mensaje",
             "submit": "Enviar",
             "save_profile": "Guardar perfil",
-            "logout": "Logout"
+            "logout": "Logout",
+            "return": "Regreso"
         }
 
         $translateProvider.translations('en', en_translations);

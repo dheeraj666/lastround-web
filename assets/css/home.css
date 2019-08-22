@@ -149,7 +149,7 @@ section{ overflow: hidden; }
 .single-top-movie .content .rating .star:hover::after { color: #ff9700; }
 .single-top-movie .content .date {
     line-height: 18px;
-    margin: 0 0 -38px;
+    margin: 0 0 -30px;
     -webkit-transition: all 0.5s ease 0s;
     transition: all 0.5s ease 0s;;
     color: #ffffffbd;

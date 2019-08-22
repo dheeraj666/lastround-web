@@ -1,29 +1,31 @@
 <div class="other-page-breadcumb-area bg-with-ebony">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-10 col-md-9 col-sm-9 col-12">
-				<div class="op-breadcumb">
-					<ul>
-						<li>
-							<a href="#!/home">
-								<span>
-									<i class="fa fa-home" aria-hidden="true"></i>
-								</span>
-								Home
-							</a>
-						</li>
-						<li><a href="#!/about">Profile</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
+                <div class="op-breadcumb">
+                    <ul>
+                        <li>
+                            <a href="#!/home">
+                                <span>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </span>
+                                Home
+                            </a>
+                        </li>
+                        <li><a href="#!/about">Profile</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="container profile">
     <form>
-        <div class="profile_image_container">
-            <div class="user_image" ng-model="profile.image" ng-show="!filepreview"><img src="assets/img/icons/user.png"></div>
-            <div class="user_image" ng-show="filepreview" ng-model="profile.image"><img ng-src="{{filepreview}}" height="300px" width="300px"></div>
+        <div class="profile_image_container" ng-show="!isChangingPass">
+            <div class="user_image" ng-model="profile.profileImage" ng-show="!filepreview"><img
+                    ng-src="{{profile.profileImage}}"></div>
+            <div class="user_image" ng-show="filepreview" ng-model="profile.profileImage"><img ng-src="{{filepreview}}"
+                    height="300px" width="300px"></div>
             <div class="upload_container">
                 <div>
                     <input type="file" name="upload_image" file-input="files" id="profileImageUpload">
@@ -31,9 +33,13 @@
                 </div>
             </div>
         </div>
-        <div class="details_container">
+        <div class="details_container" ng-show="!isChangingPass">
             <div class="field_container">
-                <input type="text" name="full_name" placeholder="{{ 'name' | translate }}" ng-model="profile.full_name">
+                <input type="text" name="fullName" placeholder="{{ 'name' | translate }}" ng-model="profile.fullName">
+            </div>
+            <div class="field_container">
+                <input disabled type="text" name="email" placeholder="{{ 'email_address' | translate }}"
+                    ng-model="profile.email">
             </div>
             <div class="field_container">
                 <select ng-model="profile.country" ng-change="getState(profile.country)">
@@ -41,22 +47,35 @@
                     <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
                 </select>
             </div>
+            <div>
+                <p>
+                    <a href="javascript:void();" ng-click="isChangingPass = true">
+                        Change your password!
+                    </a>
+                </p>
+            </div>
+        </div>
+        <div class="details_container" ng-show="isChangingPass">
             <div class="field_container">
-                <select ng-model="profile.state" ng-change="getCity(profile.state)">
-                    <option value="">{{ 'select_state' | translate }}</option>
-                    <option ng-repeat="state in states" value="{{state}}">{{state}}</option>
-                </select>
+                <input type="password" name="password" placeholder="{{ 'current_password' | translate }}"
+                    ng-model="password">
             </div>
             <div class="field_container">
-                    <select ng-model="profile.city">
-                        <option value="">{{ 'select_city' | translate }}</option>
-                        <option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
-                    </select>
-                </div>
-            <div class="field_container"><input type="email" name="email" placeholder="{{ 'email' | translate }}" ng-model="profile.email"></div>
-            <div class="field_container"><input type="password" name="password" placeholder="{{ 'password' | translate }}" ng-model="profile.password"></div>
+                <input type="password" name="newpassword" placeholder="{{ 'new_password' | translate }}"
+                    ng-model="newpassword">
+            </div>
+            <div class="field_container">
+                <input type="password" name="cfnewpassword" placeholder="{{ 'new_password' | translate }}"
+                    ng-model="cfnewpassword">
+            </div>
+            <div>
+                <button ng-disabled="loading" class="btn btn-sm btn-success"
+                    ng-click="changePass()">{{ 'submit' | translate }}</button>
+                <button ng-disabled="loading" class="btn btn-sm btn-danger"
+                    ng-click="isChangingPass = false">{{ 'return' | translate }}</button>
+            </div>
         </div>
-        <div class="btn_container">
+        <div ng-disabled="loading" class="btn_container" ng-show="!isChangingPass">
             <button ng-click="submitProfile()">{{ 'save_profile' | translate }}</button>
         </div>
     </form>
