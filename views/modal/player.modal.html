@@ -62,11 +62,19 @@
 
 
 		<!-- details -->
-		<span><b>Title: </b></span> {{videoObject.title}} <br />
-		<span><b>Description: </b></span> {{videoObject.description}} <br />
-		<span><b>Channel Name: </b></span> {{videoObject.channelName}} <br />
-		<span><b>Channel Admin: </b></span> {{videoObject.channelAdmin.fullName}} <br />
-		<span><b>Start Time: </b></span> {{videoObject.startTime}} <br />
+		<div class="play_video_info">
+			<div class="if it">
+				<span><b>Title: </b></span> {{videoObject.title}} <br />
+				<span><b>Description: </b></span> {{videoObject.description}} <br />
+				<span><b>Channel Name: </b></span> {{videoObject.channelName}} <br />
+				<span><b>Channel Admin: </b></span> {{videoObject.channelAdmin.fullName}} <br />
+				<span><b>Start Time: </b></span> {{videoObject.startTime}} <br />
+			</div>
+			<div class="img_ifo it">
+				<img src="{{videoObject.channelAdmin.profileImage ? videoObject.channelAdmin.profileImage : 'assets/img/icons/camera.png'}}"
+					alt="{{videoObject.channelAdmin.fullName}}">
+			</div>
+		</div>
 		<!-- ends here ~ details -->
 
 	</div>

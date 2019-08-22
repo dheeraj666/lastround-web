@@ -83,3 +83,19 @@
 .skip-ad:hover {
     background: rgb(0, 0, 0,0.8)
 }
+.play_video_info {
+    padding: 10px 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.play_video_info .it {
+    padding: 5px 10px;
+}
+.play_video_info .img_ifo{
+    max-width:100px; 
+    min-width: 100px;
+}
+.play_video_info .img_ifo .img{
+    width:100%; 
+}
