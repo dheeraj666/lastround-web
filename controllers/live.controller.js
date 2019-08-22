@@ -55,7 +55,12 @@
                             channelAdmin: videoObject.channel_admin,
                             startTime: videoObject.start_time,
                             ads: videoObject.advertisements,
-                            id: videoObject._id
+                            id: videoObject._id,
+                            application_name: videoObject.application_name,
+                            live_ip: videoObject.live_ip,
+                            stream_key: videoObject.stream_key,
+                            channel_admin: videoObject.channel_admin,
+                            port_no: videoObject.port_no,
                         }
                     }
                 }).then(function (modal) {
