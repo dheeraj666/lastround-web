@@ -804,10 +804,21 @@ header {}
     padding: 25px 0;
     text-align: right;
 }
-
-.account a {
+.account .w {
+    position: relative;
+}
+.account > a {
     display: inline-block;
     cursor: pointer;
+}
+.account ul {
+    list-style: none;
+    text-align: left;
+    position: absolute;
+    right: 0;
+}
+.account ul li {
+    padding: 2px 0; 
 }
 
 .account a span {

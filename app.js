@@ -47,8 +47,8 @@
             }
         }]);
 
-    config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider'];
-    function config($routeProvider, $httpProvider, $translateProvider, $compileProvider) {
+    config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider', '$locationProvider'];
+    function config($routeProvider, $httpProvider, $translateProvider, $compileProvider, $locationProvider) {
 
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
         // for language
@@ -98,10 +98,11 @@
             "subject": "Subject",
             "message": "Message",
             "submit": "Submit",
+            "profile": "Profile",
             "save_profile": "Save Profile",
             "logout": "Logout",
             "return": "Return",
-            'help_contact':`Last Round TV welcomes your questions or comments regarding the Terms.
+            'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
         }
@@ -151,10 +152,11 @@
             "subject": "Tema",
             "message": "Mensaje",
             "submit": "Enviar",
+            "profile": "Perfil",
             "save_profile": "Guardar perfil",
             "logout": "Logout",
             "return": "Regreso",
-            'help_contact':'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
+            'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
         $translateProvider.translations('en', en_translations);
@@ -165,6 +167,10 @@
         // ends here ~ for language
 
 
+        // $locationProvider.html5Mode({
+        //     enable: true,
+        //     requireBase: true
+        // });
         $routeProvider
 
             .when('/', {
@@ -216,33 +222,10 @@
 
             .otherwise({ redirectTo: '/' });
 
+        // $locationProvider.hashPrefix('');
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
-
-    // run.$inject = ['$http', '$rootScope', 'API', '$httpParamSerializer'];
-    // function run($http, $rootScope, API, $httpParamSerializer) {
-    //     $rootScope.getToken = function () {
-    //         let login_details = {
-    //             username: 'superadmin@gmail.com',
-    //             password: '123',
-    //             grant_type: 'password',
-    //             userType: '1'
-    //         }
-
-    //         return $http({
-    //             url: API.BaseUrl + 'login',
-    //             method: 'POST',
-    //             data: $httpParamSerializer(login_details), // Make sure to inject the service you choose to the controller
-    //             headers: {
-    //                 'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
-    //                 'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
-    //             }
-    //         });
-    //         return Promise.resolve()
-    //     }
-    // }
-
     app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer',
         function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer) {
             $scope.$on("login_required", function () {
@@ -263,8 +246,16 @@
             $scope.$on("submit_login", function (event, login_details) {
                 submitLoginForm(login_details)
             });
+            $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
+                $("html,body").animate({ scrollTop: $("body").offset().top }, "1000");
 
-
+            });
+            $scope.showProfile = function () {
+                if (!$scope.showprof)
+                    $scope.showprof = true;
+                else
+                    $scope.showprof = false;
+            }
 
 
             /* aws configuration */
@@ -287,78 +278,6 @@
                 if (err) console.log(err, err.stack); // an error occurred
                 else console.log(data);           // successful response
             });
-
-
-
-
-
-
-
-
-
-
-            // test
-
-            //Initialize
-
-            // let cognitoIdentity = new AWS.CognitoIdentity({ apiVersion: 'latest', region: API.s3_region });
-
-            // AWS.config.credentials = new AWS.CognitoIdentityCredentials({
-            //     IdentityPoolId: API.s3_IdentityPoolId
-            // });
-            // AWS.config.update({
-            //     region: API.s3_region,
-            //     accessKeyId: 'AKIAIKT6KGXSQX2A572Q',
-            //     secretAccessKey: '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'
-            // })
-            // // AWS.config.update({
-            // //            region: API.s3_region,
-            // //            credentials: new AWS.CognitoIdentityCredentials({
-            // //              IdentityPoolId:  API.s3_IdentityPoolId
-            // //            })
-            // //          });
-
-            // $rootScope.s3 = new AWS.S3({
-            //     apiVersion: 'latest',
-            //     params: { Bucket: API.s3_bucketName }
-            // });
-
-            // //Setup params for authentication
-
-            // let params = {
-            //     IdentityId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb'// API.s3_IdentityPoolId,
-            // }
-            // // Get credentials for user
-
-            // cognitoIdentity.getCredentialsForIdentity(params, function (err, data) {
-            //     //log error or sucessful response
-            //     if (err) {
-            //         console.log(err, err.stack); // an error occurred
-            //     }
-            //     else {
-            //         console.log(data);           // successful response
-            //     }
-            // });
-            // ends here ~ test
-
-
-
-
-
-
-
-
-
-
-
-
-            // console.log(AWS.config.credentials.IdentityPoolId = 'sad')
-
-            // AWS.config.credentials.get(function(err) {
-            //   if (err) console.log('err>> ',err);
-            //   else console.log('success > >', AWS.config.credentials);
-            // });
-
 
             $scope.searchTerm = undefined;
             $scope.searchVideos = function (event) {
@@ -405,6 +324,24 @@
                     $scope.menuList = true;
                 }
 
+            }
+            $scope.logout = function () {
+                $http({
+                    url: API.BaseUrl + 'user/logout',
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json', // Note the appropriate header
+                        'Authorization': 'Bearer ' + $rootScope.userAccessToken
+                    }
+                }).then(function (res) {
+                    window.localStorage.removeItem('isSubscribed');
+                    window.localStorage.removeItem('accessToken');
+                    window.localStorage.removeItem('refreshToken');
+                    location.reload()
+                }).catch(function (res) {
+                    if (res.data && res.data.message)
+                        toaster.pop('error', res.data.message)
+                });
             }
             $scope.login = login;
             function login() {
@@ -543,11 +480,13 @@
                         $rootScope.isSubscribed = res.data.data.isSubscribed;
                         window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
                         window.localStorage.setItem('accessToken', res.data.data.accessToken);
+                        window.localStorage.setItem('refreshToken', res.data.data.refreshToken);
                         $rootScope.isLoggedIn = true;
+                        $rootScope.userInfo = res.data.data;
                         toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
                         setTimeout(function () {
                             location.reload();
-                        }, 1000)
+                        }, 1500)
                         $ccope.$apply();
                     }
                 }).catch(function (res) {

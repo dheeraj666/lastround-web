@@ -182,20 +182,29 @@
                                     <label for="changeLangId" class="label-default"></label>
                                 </span>
                             </p>
-                            <!-- </div>
-                            <div class="col-xs-6">
- -->
-                            <div class="account">
-                                <a href="#!/profile" ng-if="isLoggedIn">
-                                    <span>
-                                        <i class="far fa-user"></i>
-                                    </span>
-                                    <!-- <span>
-                                        <i ng-click="logout()">Logout</i>
-                                    </span> -->
-                                </a>
+
+                            <div ng-show="isLoggedIn" class="account">
+                                <div class="w">
+                                    <a ng-click="showProfile()">
+                                        <span>
+                                            <i class="far fa-user"></i>
+                                        </span>
+                                    </a>
+                                    <ul ng-show="showprof">
+                                        <li>
+                                            <a href="#!/profile" title="Profile">
+                                                {{ 'profile' | translate }}
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void();" ng-click="logout()" title="Logout">
+                                                {{ 'logout' | translate }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
-                            <!-- </div> -->
+
                         </div>
                     </div>
                 </div>
@@ -293,36 +302,31 @@
                             <h4 class="title">{{ 'events' | translate }}</h4>
                             <ul class="list">
                                 <li>
-                                    <a href="#">{{ 'upcoming_events' | translate }}</a>
+                                    <a href="#!/">{{ 'home' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a href="#">{{ 'catchup' | translate }}</a>
+                                    <a ng-if="isLoggedIn" href="#!/events">{{ 'upcoming_events' | translate }}</a>
+                                </li>
+                                <li ng-if="isLoggedIn">
+                                    <a href="#!/catchup">{{ 'catchup' | translate }}</a>
+                                </li>
+                                <li ng-if="isLoggedIn">
+                                    <a href="#!/live">{{ 'live' | translate }}</a>
+                                </li>
+                                <li ng-if="isLoggedIn">
+                                    <a href="#!/subscription">{{ 'subscription' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a href="#">{{ 'live' | translate }}</a>
+                                    <a href="#!/about">{{ 'about' | translate }}</a>
                                 </li>
                                 <li>
-                                    <a href="#">{{ 'subscription' | translate }}</a>
-                                </li>
-                                <li>
-                                    <a href="#">{{ 'about' | translate }}</a>
-                                </li>
-                                <li>
-                                    <a href="#">{{ 'contact_us' | translate }} Us</a>
+                                    <a href="#!/contact">{{ 'contact_us' | translate }}</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12 col-12">
                         <div class="fw-twitter footer-widget">
-                            <h4 class="title">NEWSLETTER</h4>
-                            <form name="newsletter_form">
-                                <p>Signup for our mailing list to get latest updates videos and upcoming movies</p>
-                                <div class="input_container">
-                                    <input type="email" name="email" placeholder="Email Address">
-                                    <button>Subscribe</button>
-                                </div>
-                            </form>
                             <div class="downloads_container">
                                 <h3>Last Round</h3>
                                 <div class="two_cols">
