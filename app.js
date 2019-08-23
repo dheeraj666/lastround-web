@@ -342,6 +342,7 @@
                     if (res.data && res.data.message)
                         toaster.pop('error', res.data.message)
                 });
+                logOutFBUser()
             }
             $scope.login = login;
             function login() {
@@ -439,23 +440,77 @@
                 gapi.auth.signIn(params);
             }
 
+            //LOGIN FACEBOOK
             $scope.fbLogin = function () {
-                FB.login(function (res) {
-                    if (res.authResponse) {
-                        FB.api('/me', 'GET', { fields: 'email, first_name, name, id' }, function (response) {
-                            console.log(response);
-                            $scope.$apply(function () {
-                                $scope.signup.fullName = response.name;
-                                $scope.signup.email = response.email;
-                            });
-                        });
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        loadFBInfoForRegister(response);
                     } else {
-                        console.log('not authorized');
+                        FB.login(function (response) {
+                            if (response.status === 'connected') {
+                                loadFBInfoForRegister(response);
+                            } else {
+                                console.log('not loged in');
+                                console.log(response);
+                            }
+                        }, {
+                                scope: 'public_profile,email'
+                            });
                     }
                 }, {
                         scope: 'email',
                         return_scopes: true
                     });
+
+            }
+
+
+            function loadFBInfoForRegister(res) {
+                FB.api('/me', 'GET', {
+                    fields: 'email, first_name, name, id'
+                }, function (response) {
+                    console.log(response);
+                    let data = {
+                        userType: 3,
+                        socialIdToken: response.authResponse.accessToken
+                    }
+                    $http({
+                        url: API.BaseUrl + 'login',
+                        method: 'POST',
+                        data: $httpParamSerializer(data), // Make sure to inject the service you choose to the controller
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
+                            'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
+                        }
+                    }).then(function (res) {
+                        if (res.data.status == 1) {
+                            $rootScope.isSubscribed = res.data.data.isSubscribed;
+                            window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
+                            window.localStorage.setItem('accessToken', res.data.data.accessToken);
+                            window.localStorage.setItem('refreshToken', res.data.data.refreshToken);
+                            $rootScope.isLoggedIn = true;
+                            $rootScope.userInfo = res.data.data;
+                            toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1500)
+                            $ccope.$apply();
+                        }
+                    }).catch(function (res) {
+                        if (res.data && res.data.msg)
+                            toaster.pop('error', res.data.msg)
+                    });
+                });
+            }
+
+            function logOutFBUser() {
+                FB.getLoginStatus(function (response) {
+                    if (response && response.status === 'connected') {
+                        FB.logout(function (response) {
+                            console.log(response)
+                        });
+                    }
+                });
             }
 
             // $scope.submitLoginForm = submitLoginForm;
