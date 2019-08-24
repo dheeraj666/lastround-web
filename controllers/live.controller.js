@@ -26,6 +26,7 @@
                     keyword: res.data.data.event_name,
                 });
                 UpdateMetaService.setMetaProperty({
+                    'og:type': 'article',
                     'og:description': res.data.data.description,
                     'og:image': res.data.data.event_thumbnail,
                     'og:title': res.data.data.event_name,
