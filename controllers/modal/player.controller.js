@@ -30,7 +30,9 @@
                         "description": "",
                         // "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
                         "sources": [
-                            { "sourceURL": "rtsp://" + link }
+                            { "sourceURL": "https://" + link },
+                            { "sourceURL": "rtsp://" + link },
+                            { "sourceURL": "http://" + link },
                         ],
                         "autoPlay": true,
                         "volume": "75",
