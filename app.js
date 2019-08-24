@@ -45,7 +45,31 @@
                     })
                 }
             }
-        }]);
+        }]).directive('googleSignInButton', function () {
+            return {
+                scope: {
+                    gClientId: '@',
+                    callback: '&onSignIn'
+                },
+                template: '<li ng-click="onSignInButtonClick()"><img src="assets/img/icons/google.png"></li>',
+                controller: ['$scope', '$attrs', function ($scope, $attrs) {
+                    gapi.load('auth2', function () {//load in the auth2 api's, without it gapi.auth2 will be undefined
+                        gapi.auth2.init(
+                            {
+                                client_id: $attrs.gClientId
+                            }
+                        );
+                        var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
+                        $scope.onSignInButtonClick = function () {//add a function to the controller so ng-click can bind to it
+                            GoogleAuth.signIn().then(function (response) {//request to sign in
+                                console.log('response')
+                                $scope.callback({ response: response });
+                            });
+                        };
+                    });
+                }]
+            };
+        });;
 
     config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider', '$locationProvider'];
     function config($routeProvider, $httpProvider, $translateProvider, $compileProvider, $locationProvider) {
@@ -342,7 +366,8 @@
                     if (res.data && res.data.message)
                         toaster.pop('error', res.data.message)
                 });
-                logOutFBUser()
+                logOutFBUser();
+                signOutGoogle();
             }
             $scope.login = login;
             function login() {
@@ -402,7 +427,6 @@
                 });
             }
 
-
             $scope.changeSiteLang = function () {
                 if ($scope.changeLang == true) {
                     $translate.use('sp');
@@ -413,33 +437,49 @@
             // $rootScope.stripe = Stripe('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
 
             //Handle Global Login
-            $scope.googleLogin = function () {
-                let params = {
-                    "clientid": '602509218867-0h5dplbcuoc4vea48o1l8v0qvqnj3v0k.apps.googleusercontent.com',
-                    "cookiepolicy": 'single_host_origin',
-                    "callback": function (result) {
-                        if (result['status']['signed_in']) {
-                            var request = gapi.client.plus.people.get(
-                                {
-                                    'userId': 'me'
-                                }
-                            );
-                            request.execute(function (resp) {
-                                $scope.$apply(function () {
-                                    $scope.signup.fullName = resp.displayName;
-                                    $scope.signup.email = resp.emails[0].value;
-                                    $scope.signup.country = resp.country;
-                                });
-                            })
-                        }
-                    },
-                    "approvalprompt": 'force',
-                    "scope": 'https://www.googleapis.com/auth/plus.login https://www.googleapis.com/auth/plus.profile.emails.read'
-                };
-
-                gapi.auth.signIn(params);
+            $scope.onLoginGoogle = function (response) {
+                console.log(response)
+                var id_token = response.getAuthResponse().id_token;
+                console.log(id_token)
+                // Do whatever you need to do to authenticate on your site.
+                let data = {
+                    userType: 3,
+                    socialIdToken: id_token
+                }
+                $http({
+                    url: API.BaseUrl + 'login',
+                    method: 'POST',
+                    data: $httpParamSerializer(data), // Make sure to inject the service you choose to the controller
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
+                        'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
+                    }
+                }).then(function (res) {
+                    console.log(res)
+                    if (res.data.status == 1) {
+                        $rootScope.isSubscribed = res.data.data.isSubscribed;
+                        window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
+                        window.localStorage.setItem('accessToken', res.data.data.accessToken);
+                        window.localStorage.setItem('refreshToken', res.data.data.refreshToken);
+                        $rootScope.isLoggedIn = true;
+                        $rootScope.userInfo = res.data.data;
+                        toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500)
+                        $ccope.$apply();
+                    }
+                }).catch(function (res) {
+                    if (res.data && res.data.msg)
+                        toaster.pop('error', res.data.msg)
+                });
             }
-
+            function signOutGoogle() {
+                var auth2 = gapi.auth2.getAuthInstance();
+                auth2.signOut().then(function () {
+                    console.log('User signed out.');
+                });
+            }
             //LOGIN FACEBOOK
             $scope.fbLogin = function () {
                 FB.getLoginStatus(function (response) {
@@ -471,8 +511,8 @@
                 }, function (response) {
                     console.log(response);
                     let data = {
-                        userType: 3,
-                        socialIdToken: response.authResponse.accessToken
+                        userType: 2,
+                        socialIdToken: res.authResponse.accessToken
                     }
                     $http({
                         url: API.BaseUrl + 'login',
@@ -483,6 +523,7 @@
                             'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
                         }
                     }).then(function (res) {
+                        console.log(res)
                         if (res.data.status == 1) {
                             $rootScope.isSubscribed = res.data.data.isSubscribed;
                             window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);

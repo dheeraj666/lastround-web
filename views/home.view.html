@@ -43,7 +43,10 @@
                             <div class="soci">
                                 <ul id="social_icons">
                                     <li ng-click="fbLogin()"><img src="assets/img/icons/fb.png"></li>
-                                    <!-- <li ng-click="googleLogin()"><img src="assets/img/icons/google.png"></li> -->
+                                    <google-sign-in-button on-sign-in="onLoginGoogle(response)"
+                                        g-client-id="42090882563-0qdn8cjthnth4hfspkb24lsb416mdrrf.apps.googleusercontent.com">
+                                    </google-sign-in-button>
+
                                 </ul>
                             </div>
                         </form>

@@ -1,9 +1,13 @@
 {
   "applinks": {
-    "apps": [],
-    "details": [{
-        "appID": "58R5W59G37.com.AshokLRTV",
-        "paths":[ "*" ]
+      "apps": [],
+      "details": [{
+          "appID": "93S422GV98.com.AshokLRTV",
+          "paths": ["NOT /e/*", "*", "/", "/archives/201?/*"]
+      },
+      {
+          "appID": "58R5W59G37.com.AshokLRTV",
+          "paths": ["NOT /e/*", "*", "/", "/archives/201?/*"]
       }]
   }
-} 
+}
