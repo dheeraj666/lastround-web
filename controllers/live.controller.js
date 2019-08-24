@@ -20,19 +20,18 @@
                     'Authorization': 'Bearer ' + $rootScope.userAccessToken
                 }
             }).then(function (res) {
-                console.log(res)
-                UpdateMetaService.setTitle('Contact US');
+                UpdateMetaService.setTitle('Live Event');
                 UpdateMetaService.setMetaName({
                     description: res.data.data.description,
                     keyword: res.data.data.event_name,
                 });
                 UpdateMetaService.setMetaProperty({
-                    ['og:description']: res.data.data.description,
-                    ['og:image']: res.data.data.event_thumbnail,
-                    ['og:title']: res.data.data.event_name,
-                    ['og:url']: 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id
+                    'og:description': res.data.data.description,
+                    'og:image': res.data.data.event_thumbnail,
+                    'og:title': res.data.data.event_name,
+                    'og:url': 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id
                 });
-                $scope.$apply()
+                playVideo(res.data.data)
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
@@ -73,7 +72,8 @@
             });
         }
 
-        $scope.playVideo = function (videoObject) {
+        $scope.playVideo = playVideo;
+        function playVideo(videoObject) {
             if ($rootScope.isLoggedIn) { //&& $rootScope.isSubscribed
                 ModalService.showModal({
                     templateUrl: "views/modal/player.modal.html",

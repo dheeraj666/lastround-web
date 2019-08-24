@@ -46,6 +46,7 @@
             }, 1000);
         }
         $scope.shareLink = function (linkType) {
+            var link = 'https://lastroundtv.com/#!/live?event_id=' + $scope.videoObject._id
             if (linkType == 'facebook') {
                 window.open("https://www.facebook.com/sharer/sharer.php?u=" + $scope.videoObject.videoLink)
             } else if (linkType == 'whatsapp') {

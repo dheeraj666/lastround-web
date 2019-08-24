@@ -58,7 +58,7 @@
                         window.document.querySelector('meta[property="' + key + '"]').setAttribute("content", meta);
                     else {
                         var newMetaNode = document.createElement('meta');
-                        newMetaNode.property = key;
+                        newMetaNode.setAttribute('property', key);
                         newMetaNode.content = meta;
                         document.getElementsByTagName('head')[0].appendChild(newMetaNode);
                     }
@@ -76,7 +76,7 @@
                         window.document.querySelector('meta[itemprop="' + key + '"]').setAttribute("content", meta);
                     else {
                         var newMetaNode = document.createElement('meta');
-                        newMetaNode.itemprop = key;
+                        newMetaNode.setAttribute('itemprop', key);
                         newMetaNode.content = meta;
                         document.getElementsByTagName('head')[0].appendChild(newMetaNode);
                     }
