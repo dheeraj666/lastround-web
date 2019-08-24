@@ -5,9 +5,41 @@
         .module('app')
         .controller('LiveController', LiveController);
 
-    LiveController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location'];
-    function LiveController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location) {
+    LiveController.$inject = ['UpdateMetaService', '$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location'];
+    function LiveController(UpdateMetaService, $rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location) {
 
+        $scope.event_id = $location.$$search.event_id;
+        init()
+        function init() {
+            if (!$scope.event_id)
+                return
+
+            $http({
+                url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
+                method: 'GET', headers: {
+                    'Authorization': 'Bearer ' + $rootScope.userAccessToken
+                }
+            }).then(function (res) {
+                console.log(res)
+                UpdateMetaService.setTitle('Contact US');
+                UpdateMetaService.setMetaName({
+                    description: res.data.data.description,
+                    keyword: res.data.data.event_name,
+                });
+                UpdateMetaService.setMetaProperty({
+                    ['og:description']: res.data.data.description,
+                    ['og:image']: res.data.data.event_thumbnail,
+                    ['og:title']: res.data.data.event_name,
+                    ['og:url']: 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id
+                });
+                $scope.$apply()
+            }).catch(function (res) {
+                if (res.data && res.data.msg)
+                    toaster.pop('error', res.data.msg)
+            });
+
+
+        }
         // fetch data on load
         $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('accessToken');
         $scope.liveEventArray = []
