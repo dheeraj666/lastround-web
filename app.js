@@ -56,7 +56,7 @@
                     gapi.load('auth2', function () {//load in the auth2 api's, without it gapi.auth2 will be undefined
                         gapi.auth2.init(
                             {
-                                client_id: $attrs.gClientId
+                                client_id: '947153249370-6aug1einbj3u3n452beaff3o4h621adb.apps.googleusercontent.com'// $attrs.gClientId
                             }
                         );
                         var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
