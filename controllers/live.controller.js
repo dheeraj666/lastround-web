@@ -20,18 +20,26 @@
                     'Authorization': 'Bearer ' + $rootScope.userAccessToken
                 }
             }).then(function (res) {
-                UpdateMetaService.setTitle('Live Event');
-                UpdateMetaService.setMetaName({
-                    description: res.data.data.description,
-                    keyword: res.data.data.event_name,
-                });
-                UpdateMetaService.setMetaProperty({
-                    'og:type': 'article',
-                    'og:description': res.data.data.description,
-                    'og:image': res.data.data.event_thumbnail,
-                    'og:title': res.data.data.event_name,
-                    'og:url': 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id
-                });
+                $scope.$emit('newPageLoaded',
+                    {
+                        title: res.data.data.event_name,
+                        description: res.data.data.description,
+                        url: 'https://lastroundtv.com/#!/live?event_id' + $scope.event_id,
+                        image: res.data.data.event_thumbnail,
+                        type: 'article'
+                    })
+                // UpdateMetaService.setTitle('Live Event');
+                // UpdateMetaService.setMetaName({
+                //     description: res.data.data.description,
+                //     keyword: res.data.data.event_name,
+                // });
+                // UpdateMetaService.setMetaProperty({
+                //     'og:type': 'article',
+                //     'og:description': res.data.data.description,
+                //     'og:image': res.data.data.event_thumbnail,
+                //     'og:title': res.data.data.event_name,
+                //     'og:url': 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id
+                // });
                 playVideo(res.data.data)
             }).catch(function (res) {
                 if (res.data && res.data.msg)
@@ -93,6 +101,7 @@
                             live_ip: videoObject.live_ip,
                             stream_key: videoObject.stream_key,
                             port_no: videoObject.port_no,
+                            image: videoObject.event_thumbnail
                         }
                     }
                 }).then(function (modal) {

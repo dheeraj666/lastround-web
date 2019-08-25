@@ -252,6 +252,15 @@
     }
     app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer',
         function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer) {
+
+            $rootScope.metadata = {
+                title: 'Last Round TV',
+                description: 'We are a subscription service that provides subscribers with access to a wide range of sporting events from around the world streamed to a range of devices including internet-connected TVs, computers and other platforms(Last Round TV Service)',
+                url: 'https://lastroundtv.com',
+                image: 'https://lastroundtv.com/assets/img/logo.jpeg',
+                type: 'website'
+            }
+
             $scope.$on("login_required", function () {
                 $rootScope.isSubscribed = false;
                 window.localStorage.removeItem('isSubscribed');
@@ -273,6 +282,10 @@
             $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
                 $("html,body").animate({ scrollTop: $("body").offset().top }, "1000");
 
+            });
+            $scope.$on("newPageLoaded", function (event, meta) {
+                $rootScope.metadata = meta;
+                $scope.$apply()
             });
             $scope.showProfile = function () {
                 if (!$scope.showprof)
