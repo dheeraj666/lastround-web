@@ -33,19 +33,17 @@
         <div class="row">
             <ul>
                 <li ng-repeat="event in completeFeaturedArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="single-top-movie">
+                    <div class="single-top-movie" ng-click="playVideo(event)">
                         <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="{{event.event_thumbnail}}" alt="">
-                            </a>
+                            <img src="{{event.event_thumbnail}}" alt="">
                         </div>
                         <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" ng-click="playVideo(event)">
+                        <a class="popup-youtube">
                             <i class="far fa-play-circle"></i>
                         </a>
                         <div class="content">
                             <h2 class="name">
-                                <a href="04_movie-details.html">{{event.event_name}}</a>
+                                {{event.event_name}}
                             </h2>
                             <p class="date">{{event.start_time}}</p>
                             <p class="duration">02 :50 :12</p>

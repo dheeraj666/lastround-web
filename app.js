@@ -65,7 +65,6 @@
                         var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
                         $scope.onSignInButtonClick = function () {//add a function to the controller so ng-click can bind to it
                             GoogleAuth.signIn().then(function (response) {//request to sign in
-                                console.log('response')
                                 $scope.callback({ response: response });
                             });
                         };

@@ -34,7 +34,7 @@
         }
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
-            if ($rootScope.isLoggedIn && $rootScope.isSubscribed) {
+            if ($rootScope.isLoggedIn) {
                 ModalService.showModal({
                     templateUrl: "views/modal/generic-player.modal.html",
                     controller: "GenericVideoPlayer",

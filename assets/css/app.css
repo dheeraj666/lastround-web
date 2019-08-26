@@ -807,6 +807,7 @@ header {}
 }
 .account .w {
     position: relative;
+    float: right;
 }
 .account > a {
     display: inline-block;

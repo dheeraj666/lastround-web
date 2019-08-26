@@ -71,7 +71,7 @@
 				<span><b>Start Time: </b></span> {{videoObject.startTime}} <br />
 			</div>
 			<div class="img_ifo it">
-				<img src="{{videoObject.channelAdmin.profileImage ? videoObject.channelAdmin.profileImage : 'assets/img/icons/camera.png'}}"
+				<img src="{{videoObject.channelAdmin.profileImage ? viewImage(videoObject.channelAdmin.profileImage) : 'assets/img/icons/camera.png'}}"
 					alt="{{videoObject.channelAdmin.fullName}}">
 			</div>
 		</div>

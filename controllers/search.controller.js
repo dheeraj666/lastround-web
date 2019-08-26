@@ -1,20 +1,20 @@
-(function(){
+(function () {
     'use strict';
 
     angular
         .module('app')
         .controller('SearchController', SearchController);
 
-     SearchController.$inject = ['$rootScope', '$scope', 'API', '$location', '$http', 'ModalService', '$window'];
-    function SearchController($rootScope,$scope, API, $location, $http, ModalService, $window) {
+    SearchController.$inject = ['$rootScope', '$scope', 'API', '$location', '$http', 'ModalService', '$window'];
+    function SearchController($rootScope, $scope, API, $location, $http, ModalService, $window) {
 
         $scope.searchTerm = $location.search().searchTerm;
         $scope.noResults = false;
         var url = $location.path().split('/');
         $scope.searchTerm = url[2];
 
-        function slider(){
-            setTimeout(function(){
+        function slider() {
+            setTimeout(function () {
                 var owl = $(".slider-carousel");
                 owl.owlCarousel({
                     loop: true,
@@ -49,7 +49,7 @@
             }, 0);
         }
 
-        function topMovieCarousel(){
+        function topMovieCarousel() {
             var owl = $(".top-movie-carousel");
             owl.owlCarousel({
                 loop: true,
@@ -81,7 +81,7 @@
             });
         }
 
-        function umsCarousel(){
+        function umsCarousel() {
             var owl = $(".ums-carousel");
             owl.owlCarousel({
                 loop: true,
@@ -113,7 +113,7 @@
             });
         }
 
-        function tabCarousel(){
+        function tabCarousel() {
             var owl = $(".tab-carousel");
             owl.owlCarousel({
                 loop: true,
@@ -145,56 +145,100 @@
             });
         }
 
-        $scope.searchVideos = function() {
-                $rootScope.getToken()
-                .then(function(res){
+        $scope.searchVideos = function () {
+            var authentk = window.localStorage.getItem('accessToken')
+            if (!authentk)
+                return
+            $http.get(API.BaseUrl + 'get/events/search', {
+                params: {
+                    search_field: $scope.searchTerm
+                },
+                headers: {
+                    'Authorization': 'Bearer ' + authentk,
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(function (res) {
                     console.log('then', res);
-                    window.localStorage.setItem('accessToken', res.data.data.accessToken);
-                    $http.get(API.BaseUrl+'get/events/search', {
-                        params: {
-                            search_field: $scope.searchTerm
-                        },
-                        headers: {
-                            'Authorization': 'Bearer '+ window.localStorage.getItem('accessToken'), 
-                        }
-                    })
-                    .then(function(res){
-                        console.log('then', res);
-                        $scope.videoList = res.data.data;
-                        if (res.data.length) {
-                            $scope.noResults = false;
-                        } else {
-                            $scope.noResults = true;
-                        }
-                        slider();
-                        $('#preloader').fadeOut('slow', function () {
-                            $(this).remove();
-                        });
-                    }).catch(function(res){
-                        console.log('catch', res);
+                    $scope.videoList = res.data.data;
+                    if (res.data.length) {
+                        $scope.noResults = false;
+                    } else {
                         $scope.noResults = true;
+                    }
+                    slider();
+                    $('#preloader').fadeOut('slow', function () {
+                        $(this).remove();
                     });
-                }).catch(function(res){
+                }).catch(function (res) {
                     console.log('catch', res);
                     $scope.noResults = true;
                 });
         }
-
-        $scope.playVideo = function(videoObject){
+        $scope.handleClickItem = function (video) {
+            switch (video.section) {
+                case 'live':
+                    location.href = "#!/live?event_id=" + video._id;
+                    break;
+                case 'upcoming':
+                    location.href = "#!/events?event_id=" + video._id;
+                    break;
+                case 'catchup':
+                    location.href = "#!/catchup?event_id=" + video._id;
+                    break;
+                default:
+                    break;
+            }
+        }
+        $scope.playVideo = function (videoObject, ignordAd) {
             ModalService.showModal({
                 templateUrl: "views/modal/generic-player.modal.html",
                 controller: "GenericVideoPlayer",
                 inputs: {
-                    videoObject: {videoLink: videoObject.live_web_url, description: videoObject.description, title: videoObject.event_name, thumbnail: videoObject.event_thumbnail}
+                    videoObject: {
+                        videoLink: videoObject.event_trailer,
+                        description: videoObject.description,
+                        title: videoObject.event_name,
+                        channelName: videoObject.channel_category.name,
+                        channelAdmin: videoObject.channel_admin,
+                        startTime: videoObject.start_time,
+                        ads: ignordAd ? null : videoObject.advertisements,
+                        id: videoObject._id,
+                        isHome: true
+                    }
                 }
-            }).then(function(modal){
-                modal.close.then(function(res){
+            }).then(function (modal) {
+                modal.close.then(function (res) {
+                });
+            });
+        }
+
+        $scope.playLiveVideo = function (videoObject) {
+            ModalService.showModal({
+                templateUrl: "views/modal/player.modal.html",
+                controller: "PlayerController",
+                inputs: {
+                    videoLink: videoObject.live_web_url,
+                    videoObject: {
+                        videoLink: videoObject.live_catchup_url,
+                        description: videoObject.description,
+                        title: videoObject.event_name,
+                        channelName: videoObject.channel_category.name,
+                        channelAdmin: videoObject.channel_admin,
+                        startTime: videoObject.start_time,
+                        ads: videoObject.advertisements,
+                        id: videoObject._id
+                    }
+                }
+            }).then(function (modal) {
+                modal.close.then(function (res) {
                     console.log(res);
                 });
             });
         }
 
-        $scope.back = function() {
+
+        $scope.back = function () {
             $window.history.back();
         }
 

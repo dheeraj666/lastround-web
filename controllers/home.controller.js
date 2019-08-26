@@ -172,15 +172,35 @@
                 .then(function (res) {
                     $scope.videoList = res.data.data;
 
-                    if ($scope.videoList.featuredArray.length == 3) {
-                        $scope.videoList.featuredArray.push($scope.videoList.featuredArray[0])
-                    }
-                    if ($scope.videoList.upcomingArray.length == 3) {
-                        $scope.videoList.upcomingArray.push($scope.videoList.upcomingArray[0])
-                    }
-                    if ($scope.videoList.liveArray.length == 3) {
-                        $scope.videoList.liveArray.push($scope.videoList.liveArray[0])
-                    }
+                    // if ($scope.videoList.featuredArray.length == 3) {
+                    //     $scope.videoList.featuredArray.push($scope.videoList.featuredArray[0])
+                    // }
+                    // if ($scope.videoList.upcomingArray.length == 3) {
+                    //     $scope.videoList.upcomingArray.push($scope.videoList.upcomingArray[0])
+                    // }
+                    // if ($scope.videoList.liveArray.length == 3) {
+                    //     $scope.videoList.liveArray.push($scope.videoList.liveArray[0])
+                    // }
+                    // $scope.videoList.upcomingArray = $scope.videoList.liveArray;
+                    // var a = {
+                    //     "live_catchup_url": "https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/dheerajLive1.mp4",
+                    //     "isSAdminApproved": true,
+                    //     "isSAdminDisApproved": false,
+                    //     "event_location": "india",
+                    //     "section": "upcoming",
+                    //     "is_featured": false,
+                    //     "advertisements": [{
+                    //         "_id": "5cf7bc42697ee776df855935",
+                    //         "name": "New ad",
+                    //         "media_url": "https://wowza-live-stream.s3.us-east-2.amazonaws.com/addvertisment/165979174_1559739373.mp4"
+                    //     }, { "_id": "5cf7bf7b697ee776df85593d", "name": "New ad 3", "media_url": "https://wowza-live-stream.s3.us-east-2.amazonaws.com/addvertisment/139754109_1559740242.mp4" },
+                    //     { "_id": "5cf7be2c697dee776df855939", "name": "New Ad 2", "media_url": "https://wowza-live-stream.s3.us-east-2.amazonaws.com/addvertisment/782521913_1559739842.mp4" }], "_id": "5d6383d5b053a6408578aea1", "event_thumbnail": "https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/event_thumbnail/117397545_1566802864.jpg", "event_name": "Event 1", "description": "description", "start_time": "2019-08-26 12:35:06", "end_time": "2019-08-27 12:05:44", "event_trailer": "https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/event_trailer/230182040_1566802837.mp4", "live_ip": "3.15.208.194", "port_no": "1935", "application_name": "LRTV", "stream_key": "dheerajLive1", "user_name": "DheerajTestUser2", "password": "Qwertyuiop1", "channel_category": { "_id": "5cf3cc0f6046337561832fd5", "name": "mma" }, "channel_admin": {
+                    //         "profileImage": "https://s3.amazonaws.com/lrtv-live-media-bucket/Boxing-16-2.jpg",
+                    //         "_id": "5cc1ed40adc56e04e82e96a2", "fullName": "test admin"
+                    //     }, "updatedAt": "2019-08-26T12:29:50.197Z", "createdAt": "2019-08-26T07:01:41.401Z", "__v": 0, "group_description": "d", "group_name": "a"
+                    // }
+                    // $scope.videoList.upcomingArray.push(a)
+
                     slider();
                     $('#preloader').fadeOut('slow', function () {
                         $(this).remove();
@@ -243,7 +263,8 @@
                         channelAdmin: videoObject.channel_admin,
                         startTime: videoObject.start_time,
                         ads: ignordAd ? null : videoObject.advertisements,
-                        id: videoObject._id
+                        id: videoObject._id,
+                        isHome: true
                     }
                 }
             }).then(function (modal) {

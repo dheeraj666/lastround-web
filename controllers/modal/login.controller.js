@@ -68,33 +68,33 @@
                 userType: '1'
             }
             $scope.$emit('submit_login', login_details)
-            return
-            $http({
-                url: API.BaseUrl + 'login',
-                method: 'POST',
-                data: $httpParamSerializer(login_details), // Make sure to inject the service you choose to the controller
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
-                    'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
-                }
-            }).then(function (res) {
-                if (res.data.status == 1) {
-                    $rootScope.isSubscribed = res.data.data.isSubscribed
-                    window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
-                    window.localStorage.setItem('accessToken', res.data.data.accessToken);
-                    $rootScope.isLoggedIn = true;
-                    toaster.pop('success', 'Wellcome back! ' + res.data.data.username)
-                    close()
-                    loadSuccess(res.data.data.username, function () {
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1000)
-                    })
-                }
-            }).catch(function (res) {
-                if (res.data && res.data.msg)
-                    toaster.pop('error', res.data.msg)
-            });
+            // return
+            // $http({
+            //     url: API.BaseUrl + 'login',
+            //     method: 'POST',
+            //     data: $httpParamSerializer(login_details), // Make sure to inject the service you choose to the controller
+            //     headers: {
+            //         'Content-Type': 'application/x-www-form-urlencoded', // Note the appropriate header
+            //         'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
+            //     }
+            // }).then(function (res) {
+            //     if (res.data.status == 1) {
+            //         $rootScope.isSubscribed = res.data.data.isSubscribed
+            //         window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
+            //         window.localStorage.setItem('accessToken', res.data.data.accessToken);
+            //         $rootScope.isLoggedIn = true;
+            //         toaster.pop('success', 'Wellcome back! ' + res.data.data.username)
+            //         close()
+            //         loadSuccess(res.data.data.username, function () {
+            //             setTimeout(function () {
+            //                 location.reload();
+            //             }, 1000)
+            //         })
+            //     }
+            // }).catch(function (res) {
+            //     if (res.data && res.data.msg)
+            //         toaster.pop('error', res.data.msg)
+            // });
         }
 
         function loadSuccess(msg, cb) {

@@ -46,10 +46,16 @@
                 );
             }, 1000);
         }
+        $scope.viewImage = function (image) {
+            if (image.includes('https') || image.includes('amazonaws.com'))
+                return image
+            else
+                return API.s3_url + image
+        }
         $scope.shareLink = function (linkType) {
             var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id
             if (linkType == 'facebook') {
-                window.open("https://www.facebook.com/sharer/sharer.php?u=" + link)
+                window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link))
             } else if (linkType == 'whatsapp') {
                 window.open("whatsapp://send?text=" + link)
             } else if (linkType == 'twitter') {

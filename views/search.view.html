@@ -1,34 +1,33 @@
 <div>
 	<section>
-            <div class="section-title">
-                <h2 style="padding-left: 10%;"><i ng-click="back()" class="arrow-left fas fa-arrow-left"></i>Search Results</h2>
-            </div>
+		<div class="section-title">
+			<h2 style="padding-left: 10%;"><i ng-click="back()" class="arrow-left fas fa-arrow-left"></i>Search Results
+			</h2>
+		</div>
 		<div class="top-movie-area">
-            <div class="container">
-                <div class="top-movie-carousel owl-carousel">
-                    <div ng-repeat="video in videoList" class="single-top-movie">
+			<div class="container">
+				<div class="top-movie-carousel owl-carousel">
+					<div ng-repeat="video in videoList" class="single-top-movie" ng-click="handleClickItem(video)">
 						<div class="img">
-							<a href="04_movie-details.html">
-								<img ng-src="{{video.event_thumbnail}}" alt="">
-							</a>
+							<img ng-src="{{video.event_thumbnail}}" alt="">
 						</div>
 						<span class="view-counter">{{video.views}} Views</span>
-						<a class="popup-youtube" ng-click="playVideo(video)">
+						<a class="popup-youtube">
 							<i class="far fa-play-circle"></i>
 						</a>
 						<div class="content">
 							<h2 class="name">
-								<a href="04_movie-details.html">{{video.event_name}}</a>
+								{{video.event_name}}
 							</h2>
 							<p class="date">{{video.createdAt  | date:'medium'}}</p>
 						</div>
 					</div>
-                </div>
-                <div class="no-result" ng-if="noResults">
-                        No Results Found
-                </div>
-            </div>
-        </div>  
-    </section>
+				</div>
+				<div class="no-result" ng-if="noResults">
+					No Results Found
+				</div>
+			</div>
+		</div>
+	</section>
 </div>
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">
