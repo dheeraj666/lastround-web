@@ -39,7 +39,12 @@
                 })
             })
         }
-
+        $scope.viewImage = function (image) {
+            if (image.includes('https') || image.includes('amazonaws.com'))
+                return image
+            else
+                return API.s3_url + image
+        }
         function detail() {
             $scope.loading = true;
             $http({
@@ -152,7 +157,7 @@
             var fileName = file.name;
             var albumPhotosKey = 'user-profile/';//encodeURIComponent(API.s3_url) + '//';
 
-            var photoKey = albumPhotosKey + fileName;
+            var photoKey = fileName;
             $scope.loading = true;
             $rootScope.s3.upload({
                 ContentType: file.type,
@@ -166,7 +171,7 @@
                     callback(false)
                     return
                 }
-                $scope.profile.profileImage = data.Location;
+                $scope.profile.profileImage = photoKey;
                 $scope.loading = false;
                 callback(true)
             });

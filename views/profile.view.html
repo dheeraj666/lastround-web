@@ -23,7 +23,7 @@
     <form>
         <div class="profile_image_container" ng-show="!isChangingPass">
             <div class="user_image" ng-model="profile.profileImage" ng-show="!filepreview"><img
-                    ng-src="{{profile.profileImage}}"></div>
+                    ng-src="{{viewImage(profile.profileImage)}}"></div>
             <div class="user_image" ng-show="filepreview" ng-model="profile.profileImage"><img ng-src="{{filepreview}}"
                     height="300px" width="300px"></div>
             <div class="upload_container">
