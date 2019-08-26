@@ -47,7 +47,7 @@
             }, 1000);
         }
         $scope.shareLink = function (linkType) {
-            var link = $scope.absUrl + '?event_id=' + $scope.videoObject._id
+            var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id
             if (linkType == 'facebook') {
                 window.open("https://www.facebook.com/sharer/sharer.php?u=" + link)
             } else if (linkType == 'whatsapp') {

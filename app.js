@@ -204,6 +204,7 @@
                     meta: {
                         'title': 'Last Round TV',
                         'description': 'Welcome to Last Round TV',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/'
                     }
                 }
@@ -229,6 +230,7 @@
                     meta: {
                         'title': 'Catch Up',
                         'description': 'List Catch Up',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/#!/catchup'
                     }
                 }
@@ -254,6 +256,7 @@
                     meta: {
                         'title': 'Subscription Last Round TV',
                         'description': 'Make Subscription Last Round TV.',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/#!/subscription'
                     }
                 }
@@ -266,6 +269,7 @@
                     meta: {
                         'title': 'About US',
                         'description': 'About Last Round TV.',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/#!/about'
                     }
                 }
@@ -278,6 +282,7 @@
                     meta: {
                         'title': 'Contact US',
                         'description': 'Contact Last Round TV.',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/#!/contact'
                     }
                 }
@@ -290,6 +295,7 @@
                     meta: {
                         'title': 'Profile',
                         'description': 'Profile Last Round TV.',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/#!/contact'
                     }
                 }
@@ -305,8 +311,6 @@
         ngMetaProvider.useTitleSuffix(true);
         ngMetaProvider.setDefaultTag('og:type', 'object')
         ngMetaProvider.setDefaultTag('og:site_name', 'LastRoundTV')
-        // ngMetaProvider.setDefaultTag('og:url', 'https://lastroundtv.com/')
-        // ngMetaProvider.setDefaultTag('og:image', 'https://lastroundtv.com/assets/img/logo.jpeg')
         ngMetaProvider.setDefaultTitleSuffix(' | LastRoundTV.com');
 
         // $locationProvider.html5Mode({
@@ -358,7 +362,7 @@
                     IdentityPoolId: API.s3_IdentityPoolId
                 })
             });
-            console.log(API.s3_region, ' < > ', API.s3_IdentityPoolId, ' > < ', API.s3_bucketName)
+            // console.log(API.s3_region, ' < > ', API.s3_IdentityPoolId, ' > < ', API.s3_bucketName)
             $rootScope.s3 = new AWS.S3({
                 apiVersion: '2019-08-22',
                 params: { Bucket: API.s3_bucketName, IdentityPoolId: API.s3_IdentityPoolId }
@@ -524,7 +528,6 @@
                         'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
                     }
                 }).then(function (res) {
-                    console.log(res)
                     if (res.data.status == 1) {
                         $rootScope.isSubscribed = res.data.data.isSubscribed;
                         window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
@@ -578,7 +581,6 @@
                 FB.api('/me', 'GET', {
                     fields: 'email, first_name, name, id'
                 }, function (response) {
-                    console.log(response);
                     let data = {
                         userType: 2,
                         socialIdToken: res.authResponse.accessToken
@@ -592,7 +594,6 @@
                             'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
                         }
                     }).then(function (res) {
-                        console.log(res)
                         if (res.data.status == 1) {
                             $rootScope.isSubscribed = res.data.data.isSubscribed;
                             window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);

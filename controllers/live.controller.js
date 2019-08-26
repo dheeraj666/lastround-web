@@ -5,45 +5,25 @@
         .module('app')
         .controller('LiveController', LiveController);
 
-    LiveController.$inject = ['UpdateMetaService', '$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
-    function LiveController(UpdateMetaService, $rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
+    LiveController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
+    function LiveController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
         $scope.event_id = $location.$$search.event_id;
         init()
         function init() {
             if ($scope.event_id) {
-                ngMeta.setTitle('Live Event Id');
-                ngMeta.setTag('description', 'live event description');
-                ngMeta.setTag('og:image', 'https://lastroundtv.com/assets/img/home/slider-1.jpg');
-                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
-
+                return
             }
-            return
             $http({
                 url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-                method: 'GET', headers: {
+                method: 'GET',
+                headers: {
                     'Authorization': 'Bearer ' + $rootScope.userAccessToken
                 }
             }).then(function (res) {
-                $scope.$emit('newPageLoaded',
-                    {
-                        url: 'https://lastroundtv.com/#!/live?event_id' + $scope.event_id,
-                        title: res.data.data.event_name,
-                        description: res.data.data.description,
-                        image: res.data.data.event_thumbnail,
-                        type: 'object'
-                    })
-                // UpdateMetaService.setTitle('Live Event');
-                // UpdateMetaService.setMetaName({
-                //     description: res.data.data.description,
-                //     keyword: res.data.data.event_name,
-                // });
-                // UpdateMetaService.setMetaProperty({
-                //     'og:type': 'article',
-                //     'og:description': res.data.data.description,
-                //     'og:image': res.data.data.event_thumbnail,
-                //     'og:title': res.data.data.event_name,
-                //     'og:url': 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id
-                // });
+                ngMeta.setTitle(res.data.data.event_name);
+                ngMeta.setTag('description', res.data.data.description);
+                ngMeta.setTag('og:image', res.data.data.event_thumbnail);
+                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
                 playVideo(res.data.data)
             }).catch(function (res) {
                 if (res.data && res.data.msg)
