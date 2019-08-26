@@ -3,30 +3,39 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Last Round TV</title>
 
     <meta name="fragment" content="!">
     <meta property="fragment" content="!">
+    <title ng-bind="ngMeta.title"></title>
+    <meta name="description" ng-bind="ngMeta.description">
+    </title>
+
     <meta property="fb:app_id" content="415108989132393" />
 
-    <meta property="og:title" content="{{metadata.title}}">
-    <meta property="og:site_name" content="{{metadata.sitename}}">
-    <meta property="og:description" content="{{metadata.description}}">
-    <meta property="og:image" content="{{metadata.image}}">
-    <meta property="og:url" content="{{metadata.url}}">
-    <meta property="og:type" content="{{metadata.type}}">
-    
+    <meta property="og:title" content="{{ngMeta.title}}">
+    <meta property="og:description" content="{{ngMeta.description}}">
+    <meta property="og:site_name" content="{{ngMeta['og:site_name']}}">
+    <meta property="og:image" content="{{ngMeta['og:image']}}">
+    <meta property="og:url" content="{{ngMeta['og:url']}}">
+    <meta property="og:type" content="{{ngMeta['og:type']}}">
+    <!-- Twitter summary card metadata -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:site" content="@lastroundtv">
+    <meta property="twitter:title" content="{{ngMeta.title}}">
+    <meta property="twitter:description" content="{{ngMeta.description}}">
+    <meta property="twitter:image" content="{{ngMeta['og:image']}}">
+    <meta property="twitter:url" content="{{ngMeta['og:url']}}">
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link href="io-favicon.png" rel="shortcut icon" type="image/x-icon">
+    <link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="twitter:card" content="summary"></meta>
+    <meta name="twitter:card" content="summary">
+    </meta>
     <meta http-equiv="cache-control" content="max-age=0" />
     <meta http-equiv="cache-control" content="no-cache" />
     <meta http-equiv="expires" content="-1" />
     <meta http-equiv="expires" content="Tue, 01 Jan 1980 11:00:00 GMT">
     <meta http-equiv="pragma" content="no-cache">
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- plugins -->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="assets/css/animate.css">
@@ -45,6 +54,7 @@
 
 
     <!-- FIRST LOAD SCRIPT -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
     <script src="assets/js/plugins/jquery.min.js"></script>
     <script src="assets/js/angular-1.7.2/angular.js"></script>
     <script data-require="angular-translate@*" data-semver="2.5.0"
@@ -451,23 +461,23 @@
     <script src="assets/js/plugins/jquery-ui.js"></script>
     <script src="assets/js/plugins/toaster.min.js"></script>
     <script src="assets/js/plugins/owl.carousel.min.js"></script>
-    <script src="assets/js/plugins/jquery.counterup.min.js"></script>
-    <script src="assets/js/plugins/countdown.js"></script>
-    <script src="assets/js/plugins/parallax.js"></script>
-    <script src="assets/js/plugins/amplitude.js"></script>
-    <script src="assets/js/plugins/plyr.js"></script>
-    <script src="assets/js/plugins/jquery.slimscroll.min.js"></script>
-    <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script>
-    <script src="assets/js/plugins/jquery.slicknav.min.js"></script>
-    <script src="assets/js/plugins/jquery.scrollUp.js"></script>
-    <script src="assets/js/plugins/jquery.mixitup.min.js"></script>
-    <script src="assets/js/plugins/jquery.waypoints.min.js"></script>
+    <!-- <script src="assets/js/plugins/jquery.counterup.min.js"></script> -->
+    <!-- <script src="assets/js/plugins/countdown.js"></script> -->
+    <!-- <script src="assets/js/plugins/parallax.js"></script> -->
+    <!-- <script src="assets/js/plugins/amplitude.js"></script> -->
+    <!-- <script src="assets/js/plugins/plyr.js"></script> -->
+    <!-- <script src="assets/js/plugins/jquery.slimscroll.min.js"></script> -->
+    <!-- <script src="assets/js/plugins/jquery.magnific-popup.min.js"></script> -->
+    <!-- <script src="assets/js/plugins/jquery.slicknav.min.js"></script> -->
+    <!-- <script src="assets/js/plugins/jquery.scrollUp.js"></script> -->
+    <!-- <script src="assets/js/plugins/jquery.mixitup.min.js"></script> -->
+    <!-- <script src="assets/js/plugins/jquery.waypoints.min.js"></script> -->
     <script src="assets/js/plugins/popper.min.js"></script>
     <script src="assets/js/plugins/bootstrap.min.js"></script>
     <script src="assets/js/plugins/ui-bootstrap-tpls-2.5.0.min.js"></script>
     <script src="assets/js/plugins/owl.carousel.min.js"></script>
     <script src="assets/js/plugins/angular-modal-service.js"></script>
-    <script src="assets/js/plugins/angular-socialshare.js"></script>
+    <script src="assets/js/plugins/ngMeta.min.js"></script>
 
     <!-- <script src="https://js.stripe.com/v3/"></script> -->
     <!-- <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"

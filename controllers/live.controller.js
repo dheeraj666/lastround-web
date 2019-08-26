@@ -5,15 +5,25 @@
         .module('app')
         .controller('LiveController', LiveController);
 
-    LiveController.$inject = ['UpdateMetaService', '$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location'];
-    function LiveController(UpdateMetaService, $rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location) {
+    LiveController.$inject = ['UpdateMetaService', '$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
+    function LiveController(UpdateMetaService, $rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
 
+        // ngMeta.setTitle('Live Events');
+        // ngMeta.setTag('title', 'Live Events');
+        // ngMeta.setTag('og:description','Live Events Description');
+        // ngMeta.setTag('image', 'https://lastroundtv.com/assets/img/home/slider-1.jpg');
+        // ngMeta.setTag('type', 'object');
+        // ngMeta.setTag('url', 'https://lastroundtv.com/#!/live');
         $scope.event_id = $location.$$search.event_id;
         init()
         function init() {
-            if (!$scope.event_id)
-                return
+            if ($scope.event_id) {
+                ngMeta.setTitle('Live Event Id');
+                ngMeta.setTag('og:image', 'https://lastroundtv.com/assets/img/home/slider-1.jpg');
+                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id' + $scope.event_id);
 
+            }
+            return
             $http({
                 url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
                 method: 'GET', headers: {
@@ -22,11 +32,11 @@
             }).then(function (res) {
                 $scope.$emit('newPageLoaded',
                     {
+                        url: 'https://lastroundtv.com/#!/live?event_id' + $scope.event_id,
                         title: res.data.data.event_name,
                         description: res.data.data.description,
-                        url: 'https://lastroundtv.com/#!/live?event_id' + $scope.event_id,
                         image: res.data.data.event_thumbnail,
-                        type: 'article'
+                        type: 'object'
                     })
                 // UpdateMetaService.setTitle('Live Event');
                 // UpdateMetaService.setMetaName({

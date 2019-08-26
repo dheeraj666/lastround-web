@@ -17,8 +17,11 @@
         // s3_url: 'https://wowza-live-stream.s3.us-east-2.amazonaws.com/'
     };
     var app = angular
-        .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngMessages', 'ngStorage', 'ngTable', 'ngFileUpload', 'ui.bootstrap', 'toaster', 'angularModalService', 'pascalprecht.translate'])
+        .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngMessages', 'ngStorage', 'ngTable', 'ngFileUpload', 'ui.bootstrap', 'toaster', 'angularModalService', 'pascalprecht.translate', 'ngMeta'])
         .config(config)
+        .run(['ngMeta', function (ngMeta) {
+            ngMeta.init();
+        }])
         // .run(run)
         .constant('API', globalConstant)
         .service('countryList', ['$http', function ($http) {
@@ -71,8 +74,8 @@
             };
         });;
 
-    config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider', '$locationProvider'];
-    function config($routeProvider, $httpProvider, $translateProvider, $compileProvider, $locationProvider) {
+    config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider', '$locationProvider', 'ngMetaProvider'];
+    function config($routeProvider, $httpProvider, $translateProvider, $compileProvider, $locationProvider, ngMetaProvider) {
 
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
         // for language
@@ -191,51 +194,103 @@
         // ends here ~ for language
 
 
-        // $locationProvider.html5Mode({
-        //     enable: true,
-        //     requireBase: true
-        // });
         $routeProvider
 
             .when('/', {
                 cache: false,
                 controller: 'HomeController',
-                templateUrl: 'views/home.view.html'
+                templateUrl: 'views/home.view.html',
+                data: {
+                    meta: {
+                        'title': 'Last Round TV',
+                        'description': 'Welcome to Last Round TV',
+                        'og:url': 'https://lastroundtv.com/'
+                    }
+                }
             })
             .when('/events', {
                 cache: false,
                 controller: 'EventsController',
-                templateUrl: 'views/events.view.html'
+                templateUrl: 'views/events.view.html',
+                data: {
+                    meta: {
+                        'title': 'Upcoming Events',
+                        'description': 'List Upcoming Events ',
+                        'og:url': 'https://lastroundtv.com/#!/events'
+                    }
+                }
             })
             .when('/catchup', {
                 cache: false,
                 controller: 'CatchupController',
-                templateUrl: 'views/catchup.view.html'
+                templateUrl: 'views/catchup.view.html',
+                data: {
+                    meta: {
+                        'title': 'Catch Up',
+                        'description': 'List Catch Up',
+                        'og:url': 'https://lastroundtv.com/#!/catchup'
+                    }
+                }
             })
             .when('/live', {
                 cache: false,
                 controller: 'LiveController',
-                templateUrl: 'views/live.view.html'
+                templateUrl: 'views/live.view.html',
+                data: {
+                    meta: {
+                        'title': 'Live Events',
+                        'description': 'List Live Events',
+                        'og:url': 'https://lastroundtv.com/#!/live'
+                    }
+                }
             })
             .when('/subscription', {
                 cache: false,
                 controller: 'SubscriptionController',
-                templateUrl: 'views/subscription.view.html'
+                templateUrl: 'views/subscription.view.html',
+                data: {
+                    meta: {
+                        'title': 'Subscription Last Round TV',
+                        'description': 'Make Subscription Last Round TV.',
+                        'og:url': 'https://lastroundtv.com/#!/subscription'
+                    }
+                }
             })
             .when('/about', {
                 cache: false,
                 controller: 'AboutController',
-                templateUrl: 'views/about.view.html'
+                templateUrl: 'views/about.view.html',
+                data: {
+                    meta: {
+                        'title': 'About US',
+                        'description': 'About Last Round TV.',
+                        'og:url': 'https://lastroundtv.com/#!/about'
+                    }
+                }
             })
             .when('/contact', {
                 cache: false,
                 controller: 'ContactController',
-                templateUrl: 'views/contact.view.html'
+                templateUrl: 'views/contact.view.html',
+                data: {
+                    meta: {
+                        'title': 'Contact US',
+                        'description': 'Contact Last Round TV.',
+                        'og:url': 'https://lastroundtv.com/#!/contact'
+                    }
+                }
             })
             .when('/profile', {
                 cache: false,
                 controller: 'ProfileController',
-                templateUrl: 'views/profile.view.html'
+                templateUrl: 'views/profile.view.html',
+                data: {
+                    meta: {
+                        'title': 'Profile',
+                        'description': 'Profile Last Round TV.',
+                        'og:url': 'https://lastroundtv.com/#!/contact'
+                    }
+                }
             })
             .when('/search/:searchTerm', {
                 cache: false,
@@ -245,22 +300,23 @@
 
 
             .otherwise({ redirectTo: '/' });
+        ngMetaProvider.useTitleSuffix(true);
+        ngMetaProvider.setDefaultTag('og:type', 'object')
+        ngMetaProvider.setDefaultTag('og:site_name', 'LastRoundTV')
+        ngMetaProvider.setDefaultTag('og:url', 'https://lastroundtv.com/')
+        ngMetaProvider.setDefaultTag('og:image', 'https://lastroundtv.com/assets/img/logo.jpeg')
+        ngMetaProvider.setDefaultTitleSuffix(' | LastRoundTV.com');
 
+        // $locationProvider.html5Mode({
+        //     enable: true,
+        //     requireBase: false
+        // });
         // $locationProvider.hashPrefix('');
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
-    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer',
-        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer) {
-
-            $rootScope.metadata = {
-                title: 'Last Round TV',
-                description: 'We are a subscription service that provides subscribers with access to a wide range of sporting events from around the world streamed to a range of devices including internet-connected TVs, computers and other platforms(Last Round TV Service)',
-                url: 'https://lastroundtv.com/',
-                sitename: 'Last Round TV - lastroundtv.com',
-                image: 'https://lastroundtv.com/assets/img/logo.jpeg',
-                type: 'object'
-            }
+    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta',
+        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta) {
 
             $scope.$on("login_required", function () {
                 $rootScope.isSubscribed = false;
@@ -280,42 +336,9 @@
             $scope.$on("submit_login", function (event, login_details) {
                 submitLoginForm(login_details)
             });
-            $rootScope.$on("$routeChangeStart", function (event, currentRoute, previousRoute) {
-                if (currentRoute.params.event_id) {
-                    let meta = {
-                        url: 'https://lastroundtv.com/#!/live?event_id' + currentRoute.params.event_id,
-                        title: 'Live Events',
-                        description: 'Live Even Description',
-                        image: 'https://lastroundtv.com/assets/img/home/slider-1.jpg',
-                        type: 'object'
-                    };
-                    $rootScope.metadata = Object.assign({}, $rootScope.metadata, meta);
-                    // $http({
-                    //     url: API.BaseUrl + 'channel-events/detail/' + currentRoute.params.event_id,
-                    //     method: 'GET', headers: {
-                    //         'Authorization': 'Bearer ' + $rootScope.userAccessToken
-                    //     }
-                    // }).then(function (res) {
-                    //     let meta = {
-                    //         url: 'https://lastroundtv.com/#!/live?event_id' + currentRoute.params.event_id,
-                    //         title: res.data.data.event_name,
-                    //         description: res.data.data.description,
-                    //         image: res.data.data.event_thumbnail,
-                    //         type: 'object'
-                    //     };
-                    //     $rootScope.metadata = Object.assign({}, $rootScope.metadata, meta);
-                    // }).catch(function (res) {
-                    //     if (res.data && res.data.msg)
-                    //         toaster.pop('error', res.data.msg)
-                    // });
-                }
-
+            $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
                 $("html,body").animate({ scrollTop: $("body").offset().top }, "1000");
 
-            });
-            $scope.$on("newPageLoaded", function (event, meta) {
-                $rootScope.metadata = Object.assign({}, $rootScope.metadata, meta);;
-                $scope.$apply()
             });
             $scope.showProfile = function () {
                 if (!$scope.showprof)
@@ -342,8 +365,8 @@
             cognitoidentity.getId({
                 IdentityPoolId: API.s3_IdentityPoolId, AccountId: '12'
             }, function (err, data) {
-                if (err) console.log(err, err.stack); // an error occurred
-                else console.log(data);           // successful response
+                // if (err) console.log(err, err.stack); // an error occurred
+                // else console.log(data);           // successful response
             });
 
             $scope.searchTerm = undefined;
