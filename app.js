@@ -281,6 +281,35 @@
                 submitLoginForm(login_details)
             });
             $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
+                if (currentRoute.params.event_id) {
+                    let meta = {
+                        url: 'https://lastroundtv.com/#!/live?event_id' + currentRoute.params.event_id,
+                        title: 'Live Events',
+                        description: 'Live Even Description',
+                        image: 'https://lastroundtv.com/assets/img/home/slider-1.jpg',
+                        type: 'object'
+                    };
+                    $rootScope.metadata = Object.assign({}, $rootScope.metadata, meta);
+                    // $http({
+                    //     url: API.BaseUrl + 'channel-events/detail/' + currentRoute.params.event_id,
+                    //     method: 'GET', headers: {
+                    //         'Authorization': 'Bearer ' + $rootScope.userAccessToken
+                    //     }
+                    // }).then(function (res) {
+                    //     let meta = {
+                    //         url: 'https://lastroundtv.com/#!/live?event_id' + currentRoute.params.event_id,
+                    //         title: res.data.data.event_name,
+                    //         description: res.data.data.description,
+                    //         image: res.data.data.event_thumbnail,
+                    //         type: 'object'
+                    //     };
+                    //     $rootScope.metadata = Object.assign({}, $rootScope.metadata, meta);
+                    // }).catch(function (res) {
+                    //     if (res.data && res.data.msg)
+                    //         toaster.pop('error', res.data.msg)
+                    // });
+                }
+
                 $("html,body").animate({ scrollTop: $("body").offset().top }, "1000");
 
             });
@@ -379,6 +408,7 @@
                 }).catch(function (res) {
                     if (res.data && res.data.message)
                         toaster.pop('error', res.data.message)
+                    location.reload()
                 });
                 logOutFBUser();
                 signOutGoogle();
