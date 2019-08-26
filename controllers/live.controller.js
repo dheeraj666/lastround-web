@@ -67,6 +67,7 @@
 
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
+
             if ($rootScope.isLoggedIn) { //&& $rootScope.isSubscribed
                 ModalService.showModal({
                     templateUrl: "views/modal/player.modal.html",
@@ -94,7 +95,9 @@
                     });
                 });
             } else {
-                location.href = '#!/subscription';
+                if (!$scope.event_id) {
+                    location.href = '#!/subscription';
+                }
             }
         }
 

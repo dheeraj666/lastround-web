@@ -56,7 +56,9 @@
                     });
                 });
             } else {
-                location.href = '#!/subscription';
+                if (!$scope.event_id) {
+                    location.href = '#!/subscription';
+                }
             }
         }
 
