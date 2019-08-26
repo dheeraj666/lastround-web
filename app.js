@@ -236,13 +236,13 @@
                 cache: false,
                 controller: 'LiveController',
                 templateUrl: 'views/live.view.html',
-                data: {
-                    meta: {
-                        'title': 'Live Events',
-                        'description': 'List Live Events',
-                        'og:url': 'https://lastroundtv.com/#!/live'
-                    }
-                }
+                // data: {
+                //     meta: {
+                //         'title': 'Live Events',
+                //         'description': 'List Live Events',
+                //         'og:url': 'https://lastroundtv.com/#!/live'
+                //     }
+                // }
             })
             .when('/subscription', {
                 cache: false,
@@ -303,8 +303,8 @@
         ngMetaProvider.useTitleSuffix(true);
         ngMetaProvider.setDefaultTag('og:type', 'object')
         ngMetaProvider.setDefaultTag('og:site_name', 'LastRoundTV')
-        ngMetaProvider.setDefaultTag('og:url', 'https://lastroundtv.com/')
-        ngMetaProvider.setDefaultTag('og:image', 'https://lastroundtv.com/assets/img/logo.jpeg')
+        // ngMetaProvider.setDefaultTag('og:url', 'https://lastroundtv.com/')
+        // ngMetaProvider.setDefaultTag('og:image', 'https://lastroundtv.com/assets/img/logo.jpeg')
         ngMetaProvider.setDefaultTitleSuffix(' | LastRoundTV.com');
 
         // $locationProvider.html5Mode({

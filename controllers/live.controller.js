@@ -19,8 +19,9 @@
         function init() {
             if ($scope.event_id) {
                 ngMeta.setTitle('Live Event Id');
+                ngMeta.setTag('description', 'live event description');
                 ngMeta.setTag('og:image', 'https://lastroundtv.com/assets/img/home/slider-1.jpg');
-                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id' + $scope.event_id);
+                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
 
             }
             return
