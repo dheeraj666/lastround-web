@@ -280,7 +280,7 @@
             $scope.$on("submit_login", function (event, login_details) {
                 submitLoginForm(login_details)
             });
-            $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
+            $rootScope.$on("$routeChangeStart", function (event, currentRoute, previousRoute) {
                 if (currentRoute.params.event_id) {
                     let meta = {
                         url: 'https://lastroundtv.com/#!/live?event_id' + currentRoute.params.event_id,
