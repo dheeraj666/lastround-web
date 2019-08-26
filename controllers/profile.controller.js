@@ -155,6 +155,7 @@
             var photoKey = albumPhotosKey + fileName;
             $scope.loading = true;
             $rootScope.s3.upload({
+                ContentType: file.type,
                 Key: photoKey,
                 Body: file,
                 ACL: 'public-read'//'private'

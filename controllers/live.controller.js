@@ -22,7 +22,7 @@
             }).then(function (res) {
                 ngMeta.setTitle(res.data.data.event_name);
                 ngMeta.setTag('description', res.data.data.description);
-                ngMeta.setTag('og:image', res.data.data.event_thumbnail);
+                ngMeta.setTag('og:image', 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/event_thumbnail/150221039_1566320288.jpg');// res.data.data.event_thumbnail
                 ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
                 playVideo(res.data.data)
             }).catch(function (res) {
