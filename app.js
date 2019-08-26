@@ -336,10 +336,10 @@
             $scope.$on("forgot_passs", function () {
                 resetPassword()
             });
-            $scope.$on("signup_required", function () {
+            $rootScope.$on("signup_required", function () {
                 signup()
             });
-            $scope.$on("submit_login", function (event, login_details) {
+            $rootScope.$on("submit_login", function (event, login_details) {
                 submitLoginForm(login_details)
             });
             $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {

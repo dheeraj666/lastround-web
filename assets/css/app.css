@@ -541,6 +541,7 @@ header {}
     /* overflow: auto;  */
     width: 100%;
     height: 100%;
+    height: auto;
 }
 
 .header-top-area {
@@ -983,9 +984,9 @@ div#preloader {
 footer {
     /* position: relative;
     padding: 38px 0 0; */
-    padding: 38px 0 0;
+    /* padding: 38px 0 0; */
     max-height: 500px;
-    padding-top: 538px;
+    padding-top: 50px;
 }
 
 .footer-top-area {

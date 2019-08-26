@@ -10,7 +10,7 @@
         $scope.event_id = $location.$$search.event_id;
         init()
         function init() {
-            if ($scope.event_id) {
+            if (!$scope.event_id) {
                 return
             }
             $http({

@@ -53,7 +53,7 @@
             } else if (linkType == 'whatsapp') {
                 window.open("whatsapp://send?text=" + link)
             } else if (linkType == 'twitter') {
-                window.open("https://twitter.com/share?url=" + link)
+                window.open("https://twitter.com/share?url=" + encodeURIComponent(link))
             }
         }
         //Handle Ad
