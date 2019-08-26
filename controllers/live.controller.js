@@ -7,13 +7,6 @@
 
     LiveController.$inject = ['UpdateMetaService', '$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
     function LiveController(UpdateMetaService, $rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
-
-        // ngMeta.setTitle('Live Events');
-        // ngMeta.setTag('title', 'Live Events');
-        // ngMeta.setTag('og:description','Live Events Description');
-        // ngMeta.setTag('image', 'https://lastroundtv.com/assets/img/home/slider-1.jpg');
-        // ngMeta.setTag('type', 'object');
-        // ngMeta.setTag('url', 'https://lastroundtv.com/#!/live');
         $scope.event_id = $location.$$search.event_id;
         init()
         function init() {

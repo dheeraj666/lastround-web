@@ -62,13 +62,14 @@
             }
         })
 
-    GenericVideoPlayer.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject', '$http'];
-    function GenericVideoPlayer($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject, $http) {
+    GenericVideoPlayer.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject', '$http', '$location'];
+    function GenericVideoPlayer($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject, $http, $location) {
         $scope.dataIsLoaded = false;
         $scope.close = close;
         $scope.videoObject = videoObject;
         $scope.videoElement = null;
 
+        $scope.absUrl = $location.$$protocol + '://' + $location.$$host + '/#!' + $location.$$path;
         $scope.callApi = function () {
             $http.put(API.BaseUrl + 'user/event/shown/fifteen', null, {
                 headers: {
@@ -92,16 +93,14 @@
             }
         });
 
-
         $scope.shareLink = function (linkType) {
-            console.log($scope.videoObject);
-            return false;
+            var link = $scope.absUrl + '?event_id=' + $scope.videoObject._id
             if (linkType == 'facebook') {
-                window.open("https://www.facebook.com/sharer/sharer.php?u=" + $scope.videoObject.videoLink)
+                window.open("https://www.facebook.com/sharer/sharer.php?u=" + link)
             } else if (linkType == 'whatsapp') {
-                window.open("whatsapp://send?text=" + $scope.videoObject.videoLink)
+                window.open("whatsapp://send?text=" + link)
             } else if (linkType == 'twitter') {
-                window.open("https://twitter.com/share?url=" + encodeURIComponent($scope.videoObject.videoLink))
+                window.open("https://twitter.com/share?url=" + link)
             }
         }
 

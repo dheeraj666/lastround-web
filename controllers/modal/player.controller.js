@@ -5,8 +5,8 @@
         .module('app')
         .controller('PlayerController', PlayerController);
 
-    PlayerController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject'];
-    function PlayerController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject) {
+    PlayerController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject', '$location'];
+    function PlayerController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject, $location) {
         $scope.dataIsLoaded = false;
         var wowPlayer = null;
         $scope.close = function () {
@@ -17,6 +17,7 @@
             close();
         };
         $scope.videoObject = videoObject;
+        $scope.absUrl = $location.$$protocol + '://' + $location.$$host + '/#!' + $location.$$path;
 
         function initializePlayer() {
             var link = `${videoObject.live_ip}:${videoObject.port_no}/${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
@@ -46,13 +47,13 @@
             }, 1000);
         }
         $scope.shareLink = function (linkType) {
-            var link = 'https://lastroundtv.com/#!/live?event_id=' + $scope.videoObject._id
+            var link = $scope.absUrl + '?event_id=' + $scope.videoObject._id
             if (linkType == 'facebook') {
-                window.open("https://www.facebook.com/sharer/sharer.php?u=" + $scope.videoObject.videoLink)
+                window.open("https://www.facebook.com/sharer/sharer.php?u=" + link)
             } else if (linkType == 'whatsapp') {
-                window.open("whatsapp://send?text=" + $scope.videoObject.videoLink)
+                window.open("whatsapp://send?text=" + link)
             } else if (linkType == 'twitter') {
-                window.open("https://twitter.com/share?url=" + encodeURIComponent($scope.videoObject.videoLink))
+                window.open("https://twitter.com/share?url=" + link)
             }
         }
         //Handle Ad

@@ -9,7 +9,31 @@
     CatchupController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', 'ModalService', '$http', '$location'];
     function CatchupController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, ModalService, $http, $location) {
 
-        $scope.playVideo = function (videoObject) {
+        $scope.event_id = $location.$$search.event_id;
+        init()
+        function init() {
+            if (!$scope.event_id) {
+                return
+            }
+            $http({
+                url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + $rootScope.userAccessToken
+                }
+            }).then(function (res) {
+                ngMeta.setTitle(res.data.data.event_name);
+                ngMeta.setTag('description', res.data.data.description);
+                ngMeta.setTag('og:image', res.data.data.event_thumbnail);
+                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/catchup?event_id=' + $scope.event_id);
+                playVideo(res.data.data)
+            }).catch(function (res) {
+                if (res.data && res.data.msg)
+                    toaster.pop('error', res.data.msg)
+            });
+        }
+        $scope.playVideo = playVideo;
+        function playVideo(videoObject) {
             if ($rootScope.isLoggedIn && $rootScope.isSubscribed) {
                 ModalService.showModal({
                     templateUrl: "views/modal/generic-player.modal.html",

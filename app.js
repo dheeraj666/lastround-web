@@ -216,6 +216,7 @@
                     meta: {
                         'title': 'Upcoming Events',
                         'description': 'List Upcoming Events ',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                         'og:url': 'https://lastroundtv.com/#!/events'
                     }
                 }
@@ -236,13 +237,14 @@
                 cache: false,
                 controller: 'LiveController',
                 templateUrl: 'views/live.view.html',
-                // data: {
-                //     meta: {
-                //         'title': 'Live Events',
-                //         'description': 'List Live Events',
-                //         'og:url': 'https://lastroundtv.com/#!/live'
-                //     }
-                // }
+                data: {
+                    meta: {
+                        'title': 'Live Events',
+                        'description': 'List Live Events',
+                        'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
+                        'og:url': 'https://lastroundtv.com/#!/live'
+                    }
+                }
             })
             .when('/subscription', {
                 cache: false,
