@@ -29,15 +29,15 @@
             </div>
         </div>
     </div>
-    <div class="container upcoming_events">
+    <div class="container l_events">
         <div class="row">
             <ul>
-                <li ng-repeat="event in completeFeaturedArray" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                <li ng-repeat="event in events" class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="single-top-movie" ng-click="playVideo(event)">
                         <div class="img">
                             <img src="{{event.event_thumbnail}}" alt="">
                         </div>
-                        <span class="view-counter">759k Views</span>
+                        <!-- <span class="view-counter">759k Views</span> -->
                         <a class="popup-youtube">
                             <i class="far fa-play-circle"></i>
                         </a>
@@ -50,30 +50,9 @@
                         </div>
                     </div>
                 </li>
-                <!-- <li>
-                    <div class="single-top-movie">
-                        <div class="img">
-                            <a href="04_movie-details.html">
-                                <img src="assets/img/home/top-movie-2.jpg" alt="">
-                            </a>
-                        </div>
-                        <span class="view-counter">759k Views</span>
-                        <a class="popup-youtube" href="#" ng-click="playVideo('https://s3.amazonaws.com/lrtv-live-media-bucket/Short+video+clip-nature.mp4-SD.mp4')">
-                            <i class="far fa-play-circle"></i>
-                        </a>
-                        <div class="content">
-                            <h2 class="name">
-                                <a href="04_movie-details.html">The Music Video</a>
-                            </h2>
-                            <p class="date">October 26, 2018</p>
-                            <p class="duration">02 :50 :12</p>
-                        </div>
-                    </div>      
-                </li> -->
+            </ul>
         </div>
-        <p style="display: none;" ng-init="onLoadFeaturedEvt()">
     </div>
 </div>
 
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">
-<link rel="stylesheet" type="text/css" href="assets/css/events.css">

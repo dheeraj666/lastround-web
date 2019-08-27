@@ -60,7 +60,8 @@
                     gapi.load('auth2', function () {//load in the auth2 api's, without it gapi.auth2 will be undefined
                         gapi.auth2.init(
                             {
-                                client_id: '947153249370-6aug1einbj3u3n452beaff3o4h621adb.apps.googleusercontent.com'// $attrs.gClientId
+                                client_id: '369266544331-rc14qermj0ks75cfr5icv2f75fh0cbi1.apps.googleusercontent.com'
+                                //'947153249370-6aug1einbj3u3n452beaff3o4h621adb.apps.googleusercontent.com'// $attrs.gClientId
                             }
                         );
                         var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
@@ -210,6 +211,7 @@
                 }
             })
             .when('/events', {
+                requireLogin: true,
                 cache: false,
                 controller: 'EventsController',
                 templateUrl: 'views/events.view.html',
@@ -223,6 +225,7 @@
                 }
             })
             .when('/catchup', {
+                requireLogin: true,
                 cache: false,
                 controller: 'CatchupController',
                 templateUrl: 'views/catchup.view.html',
@@ -236,6 +239,7 @@
                 }
             })
             .when('/live', {
+                requireLogin: true,
                 cache: false,
                 controller: 'LiveController',
                 templateUrl: 'views/live.view.html',
@@ -288,6 +292,7 @@
                 }
             })
             .when('/profile', {
+                requireLogin: true,
                 cache: false,
                 controller: 'ProfileController',
                 templateUrl: 'views/profile.view.html',
@@ -301,6 +306,7 @@
                 }
             })
             .when('/search/:searchTerm', {
+                requireLogin: true,
                 cache: false,
                 controller: 'SearchController',
                 templateUrl: 'views/search.view.html'
@@ -312,27 +318,13 @@
         ngMetaProvider.setDefaultTag('og:type', 'object')
         ngMetaProvider.setDefaultTag('og:site_name', 'LastRoundTV')
         ngMetaProvider.setDefaultTitleSuffix(' | LastRoundTV.com');
-
-        // $locationProvider.html5Mode({
-        //     enable: true,
-        //     requireBase: false
-        // });
-        // $locationProvider.hashPrefix('');
+        // $locationProvider.html5Mode(true);
+        // $locationProvider.hashPrefix("!");
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
-    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta',
-        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta) {
-
-            $scope.$on("login_required", function () {
-                $rootScope.isSubscribed = false;
-                window.localStorage.removeItem('isSubscribed');
-                window.localStorage.removeItem('accessToken');
-                window.localStorage.removeItem('refreshToken');
-                $rootScope.isLoggedIn = false;
-                location.href = '/#!'
-                // login()
-            });
+    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta', 'AuthenService',
+        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta, AuthenService) {
             $scope.$on("forgot_passs", function () {
                 resetPassword()
             });
@@ -341,6 +333,14 @@
             });
             $rootScope.$on("submit_login", function (event, login_details) {
                 submitLoginForm(login_details)
+            });
+            $rootScope.$on("$routeChangeStart", function (event, currentRoute, previousRoute, c, d, e, f) {
+                let isAuthen = AuthenService.isAuthen();
+                if (currentRoute.$$route.requireLogin) {
+                    if (!isAuthen) {
+                        location.href = '/#!'
+                    }
+                }
             });
             $rootScope.$on("$routeChangeSuccess", function (event, currentRoute, previousRoute) {
                 $("html,body").animate({ scrollTop: $("body").offset().top }, "1000");
@@ -389,19 +389,18 @@
             }
             $scope.menuList = false;
 
-            // $rootScope.isLoggedIn = true;
-            $rootScope.userAccessToken = window.localStorage.getItem('accessToken')
-            if ($rootScope.userAccessToken == undefined || $rootScope.userAccessToken == '' || $rootScope.userAccessToken == null) {
-                $rootScope.isLoggedIn = false;
-                $rootScope.isSubscribe = false;
-            } else {
-                let sub = window.localStorage.getItem('isSubscribed', $rootScope.isSubscribed);
-                if (sub == 'true')
-                    $rootScope.isSubscribed = true;
-                else
-                    $rootScope.isSubscribed = false;
-                $rootScope.isLoggedIn = true;
-            }
+            // $rootScope.userAccessToken = window.localStorage.getItem('accessToken')
+            // if ($rootScope.userAccessToken == undefined || $rootScope.userAccessToken == '' || $rootScope.userAccessToken == null) {
+            //     $rootScope.isLoggedIn = false;
+            //     $rootScope.isSubscribe = false;
+            // } else {
+            //     let sub = window.localStorage.getItem('isSubscribed', $rootScope.isSubscribed);
+            //     if (sub == 'true')
+            //         $rootScope.isSubscribed = true;
+            //     else
+            //         $rootScope.isSubscribed = false;
+            //     $rootScope.isLoggedIn = true;
+            // }
 
             $rootScope.$watch('isLoggedIn', function (old, newval) {
                 console.log(old, ' >< ', newval)
@@ -430,9 +429,7 @@
                         'Authorization': 'Bearer ' + $rootScope.userAccessToken
                     }
                 }).then(function (res) {
-                    window.localStorage.removeItem('isSubscribed');
-                    window.localStorage.removeItem('accessToken');
-                    window.localStorage.removeItem('refreshToken');
+                    AuthenService.clearAuthen();
                     location.reload()
                 }).catch(function (res) {
                     if (res.data && res.data.message)
@@ -529,17 +526,12 @@
                     }
                 }).then(function (res) {
                     if (res.data.status == 1) {
-                        $rootScope.isSubscribed = res.data.data.isSubscribed;
-                        window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
-                        window.localStorage.setItem('accessToken', res.data.data.accessToken);
-                        window.localStorage.setItem('refreshToken', res.data.data.refreshToken);
-                        $rootScope.isLoggedIn = true;
-                        $rootScope.userInfo = res.data.data;
+                        AuthenService.setAuthen(res.data.data);
                         toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
                         setTimeout(function () {
                             location.reload();
                         }, 1500)
-                        $ccope.$apply();
+                        $scope.$apply();
                     }
                 }).catch(function (res) {
                     if (res.data && res.data.msg)
@@ -548,9 +540,10 @@
             }
             function signOutGoogle() {
                 var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                    console.log('User signed out.');
-                });
+                if (auth2)
+                    auth2.signOut().then(function () {
+                        console.log('User signed out.');
+                    });
             }
             //LOGIN FACEBOOK
             $scope.fbLogin = function () {
@@ -595,17 +588,9 @@
                         }
                     }).then(function (res) {
                         if (res.data.status == 1) {
-                            $rootScope.isSubscribed = res.data.data.isSubscribed;
-                            window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
-                            window.localStorage.setItem('accessToken', res.data.data.accessToken);
-                            window.localStorage.setItem('refreshToken', res.data.data.refreshToken);
-                            $rootScope.isLoggedIn = true;
-                            $rootScope.userInfo = res.data.data;
+                            AuthenService.setAuthen(res.data.data);
                             toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
-                            setTimeout(function () {
-                                location.reload();
-                            }, 1500)
-                            $ccope.$apply();
+                            $scope.$apply();
                         }
                     }).catch(function (res) {
                         if (res.data && res.data.msg)
@@ -643,17 +628,9 @@
                     }
                 }).then(function (res) {
                     if (res.data.status == 1) {
-                        $rootScope.isSubscribed = res.data.data.isSubscribed;
-                        window.localStorage.setItem('isSubscribed', $rootScope.isSubscribed);
-                        window.localStorage.setItem('accessToken', res.data.data.accessToken);
-                        window.localStorage.setItem('refreshToken', res.data.data.refreshToken);
-                        $rootScope.isLoggedIn = true;
-                        $rootScope.userInfo = res.data.data;
+                        AuthenService.setAuthen(res.data.data);
                         toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1500)
-                        $ccope.$apply();
+                        $scope.$broadcast('loadHome')
                     }
                 }).catch(function (res) {
                     if (res.data && res.data.msg)

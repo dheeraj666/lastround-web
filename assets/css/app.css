@@ -4052,7 +4052,20 @@ body.home-3 a:hover {
     padding: 5px 0;
 }
 
+.upcoming_events ul,.l_events ul{
+    list-style: none;
+    padding: 0;
+    margin: 0 0 50px 0;
+    overflow: hidden;
+}
 
+.upcoming_events ul li,.l_events ul li{
+    display: inline-block;
+    float: left;
+    padding: 5px 5px;
+    /*width: 25%;*/
+    text-align: center;
+}
 
 @media (max-width: 767px) {
     .home_banner .above .banner_description,.home_banner .above .auth-form  {

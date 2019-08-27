@@ -5,68 +5,30 @@
         .module('app')
         .controller('LiveController', LiveController);
 
-    LiveController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
-    function LiveController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
+    LiveController.$inject = ['$rootScope', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
+    function LiveController($rootScope, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
         $scope.event_id = $location.$$search.event_id;
-        init()
-        function init() {
-            if (!$scope.event_id) {
-                return
-            }
-            $http({
-                url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-                method: 'GET',
+        // fetch data on load
+        $scope.liveEventArray = []
+
+        function onLoadLiveEvt() {
+            $http.get(API.BaseUrl + 'get/events/home', {
+                // params: {
+                //     page: 1, limit: 5
+                // },
                 headers: {
-                    'Authorization': 'Bearer ' + $rootScope.userAccessToken
+                    'Authorization': 'Bearer ' + $rootScope.userAccessToken,
+                    'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                ngMeta.resetMeta();
-                ngMeta.setTitle(res.data.data.event_name);
-                ngMeta.setTag('description', res.data.data.description);
-                if (res.data.data.event_thumbnail) {
-                    var f = res.data.data.event_thumbnail.substring(res.data.data.event_thumbnail.indexOf('event_thumbnail/'), res.data.data.event_thumbnail.length)
-                    var img = API.s3_resize_url + f + '?width=476&height=249';
-                    ngMeta.setTag('og:image', img);
+                let respData = resp.data;
+                if (respData != undefined) {
+                    $scope.events = respData.data.liveArray;
                 }
-                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
-                playVideo(res.data.data)
+                $scope.$apply();
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
-            });
-
-
-        }
-        // fetch data on load
-        $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('accessToken');
-        $scope.liveEventArray = []
-
-
-
-        $scope.onLoadLiveEvt = function () {
-
-            // $http({
-            //   method: 'GET',
-            //   url: API.BaseUrl+'user/subscrption/plan/details',
-            //   headers: {
-            //      "Content-Type": "application/json"
-            //   }
-            // }).then(function(subscriptionResp){
-            //     console.log(subscriptionResp)
-            // })
-
-            $http.get(API.BaseUrl + 'get/events/home', {
-            }).then(function (resp) {
-                let respData = resp.data;
-                if (respData != undefined) {
-                    let respData = resp.data;
-                    $scope.liveEventArray = $scope.liveEventArray.concat(respData.data.liveArray);
-                    // $scope.liveEventArray = $scope.liveEventArray.concat(respData.data.upcomingArray);
-                }
-            }).catch(function (res) {
-                if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
-                    $scope.$emit("login_required", '');
-                }
             });
         }
 
@@ -106,7 +68,37 @@
             }
         }
 
-        // ends here ~ fetch data on load
+        function init() {
+            if (!$scope.event_id) {
+                return
+            }
+            $http({
+                url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Bearer ' + $rootScope.userAccessToken
+                }
+            }).then(function (res) {
+                ngMeta.resetMeta();
+                ngMeta.setTitle(res.data.data.event_name);
+                ngMeta.setTag('description', res.data.data.description);
+                if (res.data.data.event_thumbnail) {
+                    var f = res.data.data.event_thumbnail.substring(res.data.data.event_thumbnail.indexOf('event_thumbnail/'), res.data.data.event_thumbnail.length)
+                    var img = API.s3_resize_url + f + '?width=476&height=249';
+                    ngMeta.setTag('og:image', img);
+                }
+                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
+                playVideo(res.data.data)
+            }).catch(function (res) {
+                if (res.data && res.data.msg)
+                    toaster.pop('error', res.data.msg)
+            });
+
+
+        }
+
+        init()
+        onLoadLiveEvt()
 
     }
 })();

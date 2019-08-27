@@ -29,9 +29,9 @@
             </div>
         </div>
     </div>
-    <div class="container upcoming_events">
+    <div class="container l_events">
         <ul>
-            <li ng-repeat="event in upcomingEventArray" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+            <li ng-repeat="event in events" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                 <div class="single-top-movie" ng-click="playVideo(event)">
                     <div class="img">
                         <img src="{{event.event_thumbnail}}" alt="">
@@ -50,9 +50,7 @@
                 </div>
             </li>
         </ul>
-        <p style="display: none;" ng-init="onLoadUpcomingEvt()">
     </div>
 </div>
 
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">
-<link rel="stylesheet" type="text/css" href="assets/css/events.css">

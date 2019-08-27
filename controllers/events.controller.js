@@ -7,23 +7,22 @@
 
     EventsController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
     function EventsController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
-
-        $scope.upcomingEventArray = []
-
-
-        $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('accessToken');
-        $scope.onLoadUpcomingEvt = function () {
+        onLoadUpcomingEvt()
+        function onLoadUpcomingEvt() {
             $http.get(API.BaseUrl + 'get/events/home', {
-            }).then(function (resp) {
-                let respData = resp.data;
-                if (respData != undefined) {
-                    $scope.upcomingEventArray = respData.data.upcomingArray;
-                    console.log($scope.upcomingEventArray)
+                // params: {
+                //     page: 1, limit: 5
+                // },
+                headers: {
+                    'Authorization': 'Bearer ' + $rootScope.userAccessToken,
+                    'Content-Type': 'application/json'
                 }
+            }).then(function (res) {
+                $scope.events = res.data.data.upcomingArray;
+                $scope.$apply();
             }).catch(function (res) {
-                if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
-                    $scope.$emit("login_required", '');
-                }
+                if (res.data && res.data.msg)
+                    toaster.pop('error', res.data.msg)
             });
         }
 

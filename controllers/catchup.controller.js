@@ -34,52 +34,46 @@
         }
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
-            if ($rootScope.isLoggedIn) {
-                ModalService.showModal({
-                    templateUrl: "views/modal/generic-player.modal.html",
-                    controller: "GenericVideoPlayer",
-                    inputs: {
-                        videoObject: {
-                            videoLink: videoObject.event_trailer,
-                            description: videoObject.description,
-                            title: videoObject.event_name,
-                            channelName: videoObject.channel_category.name,
-                            channelAdmin: videoObject.channel_admin,
-                            startTime: videoObject.start_time,
-                            id: videoObject._id,
-                            ads: videoObject.advertisements
-                        }
+            ModalService.showModal({
+                templateUrl: "views/modal/generic-player.modal.html",
+                controller: "GenericVideoPlayer",
+                inputs: {
+                    videoObject: {
+                        videoLink: videoObject.link_catchup_url,
+                        description: videoObject.description,
+                        title: videoObject.event_name,
+                        channelName: videoObject.channel_admin.name,
+                        channelAdmin: videoObject.channel_admin,
+                        startTime: videoObject.start_time,
+                        id: videoObject._id,
+                        ads: videoObject.advertisements
                     }
-                }).then(function (modal) {
-                    modal.close.then(function (res) {
-                        console.log(res);
-                    });
+                }
+            }).then(function (modal) {
+                modal.close.then(function (res) {
+                    console.log(res);
                 });
-            } else {
-                if (!$scope.event_id) {
-                    location.href = '#!/subscription';
-                }
-            }
-        }
-
-
-        // fetch data on load
-        $http.defaults.headers.common.Authorization = 'Bearer ' + window.localStorage.getItem('accessToken');
-        $scope.completeFeaturedArray = []
-        $scope.onLoadFeaturedEvt = function () {
-            $http.get(API.BaseUrl + 'get/events/home', {
-            }).then(function (resp) {
-                let respData = resp.data;
-                if (respData != undefined) {
-                    $scope.completeFeaturedArray = respData.data.featuredArray;
-                }
-            }).catch(function (res) {
-                if (res.data.status == 401 && res.data.name == "invalid_token" && $rootScope.isLoggedIn) {
-                    $scope.$emit("login_required", '');
-                }
             });
         }
-        // ends here ~ fetch data on load
+        // fetch data on load
+        function getAll() {
+            $http.get(API.BaseUrl + 'events/catchup/ads/list', {
+                // params: {
+                //     page: 1, limit: 15
+                // },
+                headers: {
+                    'Authorization': 'Bearer ' + $rootScope.userAccessToken,
+                    'Content-Type': 'application/json'
+                }
+            }).then(function (res) {
+                $scope.events = res.data.data;
+                $scope.$apply();
+            }).catch(function (res) {
+                if (res.data && res.data.msg)
+                    toaster.pop('error', res.data.msg)
+            });
+        }
+        getAll()
     }
 })();
 

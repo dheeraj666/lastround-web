@@ -9,9 +9,9 @@
     function SearchController($rootScope, $scope, API, $location, $http, ModalService, $window) {
 
         $scope.searchTerm = $location.search().searchTerm;
-        $scope.noResults = false;
         var url = $location.path().split('/');
         $scope.searchTerm = url[2];
+        $scope.videoList = [];
 
         function slider() {
             setTimeout(function () {
@@ -159,20 +159,12 @@
                 }
             })
                 .then(function (res) {
-                    console.log('then', res);
                     $scope.videoList = res.data.data;
-                    if (res.data.length) {
-                        $scope.noResults = false;
-                    } else {
-                        $scope.noResults = true;
-                    }
                     slider();
                     $('#preloader').fadeOut('slow', function () {
                         $(this).remove();
                     });
                 }).catch(function (res) {
-                    console.log('catch', res);
-                    $scope.noResults = true;
                 });
         }
         $scope.handleClickItem = function (video) {

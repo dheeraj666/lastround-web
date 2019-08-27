@@ -59,34 +59,43 @@
             </div>
         </div>
     </section>
-    <section id="featured" ng-if="isLoggedIn && videoList.featuredArray.length > 0">
+    <!-- <section id="featured" ng-if="isLoggedIn && videoList.featuredArray.length > 0">
         <div class="top-movie-area">
             <div class="container">
-                <div ng-class="{'top-movie-carousel owl-carousel':videoList.featuredArray.length > 1,
-                        'col-lg-6 col-md-6 col-sm-6':videoList.featuredArray.length == 1     
-                }">
-                    <div ng-repeat="video in videoList.featuredArray">
-                        <div class="single-top-movie" ng-click="playVideo(video,true)">
-                            <div class="img">
-                                <img ng-src="{{video.event_thumbnail}}" alt="">
+                <div class="row">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="section-title">
+                                <h2>{{ 'upcoming_events' | translate }}</h2>
                             </div>
-                            <!-- <span class="view-counter">{{video.views}} {{ 'views' | translate }}</span> -->
-                            <a class="popup-youtube">
-                                <i class="far fa-play-circle"></i>
-                            </a>
-                            <div class="content">
-                                <h2 class="name">
-                                    {{video.event_name}}
-                                </h2>
-                                <p class="date">{{video.createdAt  | date:'medium'}}</p>
-                                <p class="duration">02 :50 :12</p>
+                        </div>
+                    </div>
+                    <div ng-class="{'top-movie-carousel owl-carousel':videoList.featuredArray.length > 1,
+                            'col-lg-6 col-md-6 col-sm-6':videoList.featuredArray.length == 1     
+                    }">
+                        <div ng-repeat="video in videoList.featuredArray">
+                            <div class="single-top-movie" ng-click="playVideo(video,true)">
+                                <div class="img">
+                                    <img ng-src="{{video.event_thumbnail}}" alt="">
+                                </div>
+                                <span class="view-counter">{{video.views}} {{ 'views' | translate }}</span>
+                                <a class="popup-youtube">
+                                    <i class="far fa-play-circle"></i>
+                                </a>
+                                <div class="content">
+                                    <h2 class="name">
+                                        {{video.event_name}}
+                                    </h2>
+                                    <p class="date">{{video.createdAt  | date:'medium'}}</p>
+                                    <p class="duration">02 :50 :12</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <section id="upcoming" ng-if="isLoggedIn && videoList.upcomingArray.length > 0">
         <div class="movie-tab-area">
             <div class="container">
@@ -128,49 +137,7 @@
             </div>
         </div>
     </section>
-    <!-- <section id="catchup" ng-if="isLoggedIn">
-        <div class="movie-tab-area">
-            <div class="container">
-                <div class="row">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="section-title">
-                                <h2>{{ 'catchup' | translate }}</h2>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
-                            <div ng-class="{'tab-carousel  owl-carousel':videoList.upcomingArray.length > 1,
-                                        'col-lg-6 col-md-6 col-sm-6':videoList.upcomingArray.length == 1    
-                                }">
-                                <div class="single-top-movie" ng-repeat="video in videoList.upcomingArray">
-                                    <div class="img">
-                                        <a href="04_movie-details.html">
-                                            <img src="assets/img/home/top-movie-1.jpeg" alt="">
-                                        </a>
-                                    </div>
-                                    <span class="view-counter">{{video.views}} Views</span>
-                                    <a class="popup-youtube" ng-click="playVideo(video)">
-                                        <i class="far fa-play-circle"></i>
-                                    </a>
-                                    <div class="content">
-                                        <h2 class="name">
-                                            <a href="04_movie-details.html">Angry Man 6o</a>
-                                        </h2>
-                                        <p class="date">{{video.start_time  | date:'medium'}}</p>
-                                        <p class="duration">02 :50 :12</p>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <section id="live" ng-if="isLoggedIn">
+    <section id="live" ng-if="isLoggedIn && videoList.liveArray.length > 0">
         <div class="movie-tab-area">
             <div class="container">
                 <div class="row">
@@ -183,22 +150,20 @@
                     </div>
                     <div class="tab-content" id="myTabContent">
                         <div class="tab-pane show active" id="lmovie" role="tabpanel" aria-labelledby="lmovie-tab">
-                            <div ng-class="{'tab-carousel  owl-carousel':videoList.upcomingArray.length > 1,
-                                        'col-lg-6 col-md-6 col-sm-6':videoList.upcomingArray.length == 1    
+                            <div ng-class="{'tab-carousel  owl-carousel':videoList.liveArray.length > 1,
+                                        'col-lg-6 col-md-6 col-sm-6':videoList.liveArray.length == 1    
                                 }">
-                                <div ng-repeat="video in videoList.upcomingArray" class="single-top-movie">
+                                <div ng-repeat="video in videoList.liveArray" class="single-top-movie">
                                     <div class="img">
-                                        <a href="04_movie-details.html">
-                                            <img ng-src="{{video.event_thumbnail}}" alt="">
-                                        </a>
+                                        <img ng-src="{{video.event_thumbnail}}" alt="">
                                     </div>
-                                    <span class="view-counter">{{video.views}} Views</span>
-                                    <a class="popup-youtube" ng-click="playLiveVideo(video)">
+                                    <!-- <span class="view-counter">{{video.views}} Views</span> -->
+                                    <a class="popup-youtube" href="#/live?event_id={{video._id}}">
                                         <i class="far fa-play-circle"></i>
                                     </a>
                                     <div class="content">
                                         <h2 class="name">
-                                            <a href="04_movie-details.html">{{video.event_name}}</a>
+                                            {{video.event_name}}
                                         </h2>
                                         <p class="date">{{video.start_time  | date:'medium'}}</p>
                                         <p class="duration">02 :50 :12</p>
@@ -210,6 +175,6 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section>
 </div>
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">
