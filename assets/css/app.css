@@ -4061,12 +4061,11 @@ body.home-3 a:hover {
 
 .upcoming_events ul li,.l_events ul li{
     display: inline-block;
-    float: left;
-    padding: 5px 5px;
+    padding-top: 30px;
+    overflow: hidden;
     /*width: 25%;*/
     text-align: center;
 }
-
 @media (max-width: 767px) {
     .home_banner .above .banner_description,.home_banner .above .auth-form  {
         flex: 1 0 100%;
