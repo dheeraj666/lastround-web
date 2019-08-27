@@ -20,19 +20,17 @@
         $scope.absUrl = $location.$$protocol + '://' + $location.$$host + '/#!' + $location.$$path;
 
         function initializePlayer() {
-            var link = `${videoObject.live_ip}:${videoObject.port_no}/${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
+            var link = `${API.media_url}${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
             setTimeout(function () {
                 WowzaPlayer.create('playerElement',
                     {
                         "license": "PLAY2-3tXAt-fjG4n-BE7pu-jpB3E-pvamT",
                         "title": "",
                         "description": "",
-                        // "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
-                        "sources": [
-                            { "sourceURL": "rtsps://" + link },
-                            { "sourceURL": 'rtmps://' + link },
-                            { "sourceURL": "rtsps://" + link }
-                        ],
+                        "sourceURL": "https://" + link,
+                        // "sources": [
+                        //     { "sourceURL": "https://" + link },
+                        // ],
                         "autoPlay": true,
                         "volume": "75",
                         "mute": false,

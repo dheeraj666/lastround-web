@@ -5,7 +5,7 @@
         MEDIA: '/api/',
         // BaseUrl: 'http://13.59.58.222:5000/',
         // MEDIA: 'http://13.59.58.222:5000/',
-
+        media_url:'5d5dda60b332f.streamlock.net/',
         s3_region: 'ap-south-1',
         s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
         s3_bucketName: 'lrtv-new-media-bucket',
