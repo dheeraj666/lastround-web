@@ -10,6 +10,7 @@
         s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
         s3_bucketName: 'lrtv-new-media-bucket',
         s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
+        s3_resize_url:'https://jw1w8011oi.execute-api.ap-south-1.amazonaws.com/production/'
 
         // s3_region: 'us-east-2',
         // s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',

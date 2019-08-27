@@ -21,8 +21,6 @@
 
         function initializePlayer() {
             var link = `${videoObject.live_ip}:${videoObject.port_no}/${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
-
-            console.log(link)
             setTimeout(function () {
                 WowzaPlayer.create('playerElement',
                     {

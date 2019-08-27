@@ -104,7 +104,7 @@
             if (linkType == 'facebook') {
                 window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link))
             } else if (linkType == 'whatsapp') {
-                window.open("whatsapp://send?text=" + link)
+                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(link))
             } else if (linkType == 'twitter') {
                 window.open("https://twitter.com/share?url=" + encodeURIComponent(link))
             }
