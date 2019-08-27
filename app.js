@@ -28,6 +28,24 @@
         .service('countryList', ['$http', function ($http) {
             return $http.get('assets/json/countries.json');
         }])
+        // http interceptor to handle redirection to login on 401 response from API
+        .factory('httpResponseInterceptor', ['$q', '$cookies', '$rootScope', '$location', function ($q, $cookies, $rootScope, $location) {
+            return {
+                responseError: function (rejection) {
+                    if (rejection.status === 401) {
+                        // Something like below:
+                        // AuthenService.clearAuthen();
+                        $cookies.remove('_lrtk');
+                        $cookies.remove('isSubscribed');
+                        $rootScope.isSubscribed = false;
+                        $rootScope.isLoggedIn = false;
+                        $rootScope.userAccessToken = '';
+                        $location.url('/');
+                    }
+                    return $q.reject(rejection);
+                }
+            };
+        }])
         .directive('fileInput', ['$parse', function ($parse) {
             return {
                 $scope: {
@@ -73,11 +91,11 @@
                     });
                 }]
             };
-        });;
+        });
 
     config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider', '$locationProvider', 'ngMetaProvider'];
     function config($routeProvider, $httpProvider, $translateProvider, $compileProvider, $locationProvider, ngMetaProvider) {
-
+        $httpProvider.interceptors.push('httpResponseInterceptor');
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|javascript):/);
         // for language
         angular.lowercase = angular.$$lowercase;
