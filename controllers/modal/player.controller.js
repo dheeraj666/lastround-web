@@ -29,11 +29,9 @@
                         "description": "",
                         // "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
                         "sources": [
-                            { "sourceURL": 'rtmp://3.15.208.194:1935/LRTV/dheerajLive23/playlist.m3u8' },
-                            { "sourceURL": 'rtmps://3.15.208.194:1935/LRTV/dheerajLive23/playlist.m3u8' },
-                            { "sourceURL": "https://" + link },
                             { "sourceURL": "rtsps://" + link },
-                            { "sourceURL": "http://" + link }
+                            { "sourceURL": 'rtmps://' + link },
+                            { "sourceURL": "rtsps://" + link }
                         ],
                         "autoPlay": true,
                         "volume": "75",
