@@ -19,6 +19,7 @@
         function setAuthen(data) {
             $cookies.put('_lrtk', data.accessToken, { expires: data.accessTokenExpiresAt });
             $cookies.put('isSubscribed', data.isSubscribed, { expires: data.accessTokenExpiresAt });
+            $cookies.put('_lrrf', data.accessToken, { expires: data.refreshTokenExpiresAt });
             $rootScope.isSubscribed = data.isSubscribed;
             $rootScope.isLoggedIn = true;
             $rootScope.userAccessToken = data.accessToken;

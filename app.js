@@ -434,6 +434,7 @@
                 }).catch(function (res) {
                     if (res.data && res.data.message)
                         toaster.pop('error', res.data.message)
+                    AuthenService.clearAuthen();
                     location.reload()
                 });
                 logOutFBUser();
