@@ -51,11 +51,11 @@
         $scope.shareLink = function (linkType) {
             var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id
             if (linkType == 'facebook') {
-                window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link))
+                return "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link);
             } else if (linkType == 'whatsapp') {
-                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(link) + "' data-action='share/whatsapp/share'")
+                return "https://api.whatsapp.com/send?text=" + encodeURIComponent(link);
             } else if (linkType == 'twitter') {
-                window.open('https://twitter.com/share?url=' + encodeURIComponent(link))
+                return "https://twitter.com/share?url=" + encodeURIComponent(link);
             }
         }
         //Handle Ad

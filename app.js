@@ -330,7 +330,7 @@
                 window.localStorage.removeItem('accessToken');
                 window.localStorage.removeItem('refreshToken');
                 $rootScope.isLoggedIn = false;
-                location.href = '/'
+                location.href = '/#!'
                 // login()
             });
             $scope.$on("forgot_passs", function () {
