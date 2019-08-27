@@ -31,6 +31,7 @@
                         "description": "",
                         // "sourceURL": 'http://' + link,//'https://3.15.208.194:1935/LRTV/dheerajLive11/playlist.m3u8',
                         "sources": [
+                            { "sourceURL": 'rtmp://3.15.208.194:1935/LRTV/dheerajLive23/playlist.m3u8' },
                             { "sourceURL": "https://" + link },
                             { "sourceURL": "rtsp://" + link },
                             { "sourceURL": "http://" + link },
@@ -57,7 +58,7 @@
             if (linkType == 'facebook') {
                 window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link))
             } else if (linkType == 'whatsapp') {
-                window.open("whatsapp://send?text=" + link)
+                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(link))
             } else if (linkType == 'twitter') {
                 window.open("https://twitter.com/share?url=" + encodeURIComponent(link))
             }
