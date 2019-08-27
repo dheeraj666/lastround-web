@@ -53,7 +53,7 @@
             if (linkType == 'facebook') {
                 window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link))
             } else if (linkType == 'whatsapp') {
-                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(link) + ' data-action="share/whatsapp/share"')
+                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(link) + "' data-action='share/whatsapp/share'")
             } else if (linkType == 'twitter') {
                 window.open('https://twitter.com/share?url=' + encodeURIComponent(link))
             }
