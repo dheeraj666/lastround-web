@@ -1,0 +1,36 @@
+<div class="other-page-breadcumb-area bg-with-ebony">
+</div>
+<div class="upcoming-movie-area">
+    <div class="container l_events">
+        <div class="row">
+            <ul style="
+            display: flex;
+            justify-content: center;
+            align-items: center;">
+                <li class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                    <div class="single-top-movie" ng-click="playVideo(event)">
+                        <div class="img">
+                            <img src="{{event.event_thumbnail}}" alt="">
+                        </div>
+                        <!-- <span class="view-counter">759k Views</span> -->
+                        <a class="popup-youtube">
+                            <i class="far fa-play-circle"></i>
+                        </a>
+                        <div class="content">
+                            <h2 class="name">
+                                {{event.event_name}}
+                            </h2>
+                            <p class="date">{{event.start_time}}</p>
+                            <p class="duration">02 :50 :12</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <h3 class="text-uppercase">
+                {{event.event_name}}</h3>
+            <h4> {{event.description}}</h4>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="assets/css/home.css">

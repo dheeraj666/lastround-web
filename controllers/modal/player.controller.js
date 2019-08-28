@@ -48,7 +48,7 @@
                 return API.s3_url + image
         }
         $scope.shareLink = function (linkType) {
-            var link = API.rootUrl + '#!/live?event_id=' + $scope.videoObject.id;
+            var link = API.rootUrl + '#!/share/' + $scope.videoObject.id;
             if (linkType == 'facebook') {
                 return "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link);
             } else if (linkType == 'whatsapp') {

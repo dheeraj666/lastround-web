@@ -68,7 +68,6 @@
         $scope.close = close;
         $scope.videoObject = videoObject;
         $scope.videoElement = null;
-        $scope.absUrl = API.rootUrl + '#!' + $location.$$path;
         $scope.callApi = function () {
             $http.put(API.BaseUrl + 'user/event/shown/fifteen', null, {
                 headers: {
@@ -100,22 +99,7 @@
         }
 
         $scope.shareLink = function (linkType) {
-            if ($scope.videoObject.section) {
-                switch ($scope.videoObject.section) {
-                    case 'live':
-                        $scope.absUrl = API.rootUrl + '#!/live'
-                        break;
-                    case 'upcoming':
-                        $scope.absUrl = API.rootUrl + '#!/events'
-                        break;
-                    case 'catchup':
-                        $scope.absUrl = API.rootUrl + '#!/catchup'
-                        break;
-                    default:
-                        break;
-                }
-            }
-            var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id;
+            var link = API.rootUrl + '#!/share/' + $scope.videoObject.id;
             if (linkType == 'facebook') {
                 return "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link);
             } else if (linkType == 'whatsapp') {

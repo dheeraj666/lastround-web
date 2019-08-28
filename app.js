@@ -329,6 +329,11 @@
                 controller: 'SearchController',
                 templateUrl: 'views/search.view.html'
             })
+            .when('/share/:id', {
+                cache: false,
+                controller: 'ShareController',
+                templateUrl: 'views/share.view.html',
+            })
 
 
             .otherwise({ redirectTo: '/' });

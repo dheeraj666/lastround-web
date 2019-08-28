@@ -10,31 +10,31 @@
     function CatchupController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, ModalService, $http, $location, ngMeta) {
 
         $scope.event_id = $location.$$search.event_id;
-        init()
-        function init() {
-            if (!$scope.event_id) {
-                return
-            }
-            $http({
-                url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-                method: 'GET'
-            }).then(function (res) {
-                ngMeta.setTitle(res.data.data.event_name);
-                ngMeta.setTag('description', res.data.data.description);
-                ngMeta.setTag('og:image', res.data.data.event_thumbnail);
-                ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/catchup?event_id=' + $scope.event_id);
-                // if ($rootScope.isLoggedIn)
-                //     //check subsription here
-                //     playVideo(res.data.data)
-                // else {
-                //     toaster.pop('success', 'You need to login to watch the video.')
-                // }
-            }).catch(function (res) {
-                if (res.data && res.data.msg)
-                    toaster.pop('error', res.data.msg)
-                location.href = '/'
-            });
-        }
+        // init()
+        // function init() {
+        //     if (!$scope.event_id) {
+        //         return
+        //     }
+        //     $http({
+        //         url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
+        //         method: 'GET'
+        //     }).then(function (res) {
+        //         ngMeta.setTitle(res.data.data.event_name);
+        //         ngMeta.setTag('description', res.data.data.description);
+        //         ngMeta.setTag('og:image', res.data.data.event_thumbnail);
+        //         ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/catchup?event_id=' + $scope.event_id);
+        //         // if ($rootScope.isLoggedIn)
+        //         //     //check subsription here
+        //         //     playVideo(res.data.data)
+        //         // else {
+        //         //     toaster.pop('success', 'You need to login to watch the video.')
+        //         // }
+        //     }).catch(function (res) {
+        //         if (res.data && res.data.msg)
+        //             toaster.pop('error', res.data.msg)
+        //         location.href = '/'
+        //     });
+        // }
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
             // if (!$rootScope.isSubscribed) {
@@ -74,6 +74,14 @@
                 }
             }).then(function (res) {
                 $scope.events = res.data.data;
+                if ($scope.event_id) {
+                    $scope.event = $scope.events.find(function (f) {
+                        return f._id == $scope.event_id
+                    })
+                    if ($scope.event) {
+                        playVideo($scope.event)
+                    }
+                }
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
