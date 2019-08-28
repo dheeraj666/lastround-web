@@ -21,10 +21,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                let respData = resp.data;
-                if (respData != undefined) {
-                    $scope.events = respData.data.liveArray;
-                }
+                $scope.events = res.data.data.liveArray;
                 $scope.$apply();
             }).catch(function (res) {
                 if (res.data && res.data.msg)
@@ -34,38 +31,34 @@
 
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
-            if ($rootScope.isLoggedIn) { //&& $rootScope.isSubscribed
-                ModalService.showModal({
-                    templateUrl: "views/modal/player.modal.html",
-                    controller: "PlayerController",
-                    inputs: {
-                        videoObject: {
-                            videoLink: videoObject.live_catchup_url,
-                            description: videoObject.description,
-                            title: videoObject.event_name,
-                            channelName: videoObject.channel_category.name,
-                            channelAdmin: videoObject.channel_admin,
-                            startTime: videoObject.start_time,
-                            ads: videoObject.advertisements,
-                            id: videoObject._id,
-                            application_name: videoObject.application_name,
-                            live_ip: videoObject.live_ip,
-                            stream_key: videoObject.stream_key,
-                            port_no: videoObject.port_no,
-                            image: videoObject.event_thumbnail
-                        }
+            // if (!$rootScope.isSubscribed) {
+            //     return
+            // }
+            ModalService.showModal({
+                templateUrl: "views/modal/player.modal.html",
+                controller: "PlayerController",
+                inputs: {
+                    videoObject: {
+                        videoLink: videoObject.live_catchup_url,
+                        description: videoObject.description,
+                        title: videoObject.event_name,
+                        channelName: videoObject.channel_category.name,
+                        channelAdmin: videoObject.channel_admin,
+                        startTime: videoObject.start_time,
+                        ads: videoObject.advertisements,
+                        id: videoObject._id,
+                        application_name: videoObject.application_name,
+                        live_ip: videoObject.live_ip,
+                        stream_key: videoObject.stream_key,
+                        port_no: videoObject.port_no,
+                        image: videoObject.event_thumbnail
                     }
-                }).then(function (modal) {
-                    modal.close.then(function (res) {
-                        console.log(res);
-                    });
-                });
-            } else {
-                if (!$scope.event_id) {
-                    location.href = '/';
                 }
-                // location.href = '#!/subscription';
-            }
+            }).then(function (modal) {
+                modal.close.then(function (res) {
+                    console.log(res);
+                });
+            });
         }
 
         function init() {
@@ -92,6 +85,7 @@
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
+                $location.hre = '/';
             });
 
 

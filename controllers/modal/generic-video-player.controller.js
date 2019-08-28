@@ -69,7 +69,9 @@
         $scope.videoObject = videoObject;
         $scope.videoElement = null;
 
-        $scope.absUrl = $location.$$protocol + '://' + $location.$$host + '/#!' + $location.$$path;
+
+
+        $scope.absUrl = API.rootUrl + '#!' + $location.$$path;
         $scope.callApi = function () {
             $http.put(API.BaseUrl + 'user/event/shown/fifteen', null, {
                 headers: {
@@ -99,14 +101,30 @@
             else
                 return API.s3_url + image
         }
+
         $scope.shareLink = function (linkType) {
-            var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id
+            if ($scope.videoObject.section) {
+                switch ($scope.videoObject.section) {
+                    case 'live':
+                        $scope.absUrl = API.rootUrl + '#!/live'
+                        break;
+                    case 'upcoming':
+                        $scope.absUrl = API.rootUrl + '#!/events'
+                        break;
+                    case 'catchup':
+                        $scope.absUrl = API.rootUrl + '#!/catchup'
+                        break;
+                    default:
+                        break;
+                }
+            }
+            var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id;
             if (linkType == 'facebook') {
-                window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link))
+                return "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link);
             } else if (linkType == 'whatsapp') {
-                window.open("https://api.whatsapp.com/send?text=" + encodeURIComponent(link))
+                return "https://api.whatsapp.com/send?text=" + encodeURIComponent(link);
             } else if (linkType == 'twitter') {
-                window.open("https://twitter.com/share?url=" + encodeURIComponent(link))
+                return "https://twitter.com/share?url=" + encodeURIComponent(link);
             }
         }
 

@@ -178,7 +178,7 @@
                         $(this).remove();
                     });
                 }).catch(function (res) {
-                    
+
                 });
         }
 
@@ -197,7 +197,8 @@
                         startTime: videoObject.start_time,
                         ads: ignordAd ? null : videoObject.advertisements,
                         id: videoObject._id,
-                        isHome: true
+                        isHome: true,
+                        section: videoObject.section
                     }
                 }
             }).then(function (modal) {
@@ -206,29 +207,29 @@
             });
         }
 
-        $scope.playLiveVideo = function (videoObject) {
-            ModalService.showModal({
-                templateUrl: "views/modal/player.modal.html",
-                controller: "PlayerController",
-                inputs: {
-                    videoLink: videoObject.live_web_url,
-                    videoObject: {
-                        videoLink: videoObject.live_catchup_url,
-                        description: videoObject.description,
-                        title: videoObject.event_name,
-                        channelName: videoObject.channel_category.name,
-                        channelAdmin: videoObject.channel_admin,
-                        startTime: videoObject.start_time,
-                        ads: videoObject.advertisements,
-                        id: videoObject._id
-                    }
-                }
-            }).then(function (modal) {
-                modal.close.then(function (res) {
-                    console.log(res);
-                });
-            });
-        }
+        // $scope.playLiveVideo = function (videoObject) {
+        //     ModalService.showModal({
+        //         templateUrl: "views/modal/player.modal.html",
+        //         controller: "PlayerController",
+        //         inputs: {
+        //             videoLink: videoObject.live_web_url,
+        //             videoObject: {
+        //                 videoLink: videoObject.live_catchup_url,
+        //                 description: videoObject.description,
+        //                 title: videoObject.event_name,
+        //                 channelName: videoObject.channel_category.name,
+        //                 channelAdmin: videoObject.channel_admin,
+        //                 startTime: videoObject.start_time,
+        //                 ads: videoObject.advertisements,
+        //                 id: videoObject._id
+        //             }
+        //         }
+        //     }).then(function (modal) {
+        //         modal.close.then(function (res) {
+        //             console.log(res);
+        //         });
+        //     });
+        // }
 
         fetchVideoData()
     }

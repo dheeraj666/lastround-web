@@ -30,10 +30,14 @@
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
+                location.href = '/'
             });
         }
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
+            // if (!$rootScope.isSubscribed) {
+            //     return
+            // }
             ModalService.showModal({
                 templateUrl: "views/modal/generic-player.modal.html",
                 controller: "GenericVideoPlayer",
@@ -46,7 +50,8 @@
                         channelAdmin: videoObject.channel_admin,
                         startTime: videoObject.start_time,
                         id: videoObject._id,
-                        ads: videoObject.advertisements
+                        ads: videoObject.advertisements,
+                        section: videoObject.section || 'catchup'
                     }
                 }
             }).then(function (modal) {

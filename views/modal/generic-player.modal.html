@@ -30,21 +30,21 @@
 
             <!-- share page -->
 
-            <div class="about_socials" ng-show="!videoObject.isHome">
+            <div class="about_socials">
                 <label>Share:</label>
                 <ul class="social">
                     <li data-href="https://developers.facebook.com/docs/plugins/">
-                        <a a target="_blank" ng-click="shareLink('facebook')" class="fb-xfbml-parse-ignore">
+                        <a ng-href="{{shareLink('facebook')}}" target="_blank" class="fb-xfbml-parse-ignore">
                             <i class="fab fa-facebook-f"></i>
                         </a>
                     </li>
                     <li>
-                        <a ng-click="shareLink('twitter')">
+                        <a target="_blank" href="#" ng-href="{{shareLink('twitter')}}">
                             <i class="fab fa-twitter"></i>
                         </a>
                     </li>
                     <li>
-                        <a ng-click="shareLink('whatsapp')">
+                        <a target="_blank" href="#" ng-href="{{shareLink('whatsapp')}}">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </li>

@@ -40,7 +40,8 @@
                         channelAdmin: videoObject.channel_admin,
                         startTime: videoObject.start_time,
                         ads: videoObject.advertisements,
-                        id: videoObject._id
+                        id: videoObject._id,
+                        section: videoObject.section || 'upcoming'
                     }
                 }
             }).then(function (modal) {

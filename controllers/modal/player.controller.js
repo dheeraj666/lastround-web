@@ -17,7 +17,6 @@
             close();
         };
         $scope.videoObject = videoObject;
-        $scope.absUrl = $location.$$protocol + '://' + $location.$$host + '/#!' + $location.$$path;
 
         function initializePlayer() {
             var link = `${API.media_url}${videoObject.application_name}/${videoObject.stream_key}/playlist.m3u8`
@@ -49,7 +48,7 @@
                 return API.s3_url + image
         }
         $scope.shareLink = function (linkType) {
-            var link = $scope.absUrl + '?event_id=' + $scope.videoObject.id
+            var link = API.rootUrl + '#!/live?event_id=' + $scope.videoObject.id;
             if (linkType == 'facebook') {
                 return "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(link);
             } else if (linkType == 'whatsapp') {
