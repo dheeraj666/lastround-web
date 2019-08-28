@@ -91,7 +91,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                toaster.pop('success', res.data.msg);
+                toaster.pop('success', 'Thank you for your request, we will respond as soon as possible!');
                 close()
             }).catch(function (res) {
                 if (res.data && res.data.msg)
