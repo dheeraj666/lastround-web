@@ -92,6 +92,7 @@
                 }
             }).then(function (res) {
                 toaster.pop('success', res.data.msg);
+                close()
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
