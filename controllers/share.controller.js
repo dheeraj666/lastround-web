@@ -17,7 +17,7 @@
                 return
             }
             $http({
-                url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
+                url: API.BaseUrl + 'events/share/detail/' + $scope.event_id,
                 method: 'GET',
             }).then(function (res) {
                 ngMeta.resetMeta();
