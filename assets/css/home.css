@@ -339,11 +339,6 @@ section{ overflow: hidden; }
 .ums-carousel .owl-nav .owl-next {
     margin-left: 5px;
 }
-/*CATCHUP*/
-.movie-tab-area {
-    padding: 33px 0 30px;
-}
-
 .movie-tab {}
 
 .movie-tab .nav-tabs {
