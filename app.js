@@ -333,6 +333,12 @@
                 cache: false,
                 controller: 'ShareController',
                 templateUrl: 'views/share.view.html',
+                meta: {
+                    'title': 'Share Event ',
+                    'description': 'Share Event Last Round TV.',
+                    'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
+                    'og:url': 'https://lastroundtv.com/'
+                }
             })
 
 
