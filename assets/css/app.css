@@ -541,7 +541,7 @@ header {}
     /* overflow: auto;  */
     width: 100%;
     height: 100%;
-    height: auto;
+    min-height: 900px;
 }
 
 .header-top-area {
@@ -987,7 +987,7 @@ footer {
     padding: 38px 0 0; */
     /* padding: 38px 0 0; */
     max-height: 500px;
-    padding-top: 50px;
+    padding-top: 300px;
 }
 
 .footer-top-area {

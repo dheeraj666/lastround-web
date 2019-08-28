@@ -68,9 +68,6 @@
         $scope.close = close;
         $scope.videoObject = videoObject;
         $scope.videoElement = null;
-
-
-
         $scope.absUrl = API.rootUrl + '#!' + $location.$$path;
         $scope.callApi = function () {
             $http.put(API.BaseUrl + 'user/event/shown/fifteen', null, {
@@ -127,31 +124,22 @@
                 return "https://twitter.com/share?url=" + encodeURIComponent(link);
             }
         }
-
+        //Handle Play Ad
         $scope.adsUrl = '';
         $scope.showSkip = false;
         $scope.skipAd = skipAd;
+        function hmsToSecondsOnly(str) {
+            var p = str.split(':'),
+                s = 0, m = 1;
 
+            while (p.length > 0) {
+                s += m * parseInt(p.pop(), 10);
+                m *= 60;
+            }
 
-        function getListTimePlayAds() {
-            var adLength = $scope.videoObject.ads ? $scope.videoObject.ads.length : 0;
-            if (!adLength || !$scope.duration)
-                return [];
-            if (adLength == 1) {
-                let t = Math.round($scope.duration / 2)
-                $scope.videoObject.ads[0].time = t;
-                return [t];
-            }
-            var breaktime = Math.round(($scope.duration - 30) / (adLength));
-            var item = breaktime;
-            var list = [];
-            for (let index = 0; index < adLength; index++) {
-                list.push(item)
-                $scope.videoObject.ads[index].time = item;
-                item += breaktime;
-            }
-            return list;
+            return s;
         }
+
         function skipAd() {
             $scope.adsUrl = '';
             $scope.showSkip = false;
@@ -179,33 +167,26 @@
         }
         angular.element(document).ready(function () {
             $scope.mainPlayer = angular.element(".generic-vid-player")[0];
-            $scope.mainPlayer.addEventListener("canplay", function () {
-                $scope.duration = Math.round(this.duration)
-                $scope.listBreakAds = getListTimePlayAds()
-            });
             $scope.mainPlayer.addEventListener('timeupdate', function () {
-                if (!$scope.listBreakAds || $scope.listBreakAds.length == 0)
-                    return;
                 let current = Math.round($scope.mainPlayer.currentTime);
-                var check = $scope.listBreakAds.includes(current)
-                if (check) {
-                    $scope.listBreakAds.shift();
-                    let ad = $scope.videoObject.ads.find(function (f) {
-                        return f.time == current
-                    })
-                    if (!ad)
-                        return
-                    $scope.adsUrl = ad.media_url;// '//content.jwplatform.com/videos/1g8jjku3-cIp6U8lV.mp4'
+                let ad = $scope.videoObject.ads.find(function (f) {
+                    return hmsToSecondsOnly(f.start_time) == current
+                })
+                if (!ad)
+                    return;
+                $scope.videoObject.ads = $scope.videoObject.ads.filter(function (f) {
+                    return f._id != ad._id;
+                })
+                $scope.adsUrl = ad.advertisement.media_url;// '//content.jwplatform.com/videos/1g8jjku3-cIp6U8lV.mp4'
+                $scope.$apply();
+                //Random s to show skip
+                let rad = Math.floor(Math.random() * (11 - 5 + 1) + 5)
+                $scope.mainPlayer.pause();
+                setTimeout(function () {
+                    $scope.showSkip = true;
                     $scope.$apply();
-                    //Random s to show skip
-                    let rad = Math.floor(Math.random() * (11 - 5 + 1) + 5)
-                    $scope.mainPlayer.pause();
-                    setTimeout(function () {
-                        $scope.showSkip = true;
-                        $scope.$apply();
-                    }, rad * 1000)
-                    handleEndAd()
-                }
+                }, rad * 1000)
+                handleEndAd()
             });
         })
 

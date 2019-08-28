@@ -67,10 +67,7 @@
             }
             $http({
                 url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + $rootScope.userAccessToken
-                }
+                method: 'GET'
             }).then(function (res) {
                 ngMeta.resetMeta();
                 ngMeta.setTitle(res.data.data.event_name);

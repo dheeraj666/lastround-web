@@ -17,10 +17,7 @@
             }
             $http({
                 url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-                method: 'GET',
-                headers: {
-                    'Authorization': 'Bearer ' + $rootScope.userAccessToken
-                }
+                method: 'GET'
             }).then(function (res) {
                 ngMeta.setTitle(res.data.data.event_name);
                 ngMeta.setTag('description', res.data.data.description);
@@ -72,7 +69,6 @@
                 }
             }).then(function (res) {
                 $scope.events = res.data.data;
-                $scope.$apply();
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)

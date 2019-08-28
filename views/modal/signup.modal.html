@@ -6,22 +6,22 @@
 		<div class="close" ng-click="close()" style="width: 50%; float: right; text-align: right;"><img
 				src="assets/img/icons/close.png"></div>
 	</div>
-	<form name="signup_form" ng-if="signup_view">
+	<form name="signup_form" ng-if="signup_view" ng-submit="submitForm()">
 		<h1>{{ 'sign_up' | translate }}</h1>
 		<div class="btn member_btn" ng-click="memberView()">{{ 'become_member_text' | translate }}</div>
 		<div class="two_cols">
 			<div>
 				<div class="field_container">
 					<label>{{ 'name' | translate }}</label>
-					<input type="text" name="name" ng-model="signup.fullName">
+					<input type="text" name="name" ng-model="signup.fullName" required>
 				</div>
 				<div class="field_container">
 					<label>{{ 'email' | translate }}</label>
-					<input type="email" name="email" ng-model="signup.email">
+					<input type="email" name="email" ng-model="signup.email" required>
 				</div>
 				<div class="field_container">
 					<label>{{ 'password' | translate }}</label>
-					<input type="password" name="password" ng-model="signup.password">
+					<input type="password" name="password" ng-model="signup.password" required>
 				</div>
 				<div class="field_container">
 					<label>{{ 'referral_code' | translate }}</label>
@@ -56,7 +56,7 @@
 			{{signupError}}
 		</div>
 		<div class="btn_container signup">
-			<button ng-click="submitForm()">{{ 'sign_up' | translate }}</button>
+			<button type="submit">{{ 'sign_up' | translate }}</button>
 			<br>
 			<div>
 				<span>{{ 'already_have_account_text' | translate }}?</span>
@@ -74,17 +74,21 @@
 		</ul> -->
 	</form>
 
-	<form name="member_form" ng-if="member_view">
+	<form name="member_form" ng-if="member_view" ng-submit="requestForm()">
 		<h1>{{ 'become_member_text' | translate }}</h1>
 		<div class="two_cols">
 			<div>
 				<div class="field_container">
 					<label>{{ 'name' | translate }}</label>
-					<input type="text" name="name" ng-model="member.fullName">
+					<input type="text" name="name" ng-model="member.fullName" required>
 				</div>
 				<div class="field_container">
 					<label>{{ 'email' | translate }}</label>
-					<input type="email" name="email" ng-model="member.email">
+					<input type="email" name="email" ng-model="member.email" required>
+				</div>
+				<div class="field_container">
+					<label>{{ 'contact_number' | translate }}</label>
+					<input type="number" name="phoneNumber" ng-model="member.phoneNumber">
 				</div>
 				<div class="field_container">
 					<label>{{ 'category' | translate }}</label>
@@ -94,44 +98,40 @@
 							{{category.name}}</option>
 					</select>
 				</div>
-				<div class="field_container">
-					<label>{{ 'city' | translate }}</label>
-					<select ng-model="member.city">
-						<option value="">{{ 'select_city' | translate }}</option>
-						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}
-						</option>
-					</select>
-				</div>
 			</div>
 			<div>
 				<div class="field_container">
 					<label>{{ 'channel_name' | translate }}</label>
-					<input type="text" name="channelName" ng-model="member.channelName">
-				</div>
-				<div class="field_container">
-					<label>{{ 'contact_number' | translate }}</label>
-					<input type="number" name="phoneNumber" ng-model="member.phoneNumber">
+					<input type="text" name="channelName" ng-model="member.channelName" required>
 				</div>
 				<div class="field_container">
 					<label>{{ 'country' | translate }}</label>
-					<select ng-model="member.country">
+					<select ng-model="member.country" ng-change="getState(member.country)">
 						<option value="">{{ 'select_country' | translate }}</option>
-						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}
+						<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}
 						</option>
 					</select>
 				</div>
 				<div class="field_container">
 					<label>{{ 'state' | translate }}</label>
-					<select ng-model="member.state">
+					<select ng-model="member.state" ng-change="getCity(member.state)">
 						<option value="">{{ 'select_state' | translate }}</option>
-						<option ng-repeat="country in countries" value="{{country.country}}">{{country.country}}
+						<option ng-repeat="state in states" value="{{state}}">{{state}}
+						</option>
+					</select>
+				</div>
+				<div class="field_container">
+					<label>{{ 'city' | translate }}</label>
+					<select ng-model="member.city">
+						<option value="">{{ 'select_city' | translate }}</option>
+						<option ng-repeat="city in cities" value="{{city}}">{{city}}
 						</option>
 					</select>
 				</div>
 			</div>
 		</div>
 		<div class="btn_container signup">
-			<button ng-click="requestForm()">{{ 'request' | translate }}</button>
+			<button type="submit">{{ 'request' | translate }}</button>
 		</div>
 	</form>
 </div>

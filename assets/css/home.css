@@ -1,10 +1,11 @@
 section{ overflow: hidden; }
 .home_banner{ 
-    max-height: 500px;
+    min-height: 600px;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: visible;
     
 }
 .home_banner img{ margin-top: -10%; } /*Banner size dependency*/
