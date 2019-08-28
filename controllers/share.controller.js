@@ -20,6 +20,7 @@
                 url: API.BaseUrl + 'events/share/detail/' + $scope.event_id,
                 method: 'GET',
             }).then(function (res) {
+                ngMeta.resetMeta();
                 ngMeta.setTitle(res.data.data.event_name);
                 ngMeta.setTag('description', res.data.data.description);
                 if (res.data.data.event_thumbnail) {
