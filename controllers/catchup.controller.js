@@ -23,7 +23,12 @@
                 ngMeta.setTag('description', res.data.data.description);
                 ngMeta.setTag('og:image', res.data.data.event_thumbnail);
                 ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/catchup?event_id=' + $scope.event_id);
-                playVideo(res.data.data)
+                // if ($rootScope.isLoggedIn)
+                //     //check subsription here
+                //     playVideo(res.data.data)
+                // else {
+                //     toaster.pop('success', 'You need to login to watch the video.')
+                // }
             }).catch(function (res) {
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
