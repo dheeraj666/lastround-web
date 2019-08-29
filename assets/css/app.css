@@ -4008,19 +4008,19 @@ body.home-3 a:hover {
     position: relative;
     width: 35%;
     margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .social_login_title_container > div{
-    text-align: center;
-    width: auto;
-    display: inline-block;
     background-color: #fff;
-    padding: 0 15px;
+    padding: 0px 10px;
     position: absolute;
     top: -10px;
-    left: 23%;
     font-size: 15px;
     letter-spacing: 1.5px;
+    border-radius: 4px;
 }
 
 #social_icons{

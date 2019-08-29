@@ -1,10 +1,19 @@
 <style>
-    .wr {
-        color: #dddddb;
+    .scroll_wr {
+        /* -webkit-overflow-scrolling: touch !important;
+        overflow: auto !important; */
+        width: 100%;
+        height: 1900px;
         flex-direction: column;
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .scroll_wr iframe {
+        width: 90%;
+        height: 100%;
+        border: 0;
     }
 </style>
 <!-- <div class="other-page-breadcumb-area bg-with-ebony">
@@ -28,16 +37,15 @@
         </div>
     </div>
 </div> -->
-<div class="wr en" ng-if="!changedLang">
-    <iframe type="application/pdf" src="https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terms+of+USE.pdf"
-        style="width: 90%;height: 1920px;border: none;">
+<div class="scroll_wr" ng-show="!changedLang">
+    <iframe type="application/pdf"
+        src="https://docs.google.com/gview?url=https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terms+of+USE.pdf&embedded=true">
         <p>Your browser does not support iframes.</p>
     </iframe>
 </div>
-<div class="wr en" ng-if="changedLang">
+<div class="scroll_wr" ng-show="changedLang">
     <iframe type="application/pdf"
-        src="https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terminos%2Bde%2BUso%2BREV-converted.pdf"
-        style="width: 90%;height: 1920px;border: none;">
+        src="https://docs.google.com/gview?url=https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terminos_de_Uso_REV_converted.pdf&embedded=true">
         <p>Your browser does not support iframes.</p>
     </iframe>
 </div>
