@@ -4074,6 +4074,6 @@ body.home-3 a:hover {
         overflow: unset!important;
     }
     .modal_container {
-        min-width: unset!important;
+        min-width: 90%!important;
     }
 }

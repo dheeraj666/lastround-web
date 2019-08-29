@@ -19,7 +19,7 @@ section{ overflow: hidden; }
 }
 
 .banner_description p{ color: #fff; font-size: 18px; margin-top: 10px; }
-.section-title { margin: 0 0 30px; }
+.section-title { margin: 30px 0px; }
 .section-title h2 {
     border-bottom: 1px solid #3d3c4d;
     /*font-size: 36px;*/
