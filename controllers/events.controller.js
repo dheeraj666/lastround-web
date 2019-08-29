@@ -48,7 +48,8 @@
                         startTime: videoObject.start_time,
                         ads: videoObject.advertisements,
                         id: videoObject._id,
-                        section: videoObject.section || 'upcoming'
+                        section: videoObject.section || 'upcoming',
+                        location:videoObject.event_location
                     }
                 }
             }).then(function (modal) {

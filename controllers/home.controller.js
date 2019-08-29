@@ -198,7 +198,8 @@
                         ads: ignordAd ? null : videoObject.advertisements,
                         id: videoObject._id,
                         isHome: true,
-                        section: videoObject.section
+                        section: videoObject.section,
+                        location:videoObject.event_location
                     }
                 }
             }).then(function (modal) {

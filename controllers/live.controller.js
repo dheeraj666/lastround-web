@@ -56,7 +56,8 @@
                         live_ip: videoObject.live_ip,
                         stream_key: videoObject.stream_key,
                         port_no: videoObject.port_no,
-                        image: videoObject.event_thumbnail
+                        image: videoObject.event_thumbnail,
+                        location:videoObject.event_location
                     }
                 }
             }).then(function (modal) {

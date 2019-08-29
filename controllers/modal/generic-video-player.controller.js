@@ -81,15 +81,7 @@
                 });
         }
 
-        angular.element(".generic-vid-player").click(function (e) {
-            if (e.offsetY < ($(this).height() - 36)) // Check to see if controls where clicked
-            {
-                if (this.paused)
-                    this.play();
-                else
-                    this.pause();
-            }
-        });
+
 
         $scope.viewImage = function (image) {
             if (image.includes('https') || image.includes('amazonaws.com'))
@@ -151,9 +143,23 @@
         }
         angular.element(document).ready(function () {
             $scope.mainPlayer = angular.element(".generic-vid-player")[0];
+            $scope.mainPlayer.click(function (e) {
+                if (e.offsetY < ($(this).height() - 36)) // Check to see if controls where clicked
+                {
+                    if (this.paused)
+                        this.play();
+                    else
+                        this.pause();
+                }
+            });
+            $scope.mainPlayer.addEventListener('canplay', function () {
+                this.play();
+            })
             $scope.mainPlayer.addEventListener('timeupdate', function () {
                 let current = Math.round($scope.mainPlayer.currentTime);
                 let ad = $scope.videoObject.ads.find(function (f) {
+                    if (!f.start_time)
+                        return null;
                     return hmsToSecondsOnly(f.start_time) == current
                 })
                 if (!ad)

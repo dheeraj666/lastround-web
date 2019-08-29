@@ -1,0 +1,43 @@
+<style>
+    .wr {
+        color: #dddddb;
+        flex-direction: column;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
+<!-- <div class="other-page-breadcumb-area bg-with-ebony">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
+                <div class="op-breadcumb">
+                    <ul>
+                        <li>
+                            <a href="#!/home">
+                                <span>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </span>
+                                {{ 'home' | translate }}
+                            </a>
+                        </li>
+                        <li><a href="#!/terms-of-user">{{ 'termofuse' | translate }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="wr en" ng-if="!changedLang">
+    <iframe type="application/pdf" src="https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terms+of+USE.pdf"
+        style="width: 90%;height: 1920px;border: none;">
+        <p>Your browser does not support iframes.</p>
+    </iframe>
+</div>
+<div class="wr en" ng-if="changedLang">
+    <iframe type="application/pdf"
+        src="https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terminos%2Bde%2BUso%2BREV-converted.pdf"
+        style="width: 90%;height: 1920px;border: none;">
+        <p>Your browser does not support iframes.</p>
+    </iframe>
+</div>

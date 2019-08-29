@@ -14,68 +14,44 @@
 			<source src="{{adsUrl}}" type="video/mp4" />
 		</video>
 	</div>
-
-	<div style="font-weight: bolder;margin-left: 0.2em;">
-		<!-- <div>
-				Title: {{videoObject.title}}
-			</div>
-			<div>
-				Description: {{videoObject.description}}
-			</div> -->
-
-
-		<!-- share page -->
-
+	<h3 class="text-primary" style="margin-top: 5px;">{{videoObject.title}}</h3>
+	<div class="tt">
+		<span ng-show="videoObject.channelName" class="label label-info">{{videoObject.channelName}}</span>
 		<div class="about_socials">
-			<label>Share:</label>
+			<!-- <label>Share:</label> -->
 			<ul class="social">
 				<li data-href="https://developers.facebook.com/docs/plugins/">
-					<a ng-href="{{shareLink('facebook')}}" target="_blank" class="fb-xfbml-parse-ignore">
+					<a title="Share to Facebook" ng-href="{{shareLink('facebook')}}" target="_blank"
+						class="fb-xfbml-parse-ignore">
 						<i class="fab fa-facebook-f"></i>
 					</a>
 				</li>
 				<li>
-					<a target="_blank" href="#" ng-href="{{shareLink('twitter')}}">
+					<a title="Share to Twitter" target="_blank" href="#" ng-href="{{shareLink('twitter')}}">
 						<i class="fab fa-twitter"></i>
 					</a>
 				</li>
 				<li>
-					<a target="_blank" href="#" ng-href="{{shareLink('whatsapp')}}">
+					<a title="Share to Whatsapp" target="_blank" href="#" ng-href="{{shareLink('whatsapp')}}">
 						<i class="fab fa-whatsapp"></i>
 					</a>
 				</li>
-				<!-- <li>
-					<a href="#" target="_blank">
-						<i class="fab fa-youtube"></i>
-					</a>
-				</li>
-				<li>
-					<a href="#" target="_blank">
-						<i class="fab fa-vimeo-v"></i>
-					</a>
-				</li> -->
 			</ul>
 		</div>
-
-		<!-- ends here ~ share page -->
-
-
-		<!-- details -->
-		<div class="play_video_info">
-			<div class="if it">
-				<span><b>Title: </b></span> {{videoObject.title}} <br />
-				<span><b>Description: </b></span> {{videoObject.description}} <br />
-				<span><b>Channel Name: </b></span> {{videoObject.channelName}} <br />
-				<span><b>Channel Admin: </b></span> {{videoObject.channelAdmin.fullName}} <br />
-				<span><b>Start Time: </b></span> {{videoObject.startTime}} <br />
-			</div>
-			<div class="img_ifo it">
-				<img src="{{videoObject.channelAdmin.profileImage ? viewImage(videoObject.channelAdmin.profileImage) : 'assets/img/icons/camera.png'}}"
-					alt="{{videoObject.channelAdmin.fullName}}">
-			</div>
+	</div>
+	<div class="play_video_info">
+		<div class="img_ifo it">
+			<img src="{{videoObject.channelAdmin.profileImage ? viewImage(videoObject.channelAdmin.profileImage) : 'assets/img/icons/camera.png'}}"
+				alt="{{videoObject.channelAdmin.fullName}}">
 		</div>
-		<!-- ends here ~ details -->
-
+		<div class="if it">
+			<h5 class="text-danger">{{videoObject.channelAdmin.fullName}}</h5>
+			<span style="margin-right: 5px;">{{videoObject.startTime}}</span>
+			<span ng-show="videoObject.location" class="label label-primary">{{videoObject.location}}</span>
+			<br>
+			<span> {{videoObject.description}}
+			</span>
+		</div>
 	</div>
 </div>
 

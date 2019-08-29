@@ -48,12 +48,13 @@
                         videoLink: videoObject.link_catchup_url,
                         description: videoObject.description,
                         title: videoObject.event_name,
-                        channelName: videoObject.channel_admin.name,
+                        channelName: videoObject.channel_category ? videoObject.channel_category.name : '',
                         channelAdmin: videoObject.channel_admin,
                         startTime: videoObject.start_time,
                         id: videoObject._id,
                         ads: videoObject.advertisements,
-                        section: videoObject.section || 'catchup'
+                        section: videoObject.section || 'catchup',
+                        location: videoObject.event_location
                     }
                 }
             }).then(function (modal) {

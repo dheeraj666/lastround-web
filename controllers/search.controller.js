@@ -182,29 +182,29 @@
                     break;
             }
         }
-        $scope.playVideo = function (videoObject, ignordAd) {
-            ModalService.showModal({
-                templateUrl: "views/modal/generic-player.modal.html",
-                controller: "GenericVideoPlayer",
-                inputs: {
-                    videoObject: {
-                        videoLink: videoObject.event_trailer,
-                        description: videoObject.description,
-                        title: videoObject.event_name,
-                        channelName: videoObject.channel_category.name,
-                        channelAdmin: videoObject.channel_admin,
-                        startTime: videoObject.start_time,
-                        ads: ignordAd ? null : videoObject.advertisements,
-                        id: videoObject._id,
-                        isHome: true,
-                        section: videoObject.section
-                    }
-                }
-            }).then(function (modal) {
-                modal.close.then(function (res) {
-                });
-            });
-        }
+        // $scope.playVideo = function (videoObject, ignordAd) {
+        //     ModalService.showModal({
+        //         templateUrl: "views/modal/generic-player.modal.html",
+        //         controller: "GenericVideoPlayer",
+        //         inputs: {
+        //             videoObject: {
+        //                 videoLink: videoObject.event_trailer,
+        //                 description: videoObject.description,
+        //                 title: videoObject.event_name,
+        //                 channelName: videoObject.channel_category.name,
+        //                 channelAdmin: videoObject.channel_admin,
+        //                 startTime: videoObject.start_time,
+        //                 ads: ignordAd ? null : videoObject.advertisements,
+        //                 id: videoObject._id,
+        //                 isHome: true,
+        //                 section: videoObject.section
+        //             }
+        //         }
+        //     }).then(function (modal) {
+        //         modal.close.then(function (res) {
+        //         });
+        //     });
+        // }
 
         // $scope.playLiveVideo = function (videoObject) {
         //     ModalService.showModal({

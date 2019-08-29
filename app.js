@@ -148,6 +148,7 @@
             "save_profile": "Save Profile",
             "logout": "Logout",
             "return": "Return",
+            "termofuse": "Terms Of Use",
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
@@ -202,6 +203,7 @@
             "save_profile": "Guardar perfil",
             "logout": "Logout",
             "return": "Regreso",
+            "termofuse": "Términos de Uso",
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
@@ -340,6 +342,18 @@
                     'og:url': 'https://lastroundtv.com/'
                 }
             })
+            .when('/terms-of-use', {
+                cache: false,
+                controller: 'TermController',
+                templateUrl: 'views/term.view.html',
+                meta: {
+                    'title': 'Terms of Use',
+                    'description': 'Terms of Use | Last Round TV.',
+                    'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
+                    'og:url': 'https://lastroundtv.com/#!/terms-of-use'
+                }
+            })
+
 
 
             .otherwise({ redirectTo: '/' });
@@ -382,6 +396,15 @@
                     $scope.showprof = false;
             }
 
+            $scope.changeSiteLang = function () {
+                if ($scope.changeLang == true) {
+                    $rootScope.changedLang = true;
+                    $translate.use('sp');
+                } else {
+                    $rootScope.changedLang = false;
+                    $translate.use('en');
+                }
+            }
 
             /* aws configuration */
 
@@ -527,20 +550,11 @@
                 });
             }
 
-            $scope.changeSiteLang = function () {
-                if ($scope.changeLang == true) {
-                    $translate.use('sp');
-                } else {
-                    $translate.use('en');
-                }
-            }
             // $rootScope.stripe = Stripe('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
 
             //Handle Global Login
             $scope.onLoginGoogle = function (response) {
-                console.log(response)
                 var id_token = response.getAuthResponse().id_token;
-                console.log(id_token)
                 // Do whatever you need to do to authenticate on your site.
                 let data = {
                     userType: 3,
@@ -558,10 +572,6 @@
                     if (res.data.status == 1) {
                         AuthenService.setAuthen(res.data.data);
                         toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
-                        setTimeout(function () {
-                            location.reload();
-                        }, 1500)
-                        $scope.$apply();
                     }
                 }).catch(function (res) {
                     if (res.data && res.data.msg)
@@ -620,7 +630,6 @@
                         if (res.data.status == 1) {
                             AuthenService.setAuthen(res.data.data);
                             toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
-                            $scope.$apply();
                         }
                     }).catch(function (res) {
                         if (res.data && res.data.msg)
