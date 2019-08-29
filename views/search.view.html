@@ -1,33 +1,59 @@
 <div>
-	<section>
-		<div class="section-title">
-			<h2 style="padding-left: 10%;"><i ng-click="back()" class="arrow-left fas fa-arrow-left"></i>Search Results
-			</h2>
-		</div>
-		<div class="top-movie-area">
-			<div class="container">
-				<div class="top-movie-carousel owl-carousel">
-					<div ng-repeat="video in videoList" class="single-top-movie" ng-click="handleClickItem(video)">
+
+	<div class="section-title">
+		<h2 style="padding-left: 10%;"><i ng-click="back()" class="arrow-left fas fa-arrow-left"></i>Search Results
+		</h2>
+	</div>
+	<div class="container l_events">
+		<div class="row">
+			<ul>
+				<li ng-repeat="event in videoList" class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+					<div class="single-top-movie" ng-click="handleClickItem(video)">
 						<div class="img">
-							<img ng-src="{{video.event_thumbnail}}" alt="">
+							<img ng-src="{{event.event_thumbnail}}" alt="">
+							<!-- <img lazy-img='{{event.event_thumbnail}}' alt=""> -->
 						</div>
-						<span class="view-counter">{{video.views}} Views</span>
 						<a class="popup-youtube">
 							<i class="far fa-play-circle"></i>
 						</a>
 						<div class="content">
 							<h2 class="name">
-								{{video.event_name}}
+								{{event.event_name}}
 							</h2>
-							<p class="date">{{video.createdAt  | date:'medium'}}</p>
+							<p class="date">{{event.start_time}}</p>
+							<!-- <p class="duration">02 :50 :12</p> -->
 						</div>
 					</div>
-				</div>
-				<div class="no-result" ng-if="videoList.length == 0">
-					No Results Found
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="no-result" ng-if="videoList.length == 0">
+		No Results Found
+	</div>
+	<!-- <div class="top-movie-area">
+		<div class="container">
+			<div>
+				<div ng-repeat="video in videoList" class="single-top-movie" ng-click="handleClickItem(video)">
+					<div class="img">
+						<img ng-src="{{video.event_thumbnail}}" alt="">
+					</div>
+					<span class="view-counter">{{video.views}} Views</span>
+					<a class="popup-youtube">
+						<i class="far fa-play-circle"></i>
+					</a>
+					<div class="content">
+						<h2 class="name">
+							{{video.event_name}}
+						</h2>
+						<p class="date">{{video.createdAt  | date:'medium'}}</p>
+					</div>
 				</div>
 			</div>
+			<div class="no-result" ng-if="videoList.length == 0">
+				No Results Found
+			</div>
 		</div>
-	</section>
+	</div> -->
 </div>
 <link rel="stylesheet" type="text/css" href="assets/css/home.css">
