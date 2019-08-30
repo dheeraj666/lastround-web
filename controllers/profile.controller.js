@@ -6,8 +6,8 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', 'countryList', '$http', 'toaster'];
-    function ProfileController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, countryList, $http, toaster) {
+    ProfileController.$inject = ['$rootScope', '$scope', 'API', 'countryList', '$http', 'toaster'];
+    function ProfileController($rootScope, $scope, API, countryList, $http, toaster) {
         $scope.profile = {};
         $scope.cities = [];
         $scope.isChangingPass = false;
@@ -40,6 +40,8 @@
             })
         }
         $scope.viewImage = function (image) {
+            if (!image)
+                return ''
             if (image.includes('https') || image.includes('amazonaws.com'))
                 return image
             else

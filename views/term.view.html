@@ -37,13 +37,13 @@
         </div>
     </div>
 </div> -->
-<div class="scroll_wr" ng-show="!changedLang">
+<div class="scroll_wr" ng-if="!changedLang">
     <iframe type="application/pdf"
         src="https://docs.google.com/gview?url=https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terms+of+USE.pdf&embedded=true">
         <p>Your browser does not support iframes.</p>
     </iframe>
 </div>
-<div class="scroll_wr" ng-show="changedLang">
+<div class="scroll_wr" ng-if="changedLang">
     <iframe type="application/pdf"
         src="https://docs.google.com/gview?url=https://lrtv-data-bucket.s3.eu-west-2.amazonaws.com/Terminos_de_Uso_REV_converted.pdf&embedded=true">
         <p>Your browser does not support iframes.</p>

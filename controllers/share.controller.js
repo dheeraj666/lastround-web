@@ -5,8 +5,8 @@
         .module('app')
         .controller('ShareController', ShareController);
 
-    ShareController.$inject = ['$rootScope', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta', 'toaster'];
-    function ShareController($rootScope, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta, toaster) {
+    ShareController.$inject = ['$rootScope', '$scope', 'API', '$http', '$location', 'ngMeta', 'toaster'];
+    function ShareController($rootScope, $scope, API, $http, $location, ngMeta, toaster) {
         // $scope.event_id = $location.search.id;
         var url = $location.path().split('/');
         $scope.event_id = url[2];

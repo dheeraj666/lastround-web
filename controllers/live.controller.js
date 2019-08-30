@@ -5,8 +5,8 @@
         .module('app')
         .controller('LiveController', LiveController);
 
-    LiveController.$inject = ['$rootScope', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
-    function LiveController($rootScope, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
+    LiveController.$inject = ['$rootScope', '$scope', 'API', '$http', 'ModalService', '$location'];
+    function LiveController($rootScope, $scope, API, $http, ModalService, $location) {
         $scope.event_id = $location.$$search.event_id;
         // fetch data on load
         function onLoadLiveEvt() {
@@ -57,7 +57,7 @@
                         stream_key: videoObject.stream_key,
                         port_no: videoObject.port_no,
                         image: videoObject.event_thumbnail,
-                        location:videoObject.event_location
+                        location: videoObject.event_location
                     }
                 }
             }).then(function (modal) {

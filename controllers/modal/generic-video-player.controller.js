@@ -62,8 +62,8 @@
             }
         })
 
-    GenericVideoPlayer.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject', '$http', '$location'];
-    function GenericVideoPlayer($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject, $http, $location) {
+    GenericVideoPlayer.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'videoObject', '$http'];
+    function GenericVideoPlayer($rootScope, $scope, API, toaster, close, videoObject, $http) {
         $scope.dataIsLoaded = false;
         $scope.close = close;
         $scope.videoObject = videoObject;
@@ -156,6 +156,8 @@
                 this.play();
             })
             $scope.mainPlayer.addEventListener('timeupdate', function () {
+                if (!$scope.videoObject.ads || $scope.videoObject.ads.length == 0)
+                    return
                 let current = Math.round($scope.mainPlayer.currentTime);
                 let ad = $scope.videoObject.ads.find(function (f) {
                     if (!f.start_time)

@@ -5,8 +5,8 @@
         .module('app')
         .controller('MakePaymentController', MakePaymentController);
 
-    MakePaymentController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'package', '$http'];
-    function MakePaymentController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, $package, $http) {
+    MakePaymentController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'package', '$http'];
+    function MakePaymentController($rootScope, $scope, API, toaster, close, $package, $http) {
         $scope.close = close;
         $scope.loading = false;
         var year = new Date().getFullYear();
@@ -20,13 +20,13 @@
             if (response.error) {
                 $scope.loading = false;
                 toaster.pop('error', response.error.message)
-                $scope.$apply()
+
                 // Show appropriate error to user
             } else {
                 if (!$package && !$package.plan_id) {
                     $scope.loading = false;
                     toaster.pop('error', 'Cannot get plan info.')
-                    $scope.$apply()
+
                     return;
                 }
                 // Get the token ID:
@@ -35,7 +35,7 @@
                     "plan_id": $package.plan_id,
                     "stripeToken": token
                 }
-                let tokenAu = 'Bearer ' + window.localStorage.getItem('accessToken')
+                let tokenAu = 'Bearer ' + $rootScope.userAccessToken
                 $http.post(API.BaseUrl + 'user/subscrption/purchase', client_data, {
                     headers: {
                         'Content-Type': 'application/json',
@@ -45,11 +45,11 @@
                     $scope.loading = false;
                     toaster.pop('success', 'Thank you! Your payment has been successfully processed.')
                     close()
-                    $scope.$apply()
+
                 }).catch(function (res) {
                     $scope.loading = false;
                     toaster.pop('error', res.data.msg)
-                    $scope.$apply()
+
                 });
                 // Save token mapping it to customer for all future payment activities
             }

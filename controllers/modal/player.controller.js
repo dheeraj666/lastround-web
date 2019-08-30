@@ -5,8 +5,8 @@
         .module('app')
         .controller('PlayerController', PlayerController);
 
-    PlayerController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', 'videoObject', '$location'];
-    function PlayerController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, countryList, videoObject, $location) {
+    PlayerController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'videoObject'];
+    function PlayerController($rootScope, $scope, API, toaster, close, videoObject) {
         $scope.dataIsLoaded = false;
         var wowPlayer = null;
         $scope.close = function () {

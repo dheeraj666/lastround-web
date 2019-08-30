@@ -5,8 +5,8 @@
         .module('app')
         .controller('ResetpassController', ResetpassController);
 
-    ResetpassController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'AuthenticationService', '$http'];
-    function ResetpassController($rootScope, QueryService, $scope, API, ngTableParams, toaster, close, AuthenticationService, $http) {
+    ResetpassController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', '$http'];
+    function ResetpassController($rootScope, $scope, API, toaster, close, $http) {
         $scope.close = close;
         $scope.email_view = true;
         $scope.otp_view = false;

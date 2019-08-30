@@ -18,7 +18,7 @@
         // s3_url: 'https://wowza-live-stream.s3.us-east-2.amazonaws.com/'
     };
     var app = angular
-        .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngMessages', 'ngStorage', 'ngTable', 'ngFileUpload', 'ui.bootstrap', 'toaster', 'angularModalService', 'pascalprecht.translate', 'ngMeta'])
+        .module('app', ['ngRoute', 'ngCookies', 'ngAnimate', 'ngStorage', 'ui.bootstrap', 'toaster', 'angularModalService', 'pascalprecht.translate', 'ngMeta'])
         .config(config)
         .run(['ngMeta', function (ngMeta) {
             ngMeta.init();

@@ -5,8 +5,8 @@
         .module('app')
         .controller('SignupController', SignupController);
 
-    SignupController.$inject = ['$rootScope', '$scope', 'API', 'ngTableParams', 'toaster', 'close', 'countryList', '$http'];
-    function SignupController($rootScope, $scope, API, ngTableParams, toaster, close, countryList, $http) {
+    SignupController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'countryList', '$http'];
+    function SignupController($rootScope, $scope, API, toaster, close, countryList, $http) {
 
         $scope.signup_view = true;
         $scope.close = function (rs) {

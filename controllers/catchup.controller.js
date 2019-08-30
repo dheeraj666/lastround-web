@@ -6,8 +6,8 @@
         .controller('CatchupController', CatchupController);
 
 
-    CatchupController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', 'ModalService', '$http', '$location', 'ngMeta'];
-    function CatchupController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, ModalService, $http, $location, ngMeta) {
+    CatchupController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http', '$location'];
+    function CatchupController($rootScope, $scope, API, ModalService, $http, $location) {
 
         $scope.event_id = $location.$$search.event_id;
         // init()

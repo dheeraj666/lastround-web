@@ -5,17 +5,16 @@
         .module('app')
         .controller('SubscriptionController', SubscriptionController);
 
-    SubscriptionController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService'];
-    function SubscriptionController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService) {
+    SubscriptionController.$inject = ['$rootScope', '$http', '$scope', 'API', 'ModalService'];
+    function SubscriptionController($rootScope, $http, $scope, API, ModalService) {
 
         getPlanList();
 
         function getPlanList() {
-            QueryService.Get(API.BaseUrl + 'subscrption-plans')
+            $http.get(API.BaseUrl + 'subscrption-plans')
                 .then(function (res) {
-                    console.log(res);
-                    $scope.plan = res.data;
-                    console.log($scope.plan)
+                    if (res.data && res.data.data)
+                        $scope.plan = res.data.data;
                 });
         }
 

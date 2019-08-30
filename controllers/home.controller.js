@@ -5,8 +5,8 @@
         .module('app')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$rootScope', '$scope', 'countryList', 'QueryService', 'API', 'ModalService', '$http', '$timeout'];
-    function HomeController($rootScope, $scope, countryList, QueryService, API, ModalService, $http, $timeout) {
+    HomeController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http'];
+    function HomeController($rootScope, $scope, API, ModalService, $http) {
 
         $scope.$on('loadHome', function () {
             fetchVideoData()
@@ -30,7 +30,7 @@
             setTimeout(function () {
                 var owl = $(".slider-carousel");
                 owl.owlCarousel({
-                    loop: true,
+                    loop: false,
                     margin: 0,
                     responsiveClass: true,
                     navigation: true,
@@ -56,8 +56,8 @@
                         }
                     }
                 });
-                topMovieCarousel();
-                umsCarousel();
+                // topMovieCarousel();
+                // umsCarousel();
                 tabCarousel();
             }, 0);
         }
@@ -65,7 +65,7 @@
         function topMovieCarousel() {
             var owl = $(".top-movie-carousel");
             owl.owlCarousel({
-                loop: true,
+                loop: false,
                 margin: 20,
                 responsiveClass: true,
                 navigation: true,
@@ -97,7 +97,7 @@
         function umsCarousel() {
             var owl = $(".ums-carousel");
             owl.owlCarousel({
-                loop: true,
+                loop: false,
                 margin: 20,
                 responsiveClass: true,
                 navigation: true,
@@ -129,7 +129,7 @@
         function tabCarousel() {
             var owl = $(".tab-carousel");
             owl.owlCarousel({
-                loop: true,
+                loop: false,
                 margin: 20,
                 responsiveClass: true,
                 navigation: true,
@@ -143,10 +143,10 @@
                 center: false,
                 responsive: {
                     0: {
-                        items: 2
+                        items: 1
                     },
                     480: {
-                        items: 2
+                        items: 1
                     },
                     760: {
                         items: 2
@@ -173,7 +173,11 @@
             })
                 .then(function (res) {
                     $scope.videoList = res.data.data;
-                    slider();
+                    // slider();
+
+                    setTimeout(function () {
+                        tabCarousel();
+                    }, 0)
                     $('#preloader').fadeOut('slow', function () {
                         $(this).remove();
                     });
@@ -199,7 +203,7 @@
                         id: videoObject._id,
                         isHome: true,
                         section: videoObject.section,
-                        location:videoObject.event_location
+                        location: videoObject.event_location
                     }
                 }
             }).then(function (modal) {

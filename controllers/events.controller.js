@@ -5,8 +5,8 @@
         .module('app')
         .controller('EventsController', EventsController);
 
-    EventsController.$inject = ['$rootScope', 'QueryService', '$scope', 'API', 'ngTableParams', 'Upload', '$localStorage', '$window', '$http', 'ModalService', '$location', 'ngMeta'];
-    function EventsController($rootScope, QueryService, $scope, API, ngTableParams, Upload, $localStorage, $window, $http, ModalService, $location, ngMeta) {
+    EventsController.$inject = ['$rootScope', '$scope', 'API', '$http', 'ModalService', '$location'];
+    function EventsController($rootScope, $scope, API, $http, ModalService, $location) {
         onLoadUpcomingEvt()
         function onLoadUpcomingEvt() {
             $http.get(API.BaseUrl + 'get/events/home', {
@@ -49,7 +49,7 @@
                         ads: videoObject.advertisements,
                         id: videoObject._id,
                         section: videoObject.section || 'upcoming',
-                        location:videoObject.event_location
+                        location: videoObject.event_location
                     }
                 }
             }).then(function (modal) {
