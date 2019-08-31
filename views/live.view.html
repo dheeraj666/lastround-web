@@ -44,7 +44,7 @@
                             <h2 class="name">
                                 {{event.event_name}}
                             </h2>
-                            <p class="date">{{event.start_time}}</p>
+                            <p class="date">{{event.start_time | date : 'yyyy-MM-dd HH:mm'}}</p>
                             <p></p>
                             <!-- <p class="duration">02 :50 :12</p> -->
                         </div>

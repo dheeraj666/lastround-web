@@ -1,9 +1,23 @@
 @media only screen and (min-width: 900px) and (max-width: 1024px){
     .menu{ text-align: left; }
     .menu ul li{ margin-left: 3.5%; }
+    .menu ul li a {
+        font-size: 15px;
+    }
 }
 
-@media only screen and (min-width: 550px) and (max-width: 800px){
+@media (min-width: 800px) and (max-width: 992px)  {
+    .logo {
+        position: relative;
+    }
+}
+@media (max-width: 800px){
+    .profile {
+        width: 90%;
+    }
+    .account {
+        display: none;
+    }
     .logo{
         position: relative;
         text-align: center;
@@ -13,16 +27,18 @@
     #main_menu{ display: none; }
     #res_menu{
         display: inline-block;
-        float: left;
         padding-top: 33px;
         color: #fff;
     }
     .search-input-box input[type="text"] {
         max-width: auto;
     }
+    .single-top-movie::before {
+        z-index: 1;
+    }
 }
 
-
+/* 
 @media only screen and (min-width: 300px) and (max-width: 500px){
     .logo{
         position: relative;
@@ -33,13 +49,11 @@
     #main_menu{ display: none; }
     #res_menu{
         display: inline-block;
-        float: left;
         padding-top: 33px;
         color: #fff;
     }
-    .account{ display: inline-block; float: right; }
+    .account{ display: inline-block;  }
     .search-signup .search, .search-input-box{ width: 100%; min-width: auto; }
-    .search-input-box input[type="text"]{ /*max-width: 250px;*/ }
     .signup{ width: 100%; }
     .search-signup>div{ text-align: center; }
     .search-signup .signup{ margin: 25px 0 0 0; }
@@ -68,14 +82,15 @@
     .camera_img{ right: 34%; }
     .subscription ul li{ margin-bottom: 20px; }
     .subscription{ padding: 50px 0 0 0; }
-}
+} */
 
 @media only screen and (min-width: 200px) and (max-width: 380px){
-    .search-input-box input[type="text"] {
-        /*max-width: 200px;*/
-    }
     .upcoming_events ul li{ width: 80%; margin: auto; float: none; display: block; }
     #login.modal_container, #signup.modal_container{ min-width: 350px !important; }
     .signup, .social_login_title_container{ width: 100% !important; }
     .two_cols > div{ width: 100% !important; }
+    
+    .search-input-box input[type="text"] {
+        max-width: 46%!important;
+    }
 }

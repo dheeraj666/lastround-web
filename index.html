@@ -127,6 +127,38 @@
         <header>
             <div class="header-top-area">
                 <div class="container">
+                    <!-- <div class="m_menu">
+                        <div class="logo">
+                            <a href="#!/">
+                                <img src="assets/img/logo.jpeg" alt="">
+                            </a>
+                        </div>
+                        <nav>
+                            <ul>
+                                <li>
+                                    <a href="#!/">{{ 'home' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a ng-if="isLoggedIn" href="#!/events">{{ 'upcoming_events' | translate }}</a>
+                                </li>
+                                <li ng-if="isLoggedIn">
+                                    <a href="#!/catchup">{{ 'catchup' | translate }}</a>
+                                </li>
+                                <li ng-if="isLoggedIn">
+                                    <a href="#!/live">{{ 'live' | translate }}</a>
+                                </li>
+                                <li ng-if="isLoggedIn">
+                                    <a href="#!/subscription">{{ 'subscription' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#!/about">{{ 'about' | translate }}</a>
+                                </li>
+                                <li>
+                                    <a href="#!/contact">{{ 'contact_us' | translate }}</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div> -->
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-12 col-12">
                             <div class="logo">
@@ -159,6 +191,16 @@
                                     </li>
                                     <li ng-click="showMenu()">
                                         <a href="#!/contact">{{ 'contact_us' | translate }}</a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="#!/profile" title="Profile">
+                                            {{ 'profile' | translate }}
+                                        </a>
+                                    </li>
+                                    <li ng-click="showMenu()">
+                                        <a href="javascript:void();" ng-click="logout()" title="Logout">
+                                            {{ 'logout' | translate }}
+                                        </a>
                                     </li>
                                 </ul>
                             </div>
@@ -196,7 +238,7 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-12 col-6">
                             <!-- <div class="col-xs-12"> -->
-                            <p style="padding-top: 32px;float: left;padding-left: 15px;">
+                            <p style="padding-top: 32px;float: left;">
                                 <span style="color:#fff;font-size: 17px;">Lang</span>
                                 <span class="material-switch" style="margin-left: 10px;">
                                     <!-- <input id="someSwitchOptionDefault" name="someSwitchOption001" type="checkbox"/>
@@ -514,27 +556,6 @@
     <script src="controllers/modal/payment.controller.js"></script>
     <script src="controllers/search.controller.js"></script>
 
-
-
-    <script type="text/javascript">
-        function parseJsonDate(dateStr) {
-            if (!dateStr || dateStr.length == 0)
-                return null;
-            return new Date(dateStr);
-        }
-        function quickFormatDateStr(date) {
-            if (!date)
-                return '';
-            return zeroPad(date.getHours(), 2) + ':' + zeroPad(date.getMinutes(), 2) + ':' + zeroPad(date.getSeconds(), 2) + ' ' + zeroPad(date.getDate(), 2) + '-' + zeroPad(date.getMonth() + 1, 2) + '-' + zeroPad(date.getFullYear(), 2);
-        }
-        function zeroPad(num, places) {
-            var zero = places - num.toString().length + 1;
-            return Array(+(zero > 0 && zero)).join("0") + num;
-        }
-        function parseAndFormatJsonDate(dateStr) {
-            return quickFormatDateStr(parseJsonDate(dateStr));
-        }
-    </script>
     <script>
         window.fbAsyncInit = function () {
             FB.init({

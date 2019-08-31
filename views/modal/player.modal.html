@@ -46,7 +46,7 @@
 		</div>
 		<div class="if it">
 			<h5 class="text-danger">{{videoObject.channelAdmin.fullName}}</h5>
-			<span style="margin-right: 5px;">{{videoObject.startTime}}</span>
+			<span style="margin-right: 5px;">{{videoObject.startTime | date : 'yyyy-MM-dd HH:mm'}}</span>
 			<span ng-show="videoObject.location" class="label label-primary">{{videoObject.location}}</span>
 			<br>
 			<span> {{videoObject.description}}

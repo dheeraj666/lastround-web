@@ -7,8 +7,6 @@
 
     HomeController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http'];
     function HomeController($rootScope, $scope, API, ModalService, $http) {
-
-        $scope.formatDate = window.parseAndFormatJsonDate;
         $scope.$on('loadHome', function () {
             fetchVideoData()
         })
