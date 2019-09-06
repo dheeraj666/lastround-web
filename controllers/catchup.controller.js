@@ -45,7 +45,7 @@
                 controller: "GenericVideoPlayer",
                 inputs: {
                     videoObject: {
-                        videoLink: videoObject.link_catchup_url,
+                        videoLink: videoObject.live_catchup_url,
                         description: videoObject.description,
                         title: videoObject.event_name,
                         channelName: videoObject.channel_category ? videoObject.channel_category.name : '',
