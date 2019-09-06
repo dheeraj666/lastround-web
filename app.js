@@ -531,7 +531,8 @@
                 }).then(function (modal) {
                     modal.close.then(function (result) {
                         if (result && result.type == 'success') {
-                            verifyEmail();
+                            if (result.email)
+                                verifyEmail(result.email);
                         } else if (result && result.type == 'login') {
                             login()
                         }
@@ -539,17 +540,24 @@
                 });
             }
 
-            function verifyEmail() {
-                ModalService.showModal({
-                    templateUrl: "views/modal/verify.modal.html",
-                    controller: "VerifyEmailController"
-                }).then(function (modal) {
-                    modal.close.then(function (result) {
-                        if (result.type == 'success') {
-                            toaster.pop('success', result.message)
-                        }
+            function verifyEmail(email) {
+                let url = API.BaseUrl + 'user/verify/email';
+                $http.post(url, { email: email })
+                    .then(function (res) {
+                        toaster.pop('success', 'Please check your email inbox after a few minutes and click the verification link to finish setting up your account.')
+                    }).catch(function (res) {
+                        toaster.pop('error', res.data.msg)
                     });
-                });
+                // ModalService.showModal({
+                //     templateUrl: "views/modal/verify.modal.html",
+                //     controller: "VerifyEmailController"
+                // }).then(function (modal) {
+                //     modal.close.then(function (result) {
+                //         if (result.type == 'success') {
+                //             toaster.pop('success', result.message)
+                //         }
+                //     });
+                // });
             }
 
             // $rootScope.stripe = Stripe('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
@@ -674,8 +682,24 @@
                         $scope.$broadcast('loadHome')
                     }
                 }).catch(function (res) {
-                    if (res.data && res.data.msg)
+                    if (res.data.status == 405) {
+                        ModalService.showModal({
+                            templateUrl: "views/modal/verify.modal.html",
+                            controller: "VerifyEmailController",
+                            inputs: {
+                                email: login.username
+                            }
+                        }).then(function (modal) {
+                            modal.close.then(function (result) {
+                                if (result && result.type == 'success') {
+                                    toaster.pop('success', result.message)
+                                }
+                            });
+                        });
+                    }
+                    else {
                         toaster.pop('error', res.data.msg)
+                    }
                 });
             }
         }]);

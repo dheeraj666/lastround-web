@@ -77,7 +77,11 @@
                 }
             })
                 .then(function (res) {
-                    close({ type: 'success', message: 'success message' });
+                    close({
+                        type: 'success',
+                        email: $scope.signup.email,
+                        message: 'success message'
+                    });
                 }).catch(function (res) {
                     if (res.data && res.data.msg)
                         toaster.pop('error', res.data.msg)
