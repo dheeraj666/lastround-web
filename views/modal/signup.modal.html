@@ -94,7 +94,7 @@
 					<label>{{ 'category' | translate }}</label>
 					<select ng-model="member.channelCategory" class="capitalize">
 						<option value="">{{ 'select_category' | translate }}</option>
-						<option ng-repeat="category in categories" value="{{category.id}}" class="capitalize">
+						<option ng-repeat="category in categories" value="{{category._id}}" class="capitalize">
 							{{category.name}}</option>
 					</select>
 				</div>

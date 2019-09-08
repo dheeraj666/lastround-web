@@ -13,7 +13,9 @@
             close({ type: rs })
         };
         $scope.signup = {};
-        $scope.member = {};
+        $scope.member = {
+            role: 2
+        };
         $scope.cities = [];
 
         getCountryList();
