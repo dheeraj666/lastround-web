@@ -1,16 +1,19 @@
 (function () {
     'use strict';
     var globalConstant = {
-        BaseUrl: '/api/',
-        MEDIA: '/api/',
-        // BaseUrl: 'http://13.59.58.222:5000/',
+        // BaseUrl: '/api/',
+        // MEDIA: '/api/',
+        // rootUrl: 'http://localhost:3003/',
         rootUrl: 'https://lastroundtv.com/',
-        media_url:'5d5dda60b332f.streamlock.net/',
+        BaseUrl: 'http://13.59.58.222:5000/',
+        MEDIA: 'http://13.59.58.222:5000/',
+        media_url: '5d5dda60b332f.streamlock.net/',
         s3_region: 'ap-south-1',
         s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
         s3_bucketName: 'lrtv-new-media-bucket',
         s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
-        s3_resize_url:'https://jw1w8011oi.execute-api.ap-south-1.amazonaws.com/production/'
+        s3_resize_url: 'https://jw1w8011oi.execute-api.ap-south-1.amazonaws.com/production/',
+
 
         // s3_region: 'us-east-2',
         // s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
@@ -102,7 +105,7 @@
         var en_translations = {
             "home": "Home",
             "upcoming_events": "Upcoming Events",
-            "catchup": "Catchup",
+            "catchup": "Recent fights",
             "live": "Live",
             "featured": 'Featured',
             "subscription": "Subscription",
@@ -113,7 +116,7 @@
             "live_tv": "Live TV",
             "views": "Views",
             "live_events": "Live Events",
-            "about_us_content": "Welcome to Last Round TV. We are a subscription service that provides subscribers with access to a wide range of sporting events from around the world streamed to a range of devices including internet-connected TVs, computers and other platforms(Last Round TV Service). To enhance your enjoyment of the Last Round TV Service, we will also provide recommendations of broadcasts you might be interested in and other interesting sports information.",
+            "about_us_content": "Welcome to Last Round TV. We are a subscription service that provides subscribers with access to Boxing and MMA events from around the world streamed to a range of devices including internet-connected TVs, computers and other platforms(Last Round TV Service). To enhance your enjoyment of the Last Round TV Service.",
             "name": "Name",
             "country": "Country",
             "email": "Email",
@@ -158,7 +161,7 @@
         var sp_translations = {
             "home": "Casa",
             "upcoming_events": "Próximos Eventos",
-            "catchup": "Alcanzar",
+            "catchup": "Peleas recientes",
             "live": "Vivir",
             "featured": 'Destacado',
             "subscription": "Suscripción",
@@ -169,7 +172,7 @@
             "live_tv": "TV en vivo",
             "views": "Ver",
             "live_events": "Eventos en vivo",
-            "about_us_content": "Bienvenido a Last Round TV. Somos un servicio de suscripción que brinda a los suscriptores acceso a una amplia gama de eventos deportivos de todo el mundo transmitidos a una amplia gama de dispositivos, incluidos televisores, computadoras y otras plataformas conectadas a Internet (servicio Last Round TV). Para mejorar su disfrute del servicio Last Round TV, también le proporcionaremos recomendaciones de transmisiones que podrían interesarle y otra información deportiva interesante.",
+            "about_us_content": "Bienvenido a Last Round TV. Somos un servicio de suscripción que brinda a los suscriptores acceso a eventos de boxeo y MMA de todo el mundo transmitidos a una amplia gama de dispositivos, incluidos televisores, computadoras y otras plataformas conectadas a Internet (servicio Last Round TV). Para mejorar su disfrute del servicio Last Round TV.",
             "name": "Nombre",
             "country": "País",
             "email": "Email",
