@@ -71,6 +71,10 @@
 			<li ng-click="fbLogin()"><img src="assets/img/icons/fb.png"></li>
 			<li ng-click="googleLogin()"><img src="assets/img/icons/google.png"></li>
 		</ul> -->
+			<div class="i">
+				<p>{{'price_month' | translate }}</p>
+				<p>{{'price_year' | translate }}</p>
+			</div>
 		</form>
 		<form class="it" name="member_form" ng-if="member_view" ng-submit="requestForm()">
 			<h2 class="tti">{{ 'become_member_text' | translate }}</h2>
@@ -130,10 +134,6 @@
 			</div>
 			<div class="btn_container signup">
 				<button type="submit">{{ 'request' | translate }}</button>
-			</div>
-			<div class="i">
-				<p>{{'price_month' | translate }}</p>
-				<p>{{'price_year' | translate }}</p>
 			</div>
 		</form>
 		<img  class='s_bg' src="/assets/img/signup_bg.jpg" alt="">
