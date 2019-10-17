@@ -153,6 +153,8 @@
             "logout": "Logout",
             "return": "Return",
             "termofuse": "Terms Of Use",
+            "price_month":"All for $1.99/month",
+            "price_year":"$21.95/year, exclusively on Last RoundTV",
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
@@ -209,6 +211,8 @@
             "logout": "Logout",
             "return": "Regreso",
             "termofuse": "Términos de Uso",
+            "price_month":"Todo por $1.99/mes",
+            "price_year":"$21.95/año, exclusivamente en Last RoundTV",
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 

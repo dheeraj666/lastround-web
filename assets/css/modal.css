@@ -1,4 +1,7 @@
 /*signup*/
+/* #signup {
+    background: url('/assets/img/signup_bg.jpg') no-repeat;
+} */
 .modal_container .action_btns_container > div{
     width: 50%;
     float: left;
@@ -45,7 +48,7 @@
 .signup{
 	text-align: center;
 	width: 50%;
-	margin: 30px auto;
+    margin: 0px auto;
 }
 
 .signup button{
@@ -68,9 +71,6 @@
 #email_input input{ width: 50%; margin: auto; }
 #social_icons li {
     cursor: pointer;
-}
-.ads-player {
-    
 }
 .skip-ad {
     position: absolute;
@@ -105,4 +105,69 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+}
+
+.ud_signup {
+    padding: 0;
+    overflow: unset;
+}
+.ud_signup form {
+    margin-top: unset;
+    background: #fff;
+    height: 100%;
+    width: 60%;    
+    overflow: auto;
+    padding: 20px;
+}
+.ud_signup form .tti {
+    color:#000;
+}
+.ud_signup form .i {
+    text-align: center;
+}
+.s_bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+    z-index: -1;
+}
+.wr-signup .bk {
+    position: absolute;
+    float: right;
+    color: #FF1744;
+    z-index: 1000;
+    left: 10px;
+    bottom: 10px;
+}
+.wr-signup .cl{
+    position: absolute;
+    font-size: 25px;
+    cursor: pointer;
+    float: right;
+    color: #fff;
+    z-index: 1000;
+    right: 0;
+    top: 0;
+    padding: 10px;
+
+}
+
+@media (max-width: 959px) {
+    .wr-signup .s_bg {
+        display: none;
+    }
+    .wr-signup .it {
+        width: 100%;
+    }
+    .wr-signup .bk {   
+        right: 35px;
+        top: 15px;
+        bottom: unset!important;
+        left: unset!important;
+    }
+    .wr-signup .cl {   
+        color: #000!important;
+    }
 }
