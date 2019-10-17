@@ -1,12 +1,12 @@
 (function () {
     'use strict';
     var globalConstant = {
-        // BaseUrl: '/api/',
-        // MEDIA: '/api/',
+        BaseUrl: '/api/',
+        MEDIA: '/api/',
         // rootUrl: 'http://localhost:3003/',
         rootUrl: 'https://lastroundtv.com/',
-        BaseUrl: 'http://13.59.58.222:5000/',
-        MEDIA: 'http://13.59.58.222:5000/',
+        // BaseUrl: 'http://13.59.58.222:5000/',
+        // MEDIA: 'http://13.59.58.222:5000/',
         media_url: '5d5dda60b332f.streamlock.net/',
         s3_region: 'ap-south-1',
         s3_IdentityPoolId: 'ap-south-1:c6a6208e-70ac-45a8-aaa1-807c7d9a7b3d',
