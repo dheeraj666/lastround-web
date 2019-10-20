@@ -2,12 +2,17 @@
 <div id="signup" class="modal_container ud_signup" style="min-width: 850px">
 	<div class="wr-signup">
 		<div class="action_btns">
-			<button ng-if="member_view" class="btn btn-sm btn-primary bk" ng-click="back()">Back</button>
+			<button ng-if="member_view || influencer_view" class="btn btn-sm btn-danger bk"
+				ng-click="back()">Back</button>
 			<div class="cl" ng-click="close()">x</div>
 		</div>
 		<form class="it" name="signup_form" ng-if="signup_view" ng-submit="submitForm()">
 			<h2 class="tti">{{ 'sign_up' | translate }}</h2>
-			<div class="btn member_btn" ng-click="memberView()">{{ 'become_member_text' | translate }}</div>
+			<div class="ref">
+				<button class="btn btn-sm b" ng-click="memberView()">{{ 'become_member_text' | translate }}</button>
+				<button class="btn btn-sm b"
+					ng-click="influencerView()">{{ 'become_influencer_text' | translate }}</button>
+			</div>
 			<div class="two_cols">
 				<div>
 					<div class="field_container">
@@ -55,7 +60,7 @@
 				{{signupError}}
 			</div>
 			<div class="btn_container signup">
-				<button type="submit">{{ 'sign_up' | translate }}</button>
+				<button ng-disabled="loading" type="submit">{{ 'sign_up' | translate }}</button>
 				<br>
 				<div>
 					<span>{{ 'already_have_account_text' | translate }}?</span>
@@ -133,10 +138,94 @@
 				</div>
 			</div>
 			<div class="btn_container signup">
-				<button type="submit">{{ 'request' | translate }}</button>
+				<button ng-disabled="loading" type="submit">{{ 'request' | translate }}</button>
 			</div>
 		</form>
-		<img  class='s_bg' src="/assets/img/signup_bg.jpg" alt="">
+		<form class="it" name="influencer_form" ng-show="influencer_view" ng-submit="requestInfluencerForm()">
+			<h2 class="tti">{{ 'become_influencer_text' | translate }}</h2>
+			<div class="two_cols">
+				<div>
+					<div class="field_container">
+						<label>{{ 'name' | translate }}</label>
+						<input type="text" name="name" ng-model="influencer.name" required>
+					</div>
+					<div class="field_container">
+						<label>{{ 'email' | translate }}</label>
+						<input type="email" name="email" ng-model="influencer.email" required>
+					</div>
+					<div class="field_container">
+						<label>{{ 'contact_number' | translate }}</label>
+						<input type="number" name="phoneNumber" ng-model="influencer.phone">
+					</div>
+					<div class="field_container">
+						<label>{{ 'cover_letter' | translate }}</label>
+						<input type="text" name="name" ng-model="influencer.cover" required>
+					</div>
+					<div class="field_container">
+						<label class="d-inline">{{ 'short_video' | translate }}</label>
+						<input ng-show="false" type="file" accept="video/*" name="upload_video" id="shortVideo">
+						<i class="fas fa-cloud-upload-alt fa-2x hand m-l-10" ng-click="onAttach()"></i>
+						<br>
+						<span class="text-danger" ng-show="error">{{error}}</span>
+						<div ng-show="previewVideo" class="influencer-video"
+							style="max-height: 180px; overflow: scroll;">
+							<video style="margin-top:10px;width: 100%;height:auto" controls autoplay
+								id="myVideo"></video>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="field_container">
+						<label class="d-inline">{{ 'facebook_url' | translate }}</label>
+						<span ng-show="influencer.facebook.link" ng-click="onUploadImage('facebook')">
+							<img class="facebook-image hand img-profile" src="/assets/img/icons/user.png">
+						</span>
+						<div>
+							<input type="text" name="name" ng-model="influencer.facebook.link">
+							<input ng-show="false" role="facebook" type="file" accept="image/*"
+								class="social_image_upload facebook">
+						</div>
+					</div>
+					<div class="field_container">
+						<label class="d-inline">{{ 'instagram_url' | translate }}</label>
+						<span ng-show="influencer.instagram.link" ng-click="onUploadImage('instagram')">
+							<img class="instagram-image hand img-profile" src="/assets/img/icons/user.png">
+						</span>
+						<div>
+							<input type="text" name="name" ng-model="influencer.instagram.link">
+							<input ng-show="false" role="instagram" type="file" accept="image/*"
+								class="social_image_upload instagram">
+						</div>
+					</div>
+					<div class="field_container">
+						<label class="d-inline">{{ 'twitter_url' | translate }}</label>
+						<span ng-show="influencer.twitter.link" ng-click="onUploadImage('twitter')">
+							<img class="twitter-image hand img-profile" src="/assets/img/icons/user.png">
+						</span>
+						<div>
+							<input type="text" name="name" ng-model="influencer.twitter.link">
+							<input ng-show="false" role="twitter" type="file" accept="image/*"
+								class="social_image_upload twitter">
+						</div>
+					</div>
+					<div class="field_container inline">
+						<label class="d-inline">{{ 'youtube_url' | translate }}</label>
+						<span ng-show="influencer.youtube.link" ng-click="onUploadImage('youtube')">
+							<img class="youtube-image hand img-profile" src="/assets/img/icons/user.png">
+						</span>
+						<div>
+							<input type="text" name="name" ng-model="influencer.youtube.link">
+							<input ng-show="false" role="youtube" type="file" accept="image/*"
+								class="social_image_upload youtube">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="btn_container signup">
+				<button ng-disabled="loading" type="submit">{{ 'request' | translate }}</button>
+			</div>
+		</form>
+		<img class='s_bg' src="/assets/img/signup_bg.jpg" alt="">
 	</div>
 </div>
 <link rel="stylesheet" type="text/css" href="assets/css/modal.css">

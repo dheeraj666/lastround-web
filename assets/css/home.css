@@ -481,7 +481,6 @@ section{ overflow: hidden; }
     }
 }
 
-
 @media (max-width: 767px) {
     .home_banner .above .banner_description,.home_banner .above .auth-form  {
         flex: 1 0 100%;

@@ -132,6 +132,7 @@
             "sign_in": "Sign In",
             "already_have_account_text": "Already have an account",
             "become_member_text": "Become a member",
+            "become_influencer_text": "Become a influencer",
             "category": "Category",
             "select_category": "Select Category",
             "channel_name": "Channel Name",
@@ -155,6 +156,13 @@
             "termofuse": "Terms Of Use",
             "price_month":"All for $1.99/month",
             "price_year":"$21.95/year, exclusively on Last RoundTV",
+            "feedback":"Feedback",
+            "cover_letter":"Cover Letter",
+            "facebook_url": "Facebook Url",
+            "instagram_url": "Instagram Url",
+            "twitter_url": "Twitter Url",
+            "youtube_url": "Youtube Url",
+            "short_video":"Short Video",
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
@@ -190,6 +198,7 @@
             "sign_in": "Registrarse",
             "already_have_account_text": "Ya tienes una cuenta",
             "become_member_text": "Hazte miembro",
+            "become_influencer_text": "Conviértete en un influencer",
             "category": "Categoría",
             "select_category": "selecciona una categoría",
             "channel_name": "Nombre del Canal",
@@ -213,6 +222,13 @@
             "termofuse": "Términos de Uso",
             "price_month":"Todo por $1.99/mes",
             "price_year":"$21.95/año, exclusivamente en Last RoundTV",
+            "feedback":"Realimentación",
+            "cover_letter":"Cover Letter",
+            "facebook_url": "Facebook Url",
+            "instagram_url": "Instagram Url",
+            "twitter_url": "Twitter Url",
+            "youtube_url": "Youtube Url",
+            "short_video":"Video corto",
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
@@ -360,6 +376,17 @@
                     'description': 'Terms of Use | Last Round TV.',
                     'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                     'og:url': 'https://lastroundtv.com/#!/terms-of-use'
+                }
+            })
+            .when('/feedback', {
+                cache: false,
+                controller: 'FeedbackController',
+                templateUrl: 'views/feedback.view.html',
+                meta: {
+                    'title': 'Feedback',
+                    'description': 'Feedback',
+                    'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
+                    'og:url': 'https://lastroundtv.com/#!/feedback'
                 }
             })
 

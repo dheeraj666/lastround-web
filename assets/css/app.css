@@ -3708,3 +3708,31 @@ section{ overflow: hidden; }
 .about_text h1{ color: #ff1744; margin-bottom: 20px; }
 .about_text p{ color: #fff; font-size: 16px; line-height: 2; letter-spacing: 1.5px; }
 /*End About */
+
+
+.feedback {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.feedback .feedback-des{
+    width: 100%;
+}
+.d-inline {
+    display: inline;
+}
+.hand {
+    cursor: pointer;
+}
+.m-l-10 {
+    margin-left: 10px;
+}
+.m-t-10 {
+    margin-left: 10px;
+}
+.m-b-10 {
+    margin-left: 10px;
+}
+.m-r-10 {
+    margin-left: 10px;
+}

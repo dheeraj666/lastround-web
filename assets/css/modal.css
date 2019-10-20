@@ -14,7 +14,7 @@
 .close img,
 .back img{ max-width: 20px; }
 .modal_container form{ padding: 0 30px; margin-top: 20px;}
-.modal_container form > div{ margin-top: 20px; }
+.modal_container form > div{ margin-top: 10px; }
 .modal_container h1{ color: #000; }
 .member_btn{
 	background-color: #ff1744;
@@ -153,7 +153,27 @@
     padding: 10px;
 
 }
-
+.wr-signup .b {
+    background: #ff1744;
+    color: #fff;
+    text-transform: uppercase;
+    border-radius: 5px;
+    margin-left: 5px;
+}
+.wr-signup .ref {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.wr-signup .influencer-video{
+    max-height: 200px;
+    overflow-y: scroll;
+}
+.img-profile {
+    width:50px;
+    height: 50px;
+    border-radius: 50%;
+}
 @media (max-width: 959px) {
     .wr-signup .s_bg {
         display: none;
