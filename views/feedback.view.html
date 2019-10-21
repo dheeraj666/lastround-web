@@ -20,15 +20,10 @@
     </div>
 </div>
 <div class="container">
-    <div class="feedback">
-        <div class="col-md-8 col-sm-12 col-xs-12">
-            <h1>Last RoundTV</h1>
+    <div class="feedback m-t-10">
+        <div class="col-md-8 col-sm-12 col-xs-12 m-t-10">
             <!-- <p>{{ 'feedback' | translate }}</p> -->
             <form class="f_feedback" name="member_form" ng-submit="requestForm()">
-                <div class="field_container">
-                    <label>Name</label>
-                    <input type="text" name="name" ng-model="data.name" required>
-                </div>
                 <div class="field_container">
                     <label>Feedback</label>
                     <textarea class="feedback-des" rows="10" ng-model="data.description"></textarea>

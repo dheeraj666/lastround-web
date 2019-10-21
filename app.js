@@ -154,15 +154,16 @@
             "logout": "Logout",
             "return": "Return",
             "termofuse": "Terms Of Use",
-            "price_month":"All for $1.99/month",
-            "price_year":"$21.95/year, exclusively on Last RoundTV",
-            "feedback":"Feedback",
-            "cover_letter":"Cover Letter",
+            "price_month": "All for $1.99/month",
+            "price_year": "$21.95/year, exclusively on Last RoundTV",
+            "feedback": "Feedback",
+            "send_feedback": "Give us feedback!",
+            "cover_letter": "Cover Letter",
             "facebook_url": "Facebook Url",
             "instagram_url": "Instagram Url",
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
-            "short_video":"Short Video",
+            "short_video": "Short Video",
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
@@ -220,15 +221,16 @@
             "logout": "Logout",
             "return": "Regreso",
             "termofuse": "Términos de Uso",
-            "price_month":"Todo por $1.99/mes",
-            "price_year":"$21.95/año, exclusivamente en Last RoundTV",
-            "feedback":"Realimentación",
-            "cover_letter":"Cover Letter",
+            "price_month": "Todo por $1.99/mes",
+            "price_year": "$21.95/año, exclusivamente en Last RoundTV",
+            "feedback": "Realimentación",
+            "send_feedback": "Danos su opinión!",
+            "cover_letter": "Cover Letter",
             "facebook_url": "Facebook Url",
             "instagram_url": "Instagram Url",
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
-            "short_video":"Video corto",
+            "short_video": "Video corto",
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
@@ -643,13 +645,13 @@
                                 console.log(response);
                             }
                         }, {
-                                scope: 'public_profile,email'
-                            });
+                            scope: 'public_profile,email'
+                        });
                     }
                 }, {
-                        scope: 'email',
-                        return_scopes: true
-                    });
+                    scope: 'email',
+                    return_scopes: true
+                });
 
             }
 

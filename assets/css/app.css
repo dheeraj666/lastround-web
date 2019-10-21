@@ -3728,11 +3728,14 @@ section{ overflow: hidden; }
     margin-left: 10px;
 }
 .m-t-10 {
-    margin-left: 10px;
+    margin-top: 10px;
 }
 .m-b-10 {
-    margin-left: 10px;
+    margin-bottom: 10px;
 }
 .m-r-10 {
-    margin-left: 10px;
+    margin-right: 10px;
+}
+.feedb-btn { 
+    background: #ff1744;
 }
