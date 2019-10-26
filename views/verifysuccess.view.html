@@ -1,0 +1,27 @@
+<div class="other-page-breadcumb-area bg-with-ebony">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 col-md-9 col-sm-9 col-12">
+                <div class="op-breadcumb">
+                    <ul>
+                        <li>
+                            <a href="#!/home">
+                                <span>
+                                    <i class="fa fa-home" aria-hidden="true"></i>
+                                </span>
+                                {{ 'home' | translate }}
+                            </a>
+                        </li>
+                        <li><a href="#!/about">{{ 'verify_success_head' | translate }}</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container about">
+    <div class="about_text">
+        <h1>{{ 'verify_success_head' | translate }}</h1>
+        <p ng-if="verified">{{ 'verify_success' | translate }}</p>
+    </div>
+</div>

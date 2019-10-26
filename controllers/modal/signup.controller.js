@@ -155,7 +155,7 @@
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
-                toaster.pop('success', 'Thank you for your request, we will respond as soon as possible!');
+                toaster.pop('success', 'Thank you for your request, Please check your inbox and verify your email address, we will respond as soon as possible!');
                 close()
             }).catch(function (res) {
                 if (res.data && res.data.msg)

@@ -164,6 +164,8 @@
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
             "short_video": "Short Video",
+            "verify_success_head":'Verify Email Address',
+            "verify_success":'You have successfully verified your email address! Thank you for your request, we will respond as soon as possible!',
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
@@ -231,6 +233,8 @@
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
             "short_video": "Video corto",
+            "verify_success_head":'Confirme su dirección de correo electrónico',
+            "verify_success":'¡Has verificado con éxito tu dirección de correo electrónico! ¡Gracias por su solicitud, le responderemos lo antes posible!',
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
@@ -389,6 +393,17 @@
                     'description': 'Feedback',
                     'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
                     'og:url': 'https://lastroundtv.com/#!/feedback'
+                }
+            })
+            .when('/verify/influencer/:id', {
+                cache: false,
+                controller: 'VerifyEmailController',
+                templateUrl: 'views/verifysuccess.view.html',
+                meta: {
+                    'title': 'Verify Email Address',
+                    'description': 'Verify Email Address',
+                    'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
+                    'og:url': 'https://lastroundtv.com/#!//verify/influencer/:id'
                 }
             })
 
