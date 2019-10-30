@@ -56,6 +56,10 @@
 					</div>
 				</div>
 			</div>
+			<div class="term">
+				<input type="checkbox" name="sig" ng-model="check.agree"> 
+				<span for="">I have read and agree the </span> <a href="#!/terms-of-use"> Terms Of Use </a>
+			</div>
 			<div class="sign-up-error" ng-if="signupError">
 				{{signupError}}
 			</div>
@@ -69,13 +73,6 @@
 					</span>
 				</div>
 			</div>
-			<!-- <div class="social_login_title_container">
-			<div>Social Login</div>
-		</div>
-		<ul id="social_icons">
-			<li ng-click="fbLogin()"><img src="assets/img/icons/fb.png"></li>
-			<li ng-click="googleLogin()"><img src="assets/img/icons/google.png"></li>
-		</ul> -->
 			<div class="i">
 				<p>{{'price_month' | translate }}</p>
 				<p>{{'price_year' | translate }}</p>
@@ -136,6 +133,10 @@
 						</select>
 					</div>
 				</div>
+			</div>
+			<div class="term">
+				<input type="checkbox" ng-model="check.agree"> 
+				<span for="">I have read and agree the </span><a href="#!/terms-of-use"> Terms Of Use </a>
 			</div>
 			<div class="btn_container signup">
 				<button ng-disabled="loading" type="submit">{{ 'request' | translate }}</button>
@@ -220,6 +221,10 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="term">
+				<input type="checkbox" ng-model="check.agree"> 
+				<span for="">I have read and agree the </span><a href="#!/terms-of-use"> Terms Of Use </a>
 			</div>
 			<div class="btn_container signup">
 				<button ng-disabled="loading" type="submit">{{ 'request' | translate }}</button>

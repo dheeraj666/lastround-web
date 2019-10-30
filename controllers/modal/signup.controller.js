@@ -7,7 +7,9 @@
 
     SignupController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'countryList', '$http'];
     function SignupController($rootScope, $scope, API, toaster, close, countryList, $http) {
-
+        $scope.check = {
+            agree: false
+        }
         $scope.signup_view = true;
         $scope.close = function (rs) {
             close({ type: rs })
@@ -57,12 +59,14 @@
             $scope.signup_view = false;
             $scope.influencer_view = false;
             $scope.member_view = true;
+            $scope.check.agree = false;
             getCategory();
         }
         $scope.influencerView = function () {
             $scope.signup_view = false;
             $scope.member_view = false;
             $scope.influencer_view = true;
+            $scope.check.agree = false;
             getCategory();
         }
         function getCategory() {
@@ -76,9 +80,14 @@
             $scope.member_view = false;
             $scope.influencer_view = false;
             $scope.signup_view = true;
+            $scope.check.agree = false;
         }
 
         $scope.submitForm = function () {
+            if (!$scope.check.agree) {
+                toaster.pop('error', 'Please read and agree to our Terms Of Use!');
+                return
+            }
             let signupData = {
                 "fullName": $scope.signup.fullName,
                 "email": $scope.signup.email,
@@ -106,6 +115,10 @@
         }
 
         $scope.requestForm = function () {
+            if (!$scope.check.agree) {
+                toaster.pop('error', 'Please read and agree to our Terms Of Use!');
+                return
+            }
             let url = API.BaseUrl + 'users';
             $http.post(url, $scope.member, {
                 headers: {
@@ -122,6 +135,10 @@
 
 
         $scope.requestInfluencerForm = async function () {
+            if (!$scope.check.agree) {
+                toaster.pop('error', 'Please read and agree to our Terms Of Use!');
+                return
+            }
             // if (!$scope.influencer.video)
             //     return toaster.pop('You need upload short video. Less than 1 minute video only')
             if (!$scope.isValidVideo)
