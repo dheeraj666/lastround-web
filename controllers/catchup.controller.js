@@ -37,9 +37,6 @@
         // }
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
-            // if (!$rootScope.isSubscribed) {
-            //     return
-            // }
             ModalService.showModal({
                 templateUrl: "views/modal/generic-player.modal.html",
                 controller: "GenericVideoPlayer",
@@ -65,6 +62,10 @@
         }
         // fetch data on load
         function getAll() {
+            if (!$rootScope.isSubscribed) {
+                location.href = '/#!/subscription'
+                return
+            }
             $http.get(API.BaseUrl + 'events/catchup/ads/list', {
                 // params: {
                 //     page: 1, limit: 15
