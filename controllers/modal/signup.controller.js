@@ -12,6 +12,10 @@
         }
         $scope.signup_view = true;
         $scope.close = function (rs) {
+            if (rs == 'login') {
+                location.href = '/#!/'
+                return
+            }
             close({ type: rs })
         };
         $scope.uploadVideoStatus = false;
