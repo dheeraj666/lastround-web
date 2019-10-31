@@ -3423,6 +3423,7 @@ section{ overflow: hidden; }
 #social_icons li {
     display: inline-block;
     margin: 0 10px;
+    cursor: pointer;
 }
 
 #social_icons li img{
