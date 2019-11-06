@@ -35,29 +35,28 @@
 				<div>
 					<div class="field_container">
 						<label>{{ 'country' | translate }}</label>
-						<select ng-model="signup.country" ng-change="getState(signup.country)">
+						<select ng-options="country.name for country in countries" ng-model="signup.country"
+							ng-change="getState(signup.country)">
 							<option value="">{{ 'select_country' | translate }}</option>
-							<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
 						</select>
 					</div>
 					<div class="field_container">
 						<label>{{ 'state' | translate }}</label>
-						<select ng-model="signup.state" ng-change="getCity(signup.state)">
+						<select ng-options="state.name for state in states" ng-model="signup.state"
+							ng-change="getCity(signup.state)">
 							<option value="">{{ 'select_state' | translate }}</option>
-							<option ng-repeat="state in states" value="{{state}}">{{state}}</option>
 						</select>
 					</div>
 					<div class="field_container">
 						<label>{{ 'city' | translate }}</label>
-						<select ng-model="signup.city">
+						<select ng-options="city.name for city in cities" ng-model="signup.city">
 							<option value="">{{ 'select_city' | translate }}</option>
-							<option ng-repeat="city in cities" value="{{city}}">{{city}}</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			<div class="term">
-				<input type="checkbox" name="sig" ng-model="check.agree"> 
+				<input type="checkbox" name="sig" ng-model="check.agree">
 				<span for="">I have read and agree the </span> <a href="#!/terms-of-use"> Terms Of Use </a>
 			</div>
 			<div class="sign-up-error" ng-if="signupError">
@@ -110,32 +109,28 @@
 					</div>
 					<div class="field_container">
 						<label>{{ 'country' | translate }}</label>
-						<select ng-model="member.country" ng-change="getState(member.country)">
+						<select ng-options="country.name for country in countries" ng-model="member.country"
+							ng-change="getState(member.country)">
 							<option value="">{{ 'select_country' | translate }}</option>
-							<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}
-							</option>
 						</select>
 					</div>
 					<div class="field_container">
 						<label>{{ 'state' | translate }}</label>
-						<select ng-model="member.state" ng-change="getCity(member.state)">
+						<select ng-options="state.name for state in states" ng-model="member.state"
+							ng-change="getCity(member.state)">
 							<option value="">{{ 'select_state' | translate }}</option>
-							<option ng-repeat="state in states" value="{{state}}">{{state}}
-							</option>
 						</select>
 					</div>
 					<div class="field_container">
 						<label>{{ 'city' | translate }}</label>
-						<select ng-model="member.city">
+						<select ng-options="city.name for city in cities" ng-model="member.city">
 							<option value="">{{ 'select_city' | translate }}</option>
-							<option ng-repeat="city in cities" value="{{city}}">{{city}}
-							</option>
 						</select>
 					</div>
 				</div>
 			</div>
 			<div class="term">
-				<input type="checkbox" ng-model="check.agree"> 
+				<input type="checkbox" ng-model="check.agree">
 				<span for="">I have read and agree the </span><a href="#!/terms-of-use"> Terms Of Use </a>
 			</div>
 			<div class="btn_container signup">
@@ -223,7 +218,7 @@
 				</div>
 			</div>
 			<div class="term">
-				<input type="checkbox" ng-model="check.agree"> 
+				<input type="checkbox" ng-model="check.agree">
 				<span for="">I have read and agree the </span><a href="#!/terms-of-use"> Terms Of Use </a>
 			</div>
 			<div class="btn_container signup">

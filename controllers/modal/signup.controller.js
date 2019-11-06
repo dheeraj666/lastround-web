@@ -35,29 +35,26 @@
         getCountryList();
 
         function getCountryList() {
-            countryList.then(function (res) {
-                $scope.countries = res.data;
-            })
+            $http.get(API.BaseUrl + 'country').then(function (res) {
+                $scope.countries = res.data ? res.data.data : [];
+            }).catch(function (res) {
+            });
         }
 
-        $scope.getState = function (value) {
-            countryList.then(function (res) {
-                angular.forEach(res.data, function (x, y) {
-                    if (value == x.name) {
-                        $scope.states = Object.keys(x.states);
-                    }
-                })
-            })
+        $scope.getState = function (obj) {
+            if (!obj)
+                return
+            $http.get(API.BaseUrl + 'state?country_id=' + obj._id).then(function (res) {
+                $scope.states = res.data ? res.data.data : [];
+            }).catch(function (res) { });
         }
 
-        $scope.getCity = function (value) {
-            countryList.then(function (res) {
-                angular.forEach(res.data, function (x, y) {
-                    angular.forEach(x.states[value], function (x, y) {
-                        $scope.cities.push(x)
-                    })
-                })
-            })
+        $scope.getCity = function (obj) {
+            if (!obj)
+                return
+            $http.get(API.BaseUrl + 'city?state_id=' + obj._id).then(function (res) {
+                $scope.cities = res.data ? res.data.data : [];
+            }).catch(function (res) { });
         }
         $scope.memberView = function () {
             $scope.signup_view = false;
@@ -96,9 +93,9 @@
                 "fullName": $scope.signup.fullName,
                 "email": $scope.signup.email,
                 "password": $scope.signup.password,
-                "country": $scope.signup.country,
-                "state": $scope.signup.state,
-                "city": $scope.signup.city,
+                "country": $scope.signup.country ? $scope.signup.country.name : '',
+                "state": $scope.signup.state ? $scope.signup.state.name : '',
+                "city": $scope.signup.city ? $scope.signup.city.name : '',
                 "promocode": $scope.signup.promocode
             };
             $http.post(API.BaseUrl + 'users', signupData, {
@@ -124,6 +121,12 @@
                 return
             }
             let url = API.BaseUrl + 'users';
+            if ($scope.member.country)
+                $scope.member.country = $scope.member.country.name
+            if ($scope.member.state)
+                $scope.member.state = $scope.member.state.name
+            if ($scope.member.city)
+                $scope.member.city = $scope.member.city.name
             $http.post(url, $scope.member, {
                 headers: {
                     'Content-Type': 'application/json'
@@ -261,7 +264,65 @@
                 callback(true)
             });
         }
+
+
+
+        $scope.geolocate = function geolocate() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var geolocation = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
+                    var circle = new google.maps.Circle(
+                        { center: geolocation, radius: position.coords.accuracy });
+                    $scope.autocomplete.setBounds(circle.getBounds());
+                });
+            }
+        }
+        $scope.componentForm = {
+            street_number: 'short_name',
+            route: 'long_name',
+            locality: 'long_name',
+            administrative_area_level_1: 'short_name',
+            country: 'long_name',
+            postal_code: 'short_name'
+        };
+
+        function initAutocomplete() {
+            $scope.autocomplete = new google.maps.places.Autocomplete(
+                (document.getElementById('search_location')),
+                { types: ['geocode'] }
+            )
+
+            $scope.autocomplete.setFields(['address_component']);
+
+            // When the user selects an address from the drop-down, populate the
+            // address fields in the form.
+            $scope.autocomplete.addListener('place_changed', function () {
+                console.log($scope.autocomplete)
+                // Get the place details from the autocomplete object.
+                var place = $scope.autocomplete.getPlace();
+
+                for (var component in $scope.componentForm) {
+                    document.getElementById(component).value = '';
+                    document.getElementById(component).disabled = false;
+                }
+
+                // Get each component of the address from the place details,
+                // and then fill-in the corresponding field on the form.
+                for (var i = 0; i < place.address_components.length; i++) {
+                    var addressType = place.address_components[i].types[0];
+                    if ($scope.componentForm[addressType]) {
+                        var val = place.address_components[i][$scope.componentForm[addressType]];
+                        document.getElementById(addressType).value = val;
+                    }
+                }
+                console.log($scope.autocomplete)
+            });
+        }
         angular.element(document).ready(function () {
+            // initAutocomplete()
             $('.social_image_upload').change(function () {
                 $scope.uploadProfileStatus = false;
                 if (!this.files || this.files.length == 0)
