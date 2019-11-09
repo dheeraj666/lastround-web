@@ -41,12 +41,12 @@
                 <input disabled type="text" name="email" placeholder="{{ 'email_address' | translate }}"
                     ng-model="profile.email">
             </div>
-            <div class="field_container">
+            <!-- <div class="field_container">
                 <select ng-model="profile.country" ng-change="getState(profile.country)">
                     <option value="">{{ 'select_country' | translate }}</option>
                     <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
                 </select>
-            </div>
+            </div> -->
             <div>
                 <p>
                     <a href="javascript:void();" ng-click="isChangingPass = true">

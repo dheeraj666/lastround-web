@@ -33,25 +33,29 @@
 					</div>
 				</div>
 				<div>
-					<div class="field_container">
+					<div class='field_container'>
 						<label>{{ 'country' | translate }}</label>
-						<select ng-options="country.name for country in countries" ng-model="signup.country"
-							ng-change="getState(signup.country)">
-							<option value="">{{ 'select_country' | translate }}</option>
-						</select>
+						<input placeholder="{{ 'country' | translate }}" type="text" list="countries"
+							ng-model="signup.country" ng-change=getState(signup.country) />
+						<datalist id="countries">
+							<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
+						</datalist>
 					</div>
-					<div class="field_container">
+					<div class='field_container'>
 						<label>{{ 'state' | translate }}</label>
-						<select ng-options="state.name for state in states" ng-model="signup.state"
-							ng-change="getCity(signup.state)">
-							<option value="">{{ 'select_state' | translate }}</option>
-						</select>
+						<input placeholder="{{ 'state' | translate }}" type="text" list="states" ng-model="signup.state"
+							ng-change=getCity(signup.state) />
+						<datalist id="states">
+							<option ng-repeat="state in states" value="{{state.name}}">{{state.name}}</option>
+						</datalist>
 					</div>
-					<div class="field_container">
+					<div class='field_container'>
 						<label>{{ 'city' | translate }}</label>
-						<select ng-options="city.name for city in cities" ng-model="signup.city">
-							<option value="">{{ 'select_city' | translate }}</option>
-						</select>
+						<input placeholder="{{ 'city' | translate }}" type="text" list="cities"
+							ng-model="signup.city" />
+						<datalist id="cities">
+							<option ng-repeat="city in cities" value="{{city.name}}">{{city.name}}</option>
+						</datalist>
 					</div>
 				</div>
 			</div>
@@ -77,7 +81,7 @@
 				<p>{{'price_year' | translate }}</p>
 			</div>
 		</form>
-		<form class="it" name="member_form" ng-if="member_view" ng-submit="requestForm()">
+		<form class="it" name="member_form" ng-show="member_view" ng-submit="requestForm()">
 			<h2 class="tti">{{ 'become_member_text' | translate }}</h2>
 			<div class="two_cols">
 				<div>
@@ -93,6 +97,8 @@
 						<label>{{ 'contact_number' | translate }}</label>
 						<input type="number" name="phoneNumber" ng-model="member.phoneNumber">
 					</div>
+				</div>
+				<div>
 					<div class="field_container">
 						<label>{{ 'category' | translate }}</label>
 						<select ng-model="member.channelCategory" class="capitalize">
@@ -101,13 +107,18 @@
 								{{category.name}}</option>
 						</select>
 					</div>
-				</div>
-				<div>
 					<div class="field_container">
 						<label>{{ 'channel_name' | translate }}</label>
 						<input type="text" name="channelName" ng-model="member.channelName" required>
 					</div>
 					<div class="field_container">
+						<label>{{ 'location' | translate }}</label>
+						<input id="pac-input" class="demo-header-searchbox md-text" type="text"
+							placeholder="Search Location">
+						<div id="map"></div>
+					</div>
+
+					<!-- <div class="field_container">
 						<label>{{ 'country' | translate }}</label>
 						<select ng-options="country.name for country in countries" ng-model="member.country"
 							ng-change="getState(member.country)">
@@ -126,7 +137,7 @@
 						<select ng-options="city.name for city in cities" ng-model="member.city">
 							<option value="">{{ 'select_city' | translate }}</option>
 						</select>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="term">
@@ -142,20 +153,24 @@
 			<div class="two_cols">
 				<div>
 					<div class="field_container">
-						<label>{{ 'name' | translate }}</label>
-						<input type="text" name="name" ng-model="influencer.name" required>
+						<!-- <label>{{ 'name' | translate }}</label> -->
+						<input type="text" name="name" placeholder="{{ 'name' | translate }}" ng-model="influencer.name"
+							required>
 					</div>
 					<div class="field_container">
-						<label>{{ 'email' | translate }}</label>
-						<input type="email" name="email" ng-model="influencer.email" required>
+						<!-- <label>{{ 'email' | translate }}</label> -->
+						<input type="email" name="email" placeholder="{{ 'email' | translate }}"
+							ng-model="influencer.email" required>
 					</div>
 					<div class="field_container">
-						<label>{{ 'contact_number' | translate }}</label>
-						<input type="number" name="phoneNumber" ng-model="influencer.phone">
+						<!-- <label>{{ 'contact_number' | translate }}</label> -->
+						<input type="number" name="phoneNumber" placeholder="{{ 'contact_number' | translate }}"
+							ng-model="influencer.phone">
 					</div>
 					<div class="field_container">
-						<label>{{ 'cover_letter' | translate }}</label>
-						<input type="text" name="name" ng-model="influencer.cover" required>
+						<!-- <label>{{ 'cover_letter' | translate }}</label> -->
+						<input type="text" name="name" placeholder="{{ 'cover_letter' | translate }}"
+							ng-model="influencer.cover" required>
 					</div>
 					<div class="field_container">
 						<label class="d-inline">{{ 'short_video' | translate }}</label>
@@ -172,17 +187,39 @@
 				</div>
 				<div>
 					<div class="field_container">
-						<label class="d-inline">{{ 'facebook_url' | translate }}</label>
-						<span ng-show="influencer.facebook.link" ng-click="onUploadImage('facebook')">
+						<!-- <label class="d-inline">Social Link</label> -->
+						<!-- <span ng-show="influencer.facebook.link" ng-click="onUploadImage('facebook')">
 							<img class="facebook-image hand img-profile" src="/assets/img/icons/user.png">
-						</span>
-						<div>
-							<input type="text" name="name" ng-model="influencer.facebook.link">
-							<input ng-show="false" role="facebook" type="file" accept="image/*"
-								class="social_image_upload facebook">
-						</div>
+						</span> -->
+						<input type="text" placeholder="Facebook" name="name" ng-model="influencer.facebook.link">
+
+
+
+						<!-- <input ng-show="false" role="facebook" type="file" accept="image/*"
+								class="social_image_upload facebook"> -->
 					</div>
 					<div class="field_container">
+						<input type="text" placeholder="Instagram" name="name" ng-model="influencer.instagram.link">
+					</div>
+					<div class="field_container">
+						<input type="text" placeholder="Twitter" name="name" ng-model="influencer.twitter.link">
+					</div>
+					<div class="field_container">
+						<input type="text" placeholder="Youtube" name="name" ng-model="influencer.youtube.link">
+					</div>
+					<div class="field_container">
+						<label class="d-inline">Profile Pictures</label>
+						<span ng-click="onUploadImage()">
+							<i class="fas fa-cloud-upload-alt fa-2x hand m-l-10"></i>
+						</span>
+						<input ng-show="false" type="file" multiple accept="image/*" id="social_image_upload">
+					</div>
+					<div class="row-image">
+						<span class="column-image m-r-5" ng-repeat="img in socialPreviewImages">
+							<img ng-src="{{img}}" style="width: 100%;">
+						</span>
+					</div>
+					<!-- <div class="field_container">
 						<label class="d-inline">{{ 'instagram_url' | translate }}</label>
 						<span ng-show="influencer.instagram.link" ng-click="onUploadImage('instagram')">
 							<img class="instagram-image hand img-profile" src="/assets/img/icons/user.png">
@@ -214,7 +251,7 @@
 							<input ng-show="false" role="youtube" type="file" accept="image/*"
 								class="social_image_upload youtube">
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="term">

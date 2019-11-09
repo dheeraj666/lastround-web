@@ -6,39 +6,37 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['$rootScope', '$scope', 'API', 'countryList', '$http', 'toaster'];
-    function ProfileController($rootScope, $scope, API, countryList, $http, toaster) {
+    ProfileController.$inject = ['$rootScope', '$scope', 'API', '$http', 'toaster'];
+    function ProfileController($rootScope, $scope, API, $http, toaster) {
         $scope.profile = {};
         $scope.cities = [];
         $scope.isChangingPass = false;
         $scope.loading = false;
-        getCountryList();
+        // getCountryList();
 
         function getCountryList() {
-            countryList.then(function (res) {
-                $scope.countries = res.data;
-            })
+            $http.get(API.BaseUrl + 'country').then(function (res) {
+                $scope.countries = res.data ? res.data.data : [];
+            }).catch(function (res) {
+            });
         }
 
-        $scope.getState = function (value) {
-            countryList.then(function (res) {
-                angular.forEach(res.data, function (x, y) {
-                    if (value == x.name) {
-                        $scope.states = Object.keys(x.states);
-                    }
-                })
-            })
+        $scope.getState = function (obj) {
+            if (!obj)
+                return
+            $http.get(API.BaseUrl + 'state?country_id=' + obj._id).then(function (res) {
+                $scope.states = res.data ? res.data.data : [];
+            }).catch(function (res) { });
         }
 
-        $scope.getCity = function (value) {
-            countryList.then(function (res) {
-                angular.forEach(res.data, function (x, y) {
-                    angular.forEach(x.states[value], function (x, y) {
-                        $scope.cities.push(x)
-                    })
-                })
-            })
+        $scope.getCity = function (obj) {
+            if (!obj)
+                return
+            $http.get(API.BaseUrl + 'city?state_id=' + obj._id).then(function (res) {
+                $scope.cities = res.data ? res.data.data : [];
+            }).catch(function (res) { });
         }
+
         $scope.viewImage = function (image) {
             if (!image)
                 return ''

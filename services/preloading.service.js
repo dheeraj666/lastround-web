@@ -16,13 +16,13 @@
         return service;
 
         function LoadStart(){
-        	var body = angular.element(document).find('body');
-        	body.addClass('waiting');
+            var body = angular.element(document).find('body');
+            var html = '<div class="waiting"><i class="fas fa-spinner fa-spin fa-3x"></i></div>'
+        	body.append(html);
         }
 
         function LoadEnd(){
-        	var body = angular.element(document).find('body');
-        	body.removeClass('waiting');
+            document.querySelector('body .waiting').remove()
         }
     }
 

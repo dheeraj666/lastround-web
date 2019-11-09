@@ -31,14 +31,6 @@
     <meta property="twitter:description" content="{{ngMeta.description}}">
     <meta property="twitter:image" itemprop="image" content="{{ngMeta['og:image']}}">
     <meta property="twitter:url" content="{{ngMeta['og:url']}}">
-    <!-- <meta property="og:image:width" content="300" />
-    <meta property="og:image:height" content="300" /> -->
-    <!-- <meta property="og:image:type" content="image/jpeg"> -->
-
-    <!-- Size of image. Any size up to 300. Anything above 300px will not work in WhatsApp -->
-    <!-- <meta property="og:image:width" content="300">
-    <meta property="og:image:height" content="300"> -->
-    <!-- plugins -->
     <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
     <!-- <link rel="stylesheet" href="assets/css/animate.css"> -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -63,9 +55,7 @@
 
     <script src="https://js.stripe.com/v2/"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYdd7eX-9IdWdIZPvdZWGpHNszj2Z18Ws&libraries=places"></script> -->
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAryVIuGmPByS5A6ee9xfCiAVHLNzEs8fQ&libraries=places&callback=initAutocomplete"></script> -->
-    
+
     <!-- css for toggle button -->
     <style type="text/css">
         .material-switch>input[type="checkbox"] {
@@ -120,47 +110,11 @@
 
 
 <body ng-controller="MainController">
-
-
     <div id="preloader"></div>
-
     <div class="content_container">
-
         <header>
             <div class="header-top-area">
                 <div class="container">
-                    <!-- <div class="m_menu">
-                        <div class="logo">
-                            <a href="#!/">
-                                <img src="assets/img/logo.jpeg" alt="">
-                            </a>
-                        </div>
-                        <nav>
-                            <ul>
-                                <li>
-                                    <a href="#!/">{{ 'home' | translate }}</a>
-                                </li>
-                                <li>
-                                    <a ng-if="isLoggedIn" href="#!/events">{{ 'upcoming_events' | translate }}</a>
-                                </li>
-                                <li ng-if="isLoggedIn">
-                                    <a href="#!/catchup">{{ 'catchup' | translate }}</a>
-                                </li>
-                                <li ng-if="isLoggedIn">
-                                    <a href="#!/live">{{ 'live' | translate }}</a>
-                                </li>
-                                <li ng-if="isLoggedIn">
-                                    <a href="#!/subscription">{{ 'subscription' | translate }}</a>
-                                </li>
-                                <li>
-                                    <a href="#!/about">{{ 'about' | translate }}</a>
-                                </li>
-                                <li>
-                                    <a href="#!/contact">{{ 'contact_us' | translate }}</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div> -->
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-12 col-12">
                             <div class="logo">
@@ -437,37 +391,6 @@
             s.parentNode.insertBefore(p, s);
         })();
     </script>
-
-    <!-- <script>
-        window.fbAsyncInit = function () {
-            FB.init({
-                appId: '771489746599611',
-                cookie: true,
-                xfbml: true,
-                version: 'v3.3',
-                status: true
-            });
-
-            FB.getLoginStatus(function (response) {
-                if (response.status == 'connected') {
-                    console.log('connected');
-                } else if (response === 'not_authorized') {
-                    console.log('not_authorized');
-                } else {
-                    console.log('not login');
-                }
-            });
-        };
-
-        (function (d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) { return; }
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
-    </script> -->
-
     <script>
         // Stripe.setPublishableKey('alksjdlkajsdlakjsd');
         Stripe.setPublishableKey('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
@@ -537,6 +460,8 @@
     <!-- <script src="services/query.service.js"></script> -->
     <!-- <script src="services/authentication.service.js"></script> -->
     <script src="services/authen.service.js"></script>
+    <script src="services/preloading.service.js"></script>
+
     <!-- Controllers -->
     <script src="controllers/home.controller.js"></script>
     <script src="controllers/events.controller.js"></script>
@@ -572,6 +497,8 @@
         };
     </script>
     <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+    <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?libraries=places&sensor=false&key=AIzaSyAP7mJArsw6ZPhDMRAlsrDmhsjJKplmIjc"></script>
 
 </body>
 

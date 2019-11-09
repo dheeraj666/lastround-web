@@ -3,13 +3,54 @@
 
     angular
         .module('app')
+        .directive('list', function () {
+            return {
+                restrict: 'A',
+                require: '?ngModel',
+                link: function (s, e, attr, ctrl) {
+                    if (ctrl && e[0].nodeName === 'INPUT') {
+                        console.log('do');
+                        e.data('ngModelName', attr.ngModel);
+                    }
+                }
+            }
+        }).directive('datalist', function ($compile) {
+            var supportsDatalist = !!('list' in document.createElement('input')) &&
+                !!(document.createElement('datalist') && window.HTMLDataListElement);
+
+            return {
+                restrict: 'E',
+                transclude: true,
+                link: function (s, e, a, c, t) {
+                    if (!supportsDatalist) {
+                        var listId = a.id;
+                        //Assumes inputs that use datalist are unique. A better directive would probably include the input itself
+                        var input = document.querySelectorAll("input[list=" + listId + "]")
+                        input = input[0];
+
+                        var ngModelName = angular.element(input).data('ngModelName');
+
+                        var select = $compile('<select ng-model="' + ngModelName + '"></select>')(s);
+
+                        e.append(select);
+
+                        e = select;
+                    }
+
+                    t(function (te) {
+                        e.append(te);
+                    })
+                }
+            }
+        })
         .controller('SignupController', SignupController);
 
-    SignupController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'countryList', '$http'];
-    function SignupController($rootScope, $scope, API, toaster, close, countryList, $http) {
+    SignupController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', '$http', 'PreloadingService'];
+    function SignupController($rootScope, $scope, API, toaster, close, $http, PreloadingService) {
         $scope.check = {
             agree: false
         }
+        $scope.socialPreviewImages = []
         $scope.signup_view = true;
         $scope.close = function (rs) {
             if (rs == 'login') {
@@ -27,24 +68,34 @@
             facebook: {},
             youtube: {},
             instagram: {},
-            twitter: {}
+            twitter: {},
+            pictures: []
         }
         $scope.socialImages = []
         $scope.cities = [];
 
         getCountryList();
-
         function getCountryList() {
+            PreloadingService.loadStart()
             $http.get(API.BaseUrl + 'country').then(function (res) {
                 $scope.countries = res.data ? res.data.data : [];
+                PreloadingService.loadEnd()
             }).catch(function (res) {
+                PreloadingService.loadEnd()
             });
         }
 
         $scope.getState = function (obj) {
+            $scope.signup.state = null
+            $scope.signup.city = null
             if (!obj)
                 return
-            $http.get(API.BaseUrl + 'state?country_id=' + obj._id).then(function (res) {
+            let country = $scope.countries.find(function (f) {
+                return f.name == obj
+            })
+            if (!country)
+                return
+            $http.get(API.BaseUrl + 'state?country_id=' + country._id).then(function (res) {
                 $scope.states = res.data ? res.data.data : [];
             }).catch(function (res) { });
         }
@@ -52,7 +103,12 @@
         $scope.getCity = function (obj) {
             if (!obj)
                 return
-            $http.get(API.BaseUrl + 'city?state_id=' + obj._id).then(function (res) {
+            let state = $scope.states.find(function (f) {
+                return f.name == obj
+            })
+            if (!state)
+                return
+            $http.get(API.BaseUrl + 'city?state_id=' + state._id).then(function (res) {
                 $scope.cities = res.data ? res.data.data : [];
             }).catch(function (res) { });
         }
@@ -89,27 +145,55 @@
                 toaster.pop('error', 'Please read and agree to our Terms Of Use!');
                 return
             }
+            let country = null
+            let state = null
+            let city = null
+            country = $scope.countries.find(function (c) {
+                return c.name == $scope.signup.country
+            })
+            if (!country) {
+                return toaster.pop('error', 'Please select country!');
+            }
+            state = $scope.states.find(function (c) {
+                return c.name == $scope.signup.state
+            })
+            if (!state) {
+                return toaster.pop('error', 'Please select state!');
+            }
+            if ($scope.cities && $scope.cities.length > 0) {
+                city = $scope.cities.find(function (c) {
+                    return c.name == $scope.signup.city
+                })
+                if (!city) {
+                    return toaster.pop('error', 'Please select city!');
+                }
+            }
             let signupData = {
                 "fullName": $scope.signup.fullName,
                 "email": $scope.signup.email,
                 "password": $scope.signup.password,
-                "country": $scope.signup.country ? $scope.signup.country.name : '',
-                "state": $scope.signup.state ? $scope.signup.state.name : '',
-                "city": $scope.signup.city ? $scope.signup.city.name : '',
+                "country": country,
+                "state": state,
+                "city": city,
                 "promocode": $scope.signup.promocode
             };
+            console.log(signupData)
+            return
+            PreloadingService.loadStart()
             $http.post(API.BaseUrl + 'users', signupData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
                 .then(function (res) {
+                    PreloadingService.loadEnd()
                     close({
                         type: 'success',
                         email: $scope.signup.email,
                         message: 'success message'
                     });
                 }).catch(function (res) {
+                    PreloadingService.loadEnd()
                     if (res.data && res.data.msg)
                         toaster.pop('error', res.data.msg)
                 });
@@ -121,20 +205,17 @@
                 return
             }
             let url = API.BaseUrl + 'users';
-            if ($scope.member.country)
-                $scope.member.country = $scope.member.country.name
-            if ($scope.member.state)
-                $scope.member.state = $scope.member.state.name
-            if ($scope.member.city)
-                $scope.member.city = $scope.member.city.name
+            PreloadingService.loadStart()
             $http.post(url, $scope.member, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             }).then(function (res) {
+                PreloadingService.loadEnd()
                 toaster.pop('success', 'Thank you for your request, we will respond as soon as possible!');
                 close()
             }).catch(function (res) {
+                PreloadingService.loadEnd()
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
             });
@@ -146,20 +227,25 @@
                 toaster.pop('error', 'Please read and agree to our Terms Of Use!');
                 return
             }
-            // if (!$scope.influencer.video)
-            //     return toaster.pop('You need upload short video. Less than 1 minute video only')
             if (!$scope.isValidVideo)
                 return toaster.pop('error', 'Video not vail, less than 1 minute video only')
             if (!$scope.influencer.facebook.link &&
                 !$scope.influencer.youtube.link &&
                 !$scope.influencer.instagram.link &&
                 !$scope.influencer.twitter.link) {
-                return toaster.pop('error', 'At least one social profile link and image!')
+                return toaster.pop('error', 'At least one social profile link!')
             }
-            if (!$scope.uploadProfileStatus)
+            if (!$scope.uploadProfileStatus) {
+                PreloadingService.loadStart()
                 await Promise.all($scope.socialImages.map(function (m) {
-                    return uploadImageItem(m.image, m.name)
+                    return uploadImageItem(m)
                 }))
+                $scope.uploadProfileStatus = true;
+                PreloadingService.loadEnd()
+            }
+            if (!$scope.influencer.pictures || $scope.influencer.pictures.length == 0) {
+                return toaster.pop('error', 'At least one picture about your profile!')
+            }
             if (!$scope.uploadVideoStatus) {
                 uploadVideo(function (rs) {
                     handle_post_influencer()
@@ -187,10 +273,8 @@
             });
         }
         //Handle Image Social
-        $scope.onUploadImage = function (socialName) {
-            $scope.currentSocialImageUpload = socialName;
-            const classN = '.social_image_upload.' + socialName;
-            $(classN).trigger('click')
+        $scope.onUploadImage = function () {
+            $("#social_image_upload").trigger('click')
         }
         //Handle Short Video Influencer
         $scope.onAttach = function () {
@@ -205,7 +289,7 @@
             else
                 return API.s3_url + image
         }
-        function uploadImageItem(file, social) {
+        function uploadImageItem(file) {
             return new Promise(function (resolve, reject) {
                 if (!file) {
                     resolve()
@@ -227,8 +311,7 @@
                         resolve()
                         return
                     }
-                    $scope.influencer[social].image = photoKey;
-                    $scope.uploadProfileStatus = true;
+                    $scope.influencer.pictures.push(photoKey);
                     $scope.loading = false;
                     resolve(true)
                 });
@@ -240,6 +323,8 @@
                 callback(false)
                 return;
             }
+
+            PreloadingService.loadStart()
             var file = files[0];
             var fileName = 'influencer/' + file.name;
             var photoKey = fileName;
@@ -256,89 +341,61 @@
                     $scope.uploadVideoStatus = true;
                     toaster.pop('error', 'There was an error uploading your video: ', err.message)
                     callback(false)
+                    PreloadingService.loadEnd()
                     return
                 }
                 $scope.influencer.video = photoKey;
                 $scope.uploadVideoStatus = true;
                 $scope.loading = false;
+                PreloadingService.loadEnd()
                 callback(true)
             });
         }
 
 
 
-        $scope.geolocate = function geolocate() {
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function (position) {
-                    var geolocation = {
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    };
-                    var circle = new google.maps.Circle(
-                        { center: geolocation, radius: position.coords.accuracy });
-                    $scope.autocomplete.setBounds(circle.getBounds());
-                });
-            }
-        }
-        $scope.componentForm = {
-            street_number: 'short_name',
-            route: 'long_name',
-            locality: 'long_name',
-            administrative_area_level_1: 'short_name',
-            country: 'long_name',
-            postal_code: 'short_name'
-        };
-
         function initAutocomplete() {
-            $scope.autocomplete = new google.maps.places.Autocomplete(
-                (document.getElementById('search_location')),
-                { types: ['geocode'] }
-            )
-
-            $scope.autocomplete.setFields(['address_component']);
-
-            // When the user selects an address from the drop-down, populate the
-            // address fields in the form.
-            $scope.autocomplete.addListener('place_changed', function () {
-                console.log($scope.autocomplete)
-                // Get the place details from the autocomplete object.
-                var place = $scope.autocomplete.getPlace();
-
-                for (var component in $scope.componentForm) {
-                    document.getElementById(component).value = '';
-                    document.getElementById(component).disabled = false;
+            var input = document.getElementById('pac-input');
+            var searchBox = new google.maps.places.SearchBox(input);
+            searchBox.addListener('places_changed', function () {
+                var places = searchBox.getPlaces();
+                if (places.length == 0) {
+                    return;
                 }
-
-                // Get each component of the address from the place details,
-                // and then fill-in the corresponding field on the form.
-                for (var i = 0; i < place.address_components.length; i++) {
-                    var addressType = place.address_components[i].types[0];
-                    if ($scope.componentForm[addressType]) {
-                        var val = place.address_components[i][$scope.componentForm[addressType]];
-                        document.getElementById(addressType).value = val;
-                    }
-                }
-                console.log($scope.autocomplete)
+                const place = places[0];
+                $scope.member.location = place.formatted_address
+                // const geo = {
+                //     latitude: places[0].geometry.location.lat(),
+                //     longitude: places[0].geometry.location.lng()
+                // }
+                // if (geo.latitude) {
+                //     getTimeZone(geo)
+                // } else {
+                //     $scope.disableTimezone = false
+                // }
             });
         }
         angular.element(document).ready(function () {
-            // initAutocomplete()
-            $('.social_image_upload').change(function () {
+            setTimeout(function () {
+                initAutocomplete()
+            }, 3000)
+            $('#social_image_upload').change(function () {
                 $scope.uploadProfileStatus = false;
                 if (!this.files || this.files.length == 0)
                     return
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    setTimeout(function () {
-                        $('.' + $scope.currentSocialImageUpload + "-image")[0].src = e.target.result;
-                        $scope.$apply()
-                    }, 500)
-                };
-                reader.readAsDataURL(this.files[0]);
-                $scope.socialImages.push({
-                    name: $scope.currentSocialImageUpload,
-                    image: this.files[0]
-                })
+
+                for (let index = 0; index < this.files.length; index++) {
+                    const file = this.files[index];
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        setTimeout(function () {
+                            $scope.socialPreviewImages.push(e.target.result);
+                            $scope.$apply()
+                        }, 500)
+                    };
+                    reader.readAsDataURL(file);
+                    $scope.socialImages.push(file)
+                }
                 $scope.$apply()
             })
 

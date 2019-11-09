@@ -28,9 +28,6 @@
         }])
         // .run(run)
         .constant('API', globalConstant)
-        .service('countryList', ['$http', function ($http) {
-            return $http.get('assets/json/countries.json');
-        }])
         // http interceptor to handle redirection to login on 401 response from API
         .factory('httpResponseInterceptor', ['$q', '$cookies', '$rootScope', '$location', function ($q, $cookies, $rootScope, $location) {
             return {
@@ -165,6 +162,7 @@
             "youtube_url": "Youtube Url",
             "short_video": "Short Video",
             "verify_success_head":'Verify Email Address',
+            "location":"Location",
             "verify_success":'You have successfully verified your email address! Thank you for your request, we will respond as soon as possible!',
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
@@ -233,6 +231,7 @@
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
             "short_video": "Video corto",
+            "location":"Ubicación",
             "verify_success_head":'Confirme su dirección de correo electrónico',
             "verify_success":'¡Has verificado con éxito tu dirección de correo electrónico! ¡Gracias por su solicitud, le responderemos lo antes posible!',
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
@@ -419,8 +418,8 @@
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
-    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta', 'AuthenService',
-        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta, AuthenService) {
+    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta', 'AuthenService','PreloadingService',
+        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta, AuthenService,PreloadingService) {
             $scope.$on("forgot_passs", function () {
                 resetPassword()
             });
@@ -718,6 +717,7 @@
                     userType: '1'
                 }
 
+                PreloadingService.loadStart()
                 $http({
                     url: API.BaseUrl + 'login',
                     method: 'POST',
@@ -727,12 +727,14 @@
                         'Authorization': 'Basic VFY6TFVJU1RWQDEyMw=='
                     }
                 }).then(function (res) {
+                    PreloadingService.loadEnd()
                     if (res.data.status == 1) {
                         AuthenService.setAuthen(res.data.data);
                         toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
                         $scope.$broadcast('loadHome')
                     }
                 }).catch(function (res) {
+                    PreloadingService.loadEnd()
                     if (res.data.status == 405) {
                         ModalService.showModal({
                             templateUrl: "views/modal/verify.modal.html",
