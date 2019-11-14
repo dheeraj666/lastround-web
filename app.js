@@ -303,6 +303,7 @@
                 }
             })
             .when('/subscription', {
+                requireLogin: true,
                 cache: false,
                 controller: 'SubscriptionController',
                 templateUrl: 'views/subscription.view.html',
