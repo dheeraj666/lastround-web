@@ -39,7 +39,7 @@
                 $http.post(API.BaseUrl + 'user/subscrption/purchase', client_data, {
                     headers: {
                         'Content-Type': 'application/json',
-                        // 'Authorization': tokenAu
+                        'Authorization': tokenAu
                     }
                 }).then(function (res) {
                     $scope.loading = false;
