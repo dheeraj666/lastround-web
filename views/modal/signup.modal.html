@@ -27,21 +27,21 @@
 						<label>{{ 'password' | translate }}</label>
 						<input type="password" name="password" ng-model="signup.password" required>
 					</div>
+				</div>
+				<div>
 					<div class="field_container">
 						<label>{{ 'referral_code' | translate }}</label>
 						<input type="text" name="promocode" ng-model="signup.promocode">
 					</div>
-				</div>
-				<div>
 					<div class='field_container'>
 						<label>{{ 'country' | translate }}</label>
 						<input placeholder="{{ 'country' | translate }}" type="text" list="countries"
-							ng-model="signup.country" ng-change=getState(signup.country) />
+							ng-model="signup.country"/>
 						<datalist id="countries">
 							<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
 						</datalist>
 					</div>
-					<div class='field_container'>
+					<!-- <div class='field_container'>
 						<label>{{ 'state' | translate }}</label>
 						<input placeholder="{{ 'state' | translate }}" type="text" list="states" ng-model="signup.state"
 							ng-change=getCity(signup.state) />
@@ -56,7 +56,7 @@
 						<datalist id="cities">
 							<option ng-repeat="city in cities" value="{{city.name}}">{{city.name}}</option>
 						</datalist>
-					</div>
+					</div> -->
 				</div>
 			</div>
 			<div class="term">

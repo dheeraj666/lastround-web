@@ -146,39 +146,37 @@
                 return
             }
             let country = null
-            let state = null
-            let city = null
+            // let state = null
+            // let city = null
             country = $scope.countries.find(function (c) {
                 return c.name == $scope.signup.country
             })
             if (!country) {
                 return toaster.pop('error', 'Please select country!');
             }
-            state = $scope.states.find(function (c) {
-                return c.name == $scope.signup.state
-            })
-            if (!state) {
-                return toaster.pop('error', 'Please select state!');
-            }
-            if ($scope.cities && $scope.cities.length > 0) {
-                city = $scope.cities.find(function (c) {
-                    return c.name == $scope.signup.city
-                })
-                if (!city) {
-                    return toaster.pop('error', 'Please select city!');
-                }
-            }
+            // state = $scope.states.find(function (c) {
+            //     return c.name == $scope.signup.state
+            // })
+            // if (!state) {
+            //     return toaster.pop('error', 'Please select state!');
+            // }
+            // if ($scope.cities && $scope.cities.length > 0) {
+            //     city = $scope.cities.find(function (c) {
+            //         return c.name == $scope.signup.city
+            //     })
+            //     if (!city) {
+            //         return toaster.pop('error', 'Please select city!');
+            //     }
+            // }
             let signupData = {
                 "fullName": $scope.signup.fullName,
                 "email": $scope.signup.email,
                 "password": $scope.signup.password,
                 "country": country,
-                "state": state,
-                "city": city,
+                // "state": state,
+                // "city": city,
                 "promocode": $scope.signup.promocode
             };
-            console.log(signupData)
-            return
             PreloadingService.loadStart()
             $http.post(API.BaseUrl + 'users', signupData, {
                 headers: {
