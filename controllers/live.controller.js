@@ -10,10 +10,6 @@
         $scope.event_id = $location.$$search.event_id;
         // fetch data on load
         function onLoadLiveEvt() {
-            if (!$rootScope.isSubscribed) {
-                location.href = '/#!/subscription'
-                return
-            }
             $http.get(API.BaseUrl + 'get/events/home', {
                 // params: {
                 //     page: 1, limit: 5
@@ -40,6 +36,10 @@
 
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
+            if (!$rootScope.isSubscribed) {
+                location.href = '/#!/subscription'
+                return
+            }
             ModalService.showModal({
                 templateUrl: "views/modal/player.modal.html",
                 controller: "PlayerController",
