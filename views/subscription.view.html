@@ -29,7 +29,7 @@
 							src="assets/img/icons/like.png"></div>
 					<div class="package_name" ng-if="package.product_nickname">{{package.product_nickname}}</div>
 					<div class="package_name" ng-if="!package.product_nickname">Product Name Here</div>
-					<div class="package_price">${{package.amount}}</div>
+					<div class="package_price">{{package.amount}}</div>
 					<div class="package_desc">{{package.description}}</div>
 					<div class="package_btn" ng-click="openModal(package)">
 						<p>Get started</p>

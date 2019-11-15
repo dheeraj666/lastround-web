@@ -43,6 +43,7 @@
                     }
                 }).then(function (res) {
                     $scope.loading = false;
+                    $rootScope.isSubscribed = true;
                     toaster.pop('success', 'Thank you! Your payment has been successfully processed.')
                     close()
 
