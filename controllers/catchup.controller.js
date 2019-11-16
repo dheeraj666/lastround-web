@@ -10,37 +10,8 @@
     function CatchupController($rootScope, $scope, API, ModalService, $http, $location) {
 
         $scope.event_id = $location.$$search.event_id;
-        // init()
-        // function init() {
-        //     if (!$scope.event_id) {
-        //         return
-        //     }
-        //     $http({
-        //         url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-        //         method: 'GET'
-        //     }).then(function (res) {
-        //         ngMeta.setTitle(res.data.data.event_name);
-        //         ngMeta.setTag('description', res.data.data.description);
-        //         ngMeta.setTag('og:image', res.data.data.event_thumbnail);
-        //         ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/catchup?event_id=' + $scope.event_id);
-        //         // if ($rootScope.isLoggedIn)
-        //         //     //check subsription here
-        //         //     playVideo(res.data.data)
-        //         // else {
-        //         //     toaster.pop('success', 'You need to login to watch the video.')
-        //         // }
-        //     }).catch(function (res) {
-        //         if (res.data && res.data.msg)
-        //             toaster.pop('error', res.data.msg)
-        //         location.href = '/'
-        //     });
-        // }
         $scope.playVideo = playVideo;
         function playVideo(videoObject) {
-            if (!$rootScope.isSubscribed) {
-                location.href = '/#!/subscription'
-                return
-            }
             ModalService.showModal({
                 templateUrl: "views/modal/generic-player.modal.html",
                 controller: "GenericVideoPlayer",
@@ -64,30 +35,39 @@
                 });
             });
         }
+        $scope.redirect = function () {
+            $('#jump').modal('hide')
+            location.href = '/#!/subscription'
+        }
         // fetch data on load
         function getAll() {
-            $http.get(API.BaseUrl + 'events/catchup/ads/list', {
-                // params: {
-                //     page: 1, limit: 15
-                // },
-                headers: {
-                    'Authorization': 'Bearer ' + $rootScope.userAccessToken,
-                    'Content-Type': 'application/json'
-                }
-            }).then(function (res) {
-                $scope.events = res.data.data;
-                if ($scope.event_id) {
-                    $scope.event = $scope.events.find(function (f) {
-                        return f._id == $scope.event_id
-                    })
-                    if ($scope.event) {
-                        playVideo($scope.event)
+            if (!$rootScope.isSubscribed) {
+                $('#jump').modal('show')
+            }
+            else {
+                $http.get(API.BaseUrl + 'events/catchup/ads/list', {
+                    // params: {
+                    //     page: 1, limit: 15
+                    // },
+                    headers: {
+                        'Authorization': 'Bearer ' + $rootScope.userAccessToken,
+                        'Content-Type': 'application/json'
                     }
-                }
-            }).catch(function (res) {
-                if (res.data && res.data.msg)
-                    toaster.pop('error', res.data.msg)
-            });
+                }).then(function (res) {
+                    $scope.events = res.data.data;
+                    if ($scope.event_id) {
+                        $scope.event = $scope.events.find(function (f) {
+                            return f._id == $scope.event_id
+                        })
+                        if ($scope.event) {
+                            playVideo($scope.event)
+                        }
+                    }
+                }).catch(function (res) {
+                    if (res.data && res.data.msg)
+                        toaster.pop('error', res.data.msg)
+                });
+            }
         }
         getAll()
     }

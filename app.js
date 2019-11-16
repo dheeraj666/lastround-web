@@ -161,9 +161,11 @@
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
             "short_video": "Short Video",
-            "verify_success_head":'Verify Email Address',
-            "location":"Location",
-            "verify_success":'You have successfully verified your email address! Thank you for your request, we will respond as soon as possible!',
+            "verify_success_head": 'Verify Email Address',
+            "location": "Location",
+            "subscription_required": "Subscription Required!",
+            "subscription_required_desc": "In order to watch recent fights and live video you need to subscribed",
+            "verify_success": 'You have successfully verified your email address! Thank you for your request, we will respond as soon as possible!',
             'help_contact': `Last Round TV welcomes your questions or comments regarding the Terms.
                             Email address: LastRoundTV2@gmail.com.
                             Effective as of April 11, 2019`
@@ -231,9 +233,11 @@
             "twitter_url": "Twitter Url",
             "youtube_url": "Youtube Url",
             "short_video": "Video corto",
-            "location":"Ubicación",
-            "verify_success_head":'Confirme su dirección de correo electrónico',
-            "verify_success":'¡Has verificado con éxito tu dirección de correo electrónico! ¡Gracias por su solicitud, le responderemos lo antes posible!',
+            "location": "Ubicación",
+            "subscription_required": "Se requiere suscripción!",
+            "subscription_required_desc": "Para ver peleas recientes y videos en vivo necesitas suscribirte",
+            "verify_success_head": 'Confirme su dirección de correo electrónico',
+            "verify_success": '¡Has verificado con éxito tu dirección de correo electrónico! ¡Gracias por su solicitud, le responderemos lo antes posible!',
             'help_contact': 'Last Round TV agradece sus preguntas o comentarios sobre los Términos. Dirección de correo electrónico: LastRoundTV2@gmail.com. En vigencia a partir del 11 de abril de 2019'
         }
 
@@ -419,8 +423,8 @@
         $httpProvider.defaults.useXDomain = true;
         delete $httpProvider.defaults.headers.common['X-Requested-With'];
     }
-    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta', 'AuthenService','PreloadingService',
-        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta, AuthenService,PreloadingService) {
+    app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta', 'AuthenService', 'PreloadingService',
+        function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta, AuthenService, PreloadingService) {
             $scope.$on("forgot_passs", function () {
                 resetPassword()
             });
@@ -582,8 +586,7 @@
                 }).then(function (modal) {
                     modal.close.then(function (result) {
                         if (result && result.type == 'success') {
-                            if (result.email)
-                                verifyEmail(result.email);
+                            toaster.pop('success', 'Please check your email inbox after a few minutes and click the verification link to finish setting up your account.')
                         } else if (result && result.type == 'login') {
                             login()
                         }
@@ -591,25 +594,15 @@
                 });
             }
 
-            function verifyEmail(email) {
-                let url = API.BaseUrl + 'user/verify/email';
-                $http.post(url, { email: email })
-                    .then(function (res) {
-                        toaster.pop('success', 'Please check your email inbox after a few minutes and click the verification link to finish setting up your account.')
-                    }).catch(function (res) {
-                        toaster.pop('error', res.data.msg)
-                    });
-                // ModalService.showModal({
-                //     templateUrl: "views/modal/verify.modal.html",
-                //     controller: "VerifyEmailController"
-                // }).then(function (modal) {
-                //     modal.close.then(function (result) {
-                //         if (result.type == 'success') {
-                //             toaster.pop('success', result.message)
-                //         }
-                //     });
-                // });
-            }
+            // function verifyEmail(email) {
+            //     let url = API.BaseUrl + 'user/verify/email';
+            //     $http.post(url, { email: email })
+            //         .then(function (res) {
+            //             toaster.pop('success', 'Please check your email inbox after a few minutes and click the verification link to finish setting up your account.')
+            //         }).catch(function (res) {
+            //             toaster.pop('error', res.data.msg)
+            //         });
+            // }
 
             // $rootScope.stripe = Stripe('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
 

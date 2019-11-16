@@ -53,6 +53,24 @@
             </ul>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal" id="jump" tabindex="-1" role="dialog" data-backdrop="false" aria-labelledby="jumpLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" style=" text-align: center;">
+                <div class="modal-header">
+                    <button type="button" class="close" ng-click="redirect()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h5 style="color: #ff1744;" class="modal-title text-danger" id="jumpLabel">
+                        {{'subscription_required' | translate}}
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    {{'subscription_required_desc' | translate}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- <link rel="preload" as="style" type="text/css" href="assets/css/home.css"> -->

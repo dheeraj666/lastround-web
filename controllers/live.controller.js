@@ -8,38 +8,42 @@
     LiveController.$inject = ['$rootScope', '$scope', 'API', '$http', 'ModalService', '$location'];
     function LiveController($rootScope, $scope, API, $http, ModalService, $location) {
         $scope.event_id = $location.$$search.event_id;
+        $scope.playVideo = playVideo;
+        $scope.redirect = function () {
+            $('#jump').modal('hide')
+            location.href = '/#!/subscription'
+        }
         // fetch data on load
         function onLoadLiveEvt() {
-            $http.get(API.BaseUrl + 'get/events/home', {
-                // params: {
-                //     page: 1, limit: 5
-                // },
-                headers: {
-                    'Authorization': 'Bearer ' + $rootScope.userAccessToken,
-                    'Content-Type': 'application/json'
-                }
-            }).then(function (res) {
-                $scope.events = res.data.data.liveArray;
-                if ($scope.event_id) {
-                    $scope.event = $scope.events.find(function (f) {
-                        return f._id == $scope.event_id
-                    })
-                    if ($scope.event) {
-                        playVideo($scope.event)
+            if (!$rootScope.isSubscribed) {
+                $('#jump').modal('show')
+            } else {
+                $http.get(API.BaseUrl + 'get/events/home', {
+                    // params: {
+                    //     page: 1, limit: 5
+                    // },
+                    headers: {
+                        'Authorization': 'Bearer ' + $rootScope.userAccessToken,
+                        'Content-Type': 'application/json'
                     }
-                }
-            }).catch(function (res) {
-                if (res.data && res.data.msg)
-                    toaster.pop('error', res.data.msg)
-            });
+                }).then(function (res) {
+                    $scope.events = res.data.data.liveArray;
+                    if ($scope.event_id) {
+                        $scope.event = $scope.events.find(function (f) {
+                            return f._id == $scope.event_id
+                        })
+                        if ($scope.event) {
+                            playVideo($scope.event)
+                        }
+                    }
+                }).catch(function (res) {
+                    if (res.data && res.data.msg)
+                        toaster.pop('error', res.data.msg)
+                });
+            }
         }
 
-        $scope.playVideo = playVideo;
         function playVideo(videoObject) {
-            if (!$rootScope.isSubscribed) {
-                location.href = '/#!/subscription'
-                return
-            }
             ModalService.showModal({
                 templateUrl: "views/modal/player.modal.html",
                 controller: "PlayerController",
@@ -67,38 +71,6 @@
                 });
             });
         }
-
-        // function init() {
-        //     if (!$scope.event_id) {
-        //         return
-        //     }
-        //     $http({
-        //         url: API.BaseUrl + 'channel-events/detail/' + $scope.event_id,
-        //         method: 'GET'
-        //     }).then(function (res) {
-        //         ngMeta.resetMeta();
-        //         ngMeta.setTitle(res.data.data.event_name);
-        //         ngMeta.setTag('description', res.data.data.description);
-        //         if (res.data.data.event_thumbnail) {
-        //             var f = res.data.data.event_thumbnail.substring(res.data.data.event_thumbnail.indexOf('event_thumbnail/'), res.data.data.event_thumbnail.length)
-        //             var img = API.s3_resize_url + f + '?width=476&height=249';
-        //             ngMeta.setTag('og:image', img);
-        //         }
-        //         ngMeta.setTag('og:url', 'https://lastroundtv.com/#!/live?event_id=' + $scope.event_id);
-        //         // if ($rootScope.isLoggedIn)
-        //         //     //check subsription here
-        //         //     playVideo(res.data.data)
-        //         // else {
-        //         //     toaster.pop('success', 'You need to login to watch the video.')
-        //         // }
-        //     }).catch(function (res) {
-        //         if (res.data && res.data.msg)
-        //             toaster.pop('error', res.data.msg)
-        //         $location.href = '/';
-        //     });
-
-
-        // }
         onLoadLiveEvt()
     }
 })();
