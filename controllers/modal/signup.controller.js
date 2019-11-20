@@ -227,12 +227,12 @@
             }
             if (!$scope.isValidVideo)
                 return toaster.pop('error', 'Video not vail, less than 1 minute video only')
-            if (!$scope.influencer.facebook.link &&
-                !$scope.influencer.youtube.link &&
-                !$scope.influencer.instagram.link &&
-                !$scope.influencer.twitter.link) {
-                return toaster.pop('error', 'At least one social profile link!')
-            }
+            // if (!$scope.influencer.facebook.link &&
+            //     !$scope.influencer.youtube.link &&
+            //     !$scope.influencer.instagram.link &&
+            //     !$scope.influencer.twitter.link) {
+            //     return toaster.pop('error', 'At least one social profile link!')
+            // }
             if (!$scope.uploadProfileStatus) {
                 PreloadingService.loadStart()
                 await Promise.all($scope.socialImages.map(function (m) {

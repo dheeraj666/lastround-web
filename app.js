@@ -175,7 +175,7 @@
             "home": "Casa",
             "upcoming_events": "Próximos Eventos",
             "catchup": "Peleas recientes",
-            "live": "Vivir",
+            "live": "En Vivo",
             "featured": 'Destacado',
             "subscription": "Suscripción",
             "about": "Acerca de",
