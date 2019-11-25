@@ -86,6 +86,7 @@
                 toaster.pop('error', 'Password dont match!')
                 return
             }
+            PreloadingService.loadStart()
             $scope.loading = true;
             $http({
                 url: API.BaseUrl + 'user/change/password',
@@ -99,10 +100,12 @@
                     'Authorization': 'Bearer ' + $rootScope.userAccessToken
                 }
             }).then(function (res) {
+                PreloadingService.loadEnd()
                 $scope.loading = false;
                 toaster.pop('success', 'Your password has been changed successfully');
                 $ccope.$apply();
             }).catch(function (res) {
+                PreloadingService.loadEnd()
                 $scope.loading = false;
                 if (res.data && res.data.msg)
                     toaster.pop('error', res.data.msg)
@@ -125,6 +128,7 @@
                 return
             }
             $scope.loading = true;
+            PreloadingService.loadStart()
             $http({
                 url: API.BaseUrl + 'user/profile/details',
                 method: 'PUT',
@@ -135,10 +139,11 @@
                 }
             }).then(function (res) {
                 $scope.loading = false;
+                PreloadingService.loadEnd()
                 toaster.pop('success', 'Your profile has been changed successfully');
                 $ccope.$apply();
-
             }).catch(function (res) {
+                PreloadingService.loadEnd()
                 $scope.loading = false;
                 if (res.data && res.data.message)
                     toaster.pop('error', res.data.message)
