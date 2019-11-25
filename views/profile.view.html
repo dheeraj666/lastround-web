@@ -41,6 +41,14 @@
                 <input disabled type="text" name="email" placeholder="{{ 'email_address' | translate }}"
                     ng-model="profile.email">
             </div>
+            <div class='field_container'>
+                <label>{{ 'country' | translate }}</label>
+                <input placeholder="{{ 'country' | translate }}" type="text" list="countries"
+                    ng-model="profile.country" />
+                <datalist id="countries">
+                    <option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
+                </datalist>
+            </div>
             <!-- <div class="field_container">
                 <select ng-model="profile.country" ng-change="getState(profile.country)">
                     <option value="">{{ 'select_country' | translate }}</option>

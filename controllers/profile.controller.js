@@ -6,21 +6,23 @@
         .module('app')
         .controller('ProfileController', ProfileController);
 
-    ProfileController.$inject = ['$rootScope', '$scope', 'API', '$http', 'toaster'];
-    function ProfileController($rootScope, $scope, API, $http, toaster) {
+    ProfileController.$inject = ['$rootScope', '$scope', 'API', '$http', 'toaster','PreloadingService'];
+    function ProfileController($rootScope, $scope, API, $http, toaster,PreloadingService) {
         $scope.profile = {};
         $scope.cities = [];
         $scope.isChangingPass = false;
         $scope.loading = false;
-        // getCountryList();
 
+        getCountryList();
         function getCountryList() {
+            PreloadingService.loadStart()
             $http.get(API.BaseUrl + 'country').then(function (res) {
                 $scope.countries = res.data ? res.data.data : [];
+                PreloadingService.loadEnd()
             }).catch(function (res) {
+                PreloadingService.loadEnd()
             });
         }
-
         $scope.getState = function (obj) {
             if (!obj)
                 return

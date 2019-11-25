@@ -172,7 +172,7 @@
                 "fullName": $scope.signup.fullName,
                 "email": $scope.signup.email,
                 "password": $scope.signup.password,
-                "country": country,
+                "country": country.name,
                 // "state": state,
                 // "city": city,
                 "promocode": $scope.signup.promocode
