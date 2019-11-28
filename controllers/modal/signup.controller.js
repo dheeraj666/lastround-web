@@ -14,34 +14,6 @@
                     }
                 }
             }
-        }).directive('datalist', function ($compile) {
-            var supportsDatalist = !!('list' in document.createElement('input')) &&
-                !!(document.createElement('datalist') && window.HTMLDataListElement);
-
-            return {
-                restrict: 'E',
-                transclude: true,
-                link: function (s, e, a, c, t) {
-                    if (!supportsDatalist) {
-                        var listId = a.id;
-                        //Assumes inputs that use datalist are unique. A better directive would probably include the input itself
-                        var input = document.querySelectorAll("input[list=" + listId + "]")
-                        input = input[0];
-
-                        var ngModelName = angular.element(input).data('ngModelName');
-
-                        var select = $compile('<select ng-model="' + ngModelName + '"></select>')(s);
-
-                        e.append(select);
-
-                        e = select;
-                    }
-
-                    t(function (te) {
-                        e.append(te);
-                    })
-                }
-            }
         })
         .controller('SignupController', SignupController);
 

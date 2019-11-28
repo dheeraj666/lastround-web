@@ -40,13 +40,15 @@
                                 style="width: 60%;border-bottom: 2px solid #fff;color:#000">
                                 <div>Social Login</div>
                             </div>
+                            <div class="term-home">
+                                <input type="checkbox" ng-model="check.agree">
+                                <span for="">I have read and agree the </span><a href="#!/terms-of-use"> Terms Of Use
+                                </a>
+                            </div>
                             <div class="soci">
                                 <ul id="social_icons">
                                     <li ng-click="fbLogin()"><img src="assets/img/icons/fb.png"></li>
-                                    <google-sign-in-button on-sign-in="onLoginGoogle(response)"
-                                        g-client-id="42090882563-0qdn8cjthnth4hfspkb24lsb416mdrrf.apps.googleusercontent.com">
-                                    </google-sign-in-button>
-
+                                    <li ng-click="onSignInButtonClick()"><img src="assets/img/icons/google.png"></li>
                                 </ul>
                             </div>
                         </form>

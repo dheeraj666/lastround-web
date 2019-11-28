@@ -3797,3 +3797,8 @@ section{ overflow: hidden; }
 .modal-backdrop {
     background-color: #00000085!important;
 }
+.term-home {
+    text-align: center;
+    cursor: pointer;
+    margin-top: 15px;
+}

@@ -41,22 +41,6 @@
 							<option ng-repeat="country in countries" value="{{country.name}}">{{country.name}}</option>
 						</datalist>
 					</div>
-					<!-- <div class='field_container'>
-						<label>{{ 'state' | translate }}</label>
-						<input placeholder="{{ 'state' | translate }}" type="text" list="states" ng-model="signup.state"
-							ng-change=getCity(signup.state) />
-						<datalist id="states">
-							<option ng-repeat="state in states" value="{{state.name}}">{{state.name}}</option>
-						</datalist>
-					</div>
-					<div class='field_container'>
-						<label>{{ 'city' | translate }}</label>
-						<input placeholder="{{ 'city' | translate }}" type="text" list="cities"
-							ng-model="signup.city" />
-						<datalist id="cities">
-							<option ng-repeat="city in cities" value="{{city.name}}">{{city.name}}</option>
-						</datalist>
-					</div> -->
 				</div>
 			</div>
 			<div class="term">
@@ -117,27 +101,6 @@
 							placeholder="Search Location">
 						<div id="map"></div>
 					</div>
-
-					<!-- <div class="field_container">
-						<label>{{ 'country' | translate }}</label>
-						<select ng-options="country.name for country in countries" ng-model="member.country"
-							ng-change="getState(member.country)">
-							<option value="">{{ 'select_country' | translate }}</option>
-						</select>
-					</div>
-					<div class="field_container">
-						<label>{{ 'state' | translate }}</label>
-						<select ng-options="state.name for state in states" ng-model="member.state"
-							ng-change="getCity(member.state)">
-							<option value="">{{ 'select_state' | translate }}</option>
-						</select>
-					</div>
-					<div class="field_container">
-						<label>{{ 'city' | translate }}</label>
-						<select ng-options="city.name for city in cities" ng-model="member.city">
-							<option value="">{{ 'select_city' | translate }}</option>
-						</select>
-					</div> -->
 				</div>
 			</div>
 			<div class="term">
@@ -187,16 +150,7 @@
 				</div>
 				<div>
 					<div class="field_container">
-						<!-- <label class="d-inline">Social Link</label> -->
-						<!-- <span ng-show="influencer.facebook.link" ng-click="onUploadImage('facebook')">
-							<img class="facebook-image hand img-profile" src="/assets/img/icons/user.png">
-						</span> -->
 						<input type="text" placeholder="Facebook" name="name" ng-model="influencer.facebook.link">
-
-
-
-						<!-- <input ng-show="false" role="facebook" type="file" accept="image/*"
-								class="social_image_upload facebook"> -->
 					</div>
 					<div class="field_container">
 						<input type="text" placeholder="Instagram" name="name" ng-model="influencer.instagram.link">
@@ -219,39 +173,6 @@
 							<img ng-src="{{img}}" style="width: 100%;">
 						</span>
 					</div>
-					<!-- <div class="field_container">
-						<label class="d-inline">{{ 'instagram_url' | translate }}</label>
-						<span ng-show="influencer.instagram.link" ng-click="onUploadImage('instagram')">
-							<img class="instagram-image hand img-profile" src="/assets/img/icons/user.png">
-						</span>
-						<div>
-							<input type="text" name="name" ng-model="influencer.instagram.link">
-							<input ng-show="false" role="instagram" type="file" accept="image/*"
-								class="social_image_upload instagram">
-						</div>
-					</div>
-					<div class="field_container">
-						<label class="d-inline">{{ 'twitter_url' | translate }}</label>
-						<span ng-show="influencer.twitter.link" ng-click="onUploadImage('twitter')">
-							<img class="twitter-image hand img-profile" src="/assets/img/icons/user.png">
-						</span>
-						<div>
-							<input type="text" name="name" ng-model="influencer.twitter.link">
-							<input ng-show="false" role="twitter" type="file" accept="image/*"
-								class="social_image_upload twitter">
-						</div>
-					</div>
-					<div class="field_container inline">
-						<label class="d-inline">{{ 'youtube_url' | translate }}</label>
-						<span ng-show="influencer.youtube.link" ng-click="onUploadImage('youtube')">
-							<img class="youtube-image hand img-profile" src="/assets/img/icons/user.png">
-						</span>
-						<div>
-							<input type="text" name="name" ng-model="influencer.youtube.link">
-							<input ng-show="false" role="youtube" type="file" accept="image/*"
-								class="social_image_upload youtube">
-						</div>
-					</div> -->
 				</div>
 			</div>
 			<div class="term">

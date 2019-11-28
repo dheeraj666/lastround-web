@@ -13,7 +13,7 @@
         s3_bucketName: 'lrtv-new-media-bucket',
         s3_url: 'https://lrtv-new-media-bucket.s3.ap-south-1.amazonaws.com/',
         s3_resize_url: 'https://jw1w8011oi.execute-api.ap-south-1.amazonaws.com/production/',
-
+        clientId: "369266544331-rc14qermj0ks75cfr5icv2f75fh0cbi1.apps.googleusercontent.com"
 
         // s3_region: 'us-east-2',
         // s3_IdentityPoolId: 'us-east-2:40c362c3-1750-4243-9f69-77a373c025fb',
@@ -67,31 +67,33 @@
                     })
                 }
             }
-        }]).directive('googleSignInButton', function () {
-            return {
-                scope: {
-                    gClientId: '@',
-                    callback: '&onSignIn'
-                },
-                template: '<li ng-click="onSignInButtonClick()"><img src="assets/img/icons/google.png"></li>',
-                controller: ['$scope', '$attrs', function ($scope, $attrs) {
-                    gapi.load('auth2', function () {//load in the auth2 api's, without it gapi.auth2 will be undefined
-                        gapi.auth2.init(
-                            {
-                                client_id: '369266544331-rc14qermj0ks75cfr5icv2f75fh0cbi1.apps.googleusercontent.com'
-                                //'947153249370-6aug1einbj3u3n452beaff3o4h621adb.apps.googleusercontent.com'// $attrs.gClientId
-                            }
-                        );
-                        var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
-                        $scope.onSignInButtonClick = function () {//add a function to the controller so ng-click can bind to it
-                            GoogleAuth.signIn().then(function (response) {//request to sign in
-                                $scope.callback({ response: response });
-                            });
-                        };
-                    });
-                }]
-            };
-        });
+        }])
+    // .directive('googleSignInButton', function () {
+    //     return {
+    //         scope: {
+    //             check: '=',
+    //             gClientId: '@',
+    //             callback: '&onSignIn'
+    //         },
+    //         template: '<li ng-click="onSignInButtonClick()"><img src="assets/img/icons/google.png"></li>',
+    //         controller: ['$scope', '$attrs', function ($scope, $attrs) {
+    //             gapi.load('auth2', function () {//load in the auth2 api's, without it gapi.auth2 will be undefined
+    //                 gapi.auth2.init(
+    //                     {
+    //                         client_id: '369266544331-rc14qermj0ks75cfr5icv2f75fh0cbi1.apps.googleusercontent.com'
+    //                         //'947153249370-6aug1einbj3u3n452beaff3o4h621adb.apps.googleusercontent.com'// $attrs.gClientId
+    //                     }
+    //                 );
+    //                 var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
+    //                 $scope.onSignInButtonClick = function () {//add a function to the controller so ng-click can bind to it
+    //                     GoogleAuth.signIn().then(function (response) {//request to sign in
+    //                         $scope.callback({ response: response });
+    //                     });
+    //                 };
+    //             });
+    //         }]
+    //     };
+    // });
 
     config.$inject = ['$routeProvider', '$httpProvider', '$translateProvider', '$compileProvider', '$locationProvider', 'ngMetaProvider'];
     function config($routeProvider, $httpProvider, $translateProvider, $compileProvider, $locationProvider, ngMetaProvider) {
@@ -425,6 +427,9 @@
     }
     app.controller('MainController', ['$rootScope', '$scope', '$location', '$cookieStore', '$http', '$route', '$localStorage', '$window', '$uibModal', 'ModalService', '$translate', 'API', 'toaster', '$httpParamSerializer', 'ngMeta', 'AuthenService', 'PreloadingService',
         function MainController($rootScope, $scope, $location, $cookieStore, $http, $route, $localStorage, $window, $uibModal, ModalService, $translate, API, toaster, $httpParamSerializer, ngMeta, AuthenService, PreloadingService) {
+            $scope.check = {
+                agree: false
+            }
             $scope.$on("forgot_passs", function () {
                 resetPassword()
             });
@@ -498,25 +503,9 @@
             }
             $scope.menuList = false;
 
-            // $rootScope.userAccessToken = window.localStorage.getItem('accessToken')
-            // if ($rootScope.userAccessToken == undefined || $rootScope.userAccessToken == '' || $rootScope.userAccessToken == null) {
-            //     $rootScope.isLoggedIn = false;
-            //     $rootScope.isSubscribe = false;
-            // } else {
-            //     let sub = window.localStorage.getItem('isSubscribed', $rootScope.isSubscribed);
-            //     if (sub == 'true')
-            //         $rootScope.isSubscribed = true;
-            //     else
-            //         $rootScope.isSubscribed = false;
-            //     $rootScope.isLoggedIn = true;
-            // }
-
             $rootScope.$watch('isLoggedIn', function (old, newval) {
                 console.log(old, ' >< ', newval)
             })
-
-
-
             $('#preloader').fadeOut('slow', function () {
                 $(this).remove();
             });
@@ -603,9 +592,6 @@
             //             toaster.pop('error', res.data.msg)
             //         });
             // }
-
-            // $rootScope.stripe = Stripe('pk_test_RgTbwK3dhNPFTVSoZw5dlM8S00PhjPvBkZ');
-
             //Handle Global Login
             $scope.onLoginGoogle = function (response) {
                 var id_token = response.getAuthResponse().id_token;
@@ -641,6 +627,10 @@
             }
             //LOGIN FACEBOOK
             $scope.fbLogin = function () {
+                if (!$scope.check.agree) {
+                    toaster.pop('error', 'Please read and agree to our Terms Of Use!');
+                    return
+                }
                 FB.getLoginStatus(function (response) {
                     if (response.status === 'connected') {
                         loadFBInfoForRegister(response);
@@ -662,8 +652,30 @@
                 });
 
             }
+            function initGoogle() {
+                gapi.load('auth2', function () {
+                    //load in the auth2 api's, without it gapi.auth2 will be undefined
+                    gapi.auth2.init(
+                        {
+                            client_id: globalConstant.clientId
+                        }
+                    );
 
+                });
+            }
+            $scope.onSignInButtonClick = function () {
+                //add a function to the controller so ng-click can bind to it
+                //get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
+                if (!$scope.check.agree) {
+                    toaster.pop('error', 'Please read and agree to our Terms Of Use!');
+                    return
+                }
+                var GoogleAuth = gapi.auth2.getAuthInstance();
+                GoogleAuth.signIn().then(function (response) {//request to sign in
 
+                    $scope.onLoginGoogle({ response: response });
+                });
+            };
             function loadFBInfoForRegister(res) {
                 FB.api('/me', 'GET', {
                     fields: 'email, first_name, name, id'
@@ -749,6 +761,11 @@
                     }
                 });
             }
+            angular.element(document).ready(function () {
+                setTimeout(function () {
+                    initGoogle()
+                }, 2000)
+            })
         }]);
 
     //#region  Handle Socket
