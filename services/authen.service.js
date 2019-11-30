@@ -13,13 +13,14 @@
         service.setAuthen = setAuthen;
         service.isAuthen = getAuthen;
         service.clearAuthen = clearAuthen;
-
+        service.setSubscribed = setSubscribed;
         return service;
 
         function setAuthen(data) {
             $cookies.put('_lrtk', data.accessToken, { expires: data.accessTokenExpiresAt });
             $cookies.put('isSubscribed', data.isSubscribed, { expires: data.accessTokenExpiresAt });
             $cookies.put('_lrrf', data.accessToken, { expires: data.refreshTokenExpiresAt });
+            $cookies.put('_lr_exp', data.refreshTokenExpiresAt, { expires: data.refreshTokenExpiresAt });
             $rootScope.isSubscribed = data.isSubscribed;
             $rootScope.isLoggedIn = true;
             $rootScope.userAccessToken = data.accessToken;
@@ -43,9 +44,14 @@
         function clearAuthen() {
             $cookies.remove('_lrtk');
             $cookies.remove('isSubscribed');
+            $cookies.remove('_lr_exp');
             $rootScope.isSubscribed = false;
             $rootScope.isLoggedIn = false;
             $rootScope.userAccessToken = '';
+        }
+        function setSubscribed() {
+            let exp = $cookies.get('_lr_exp');
+            $cookies.put('isSubscribed', true, { expires: exp });
         }
     }
 

@@ -5,8 +5,8 @@
         .module('app')
         .controller('MakePaymentController', MakePaymentController);
 
-    MakePaymentController.$inject = ['$rootScope', '$scope', 'API', 'toaster', 'close', 'package', '$http'];
-    function MakePaymentController($rootScope, $scope, API, toaster, close, $package, $http) {
+    MakePaymentController.$inject = ['$rootScope', 'AuthenService', '$scope', 'API', 'toaster', 'close', 'package', '$http'];
+    function MakePaymentController($rootScope, AuthenService, $scope, API, toaster, close, $package, $http) {
         $scope.close = close;
         $scope.loading = false;
         var year = new Date().getFullYear();
@@ -43,10 +43,11 @@
                     }
                 }).then(function (res) {
                     $scope.loading = false;
-                    $rootScope.isSubscribed = true;
-                    toaster.pop('success', 'Thank you! Your payment has been successfully processed.')
+                    if (res && res.status == 1) {
+                        AuthenService.setSubscribed();
+                        toaster.pop('success', 'Thank you! Your payment has been successfully processed.')
+                    }
                     close()
-
                 }).catch(function (res) {
                     $scope.loading = false;
                     toaster.pop('error', res.data.msg)
