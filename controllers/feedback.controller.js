@@ -30,6 +30,7 @@
                     }
                 }).then(function (res) {
                     toaster.pop('success', 'Thank you for your feedback, we will respond as soon as possible!');
+                    $scope.data.description = ''
                 }).catch(function (res) {
                     if (res.data && res.data.msg)
                         toaster.pop('error', res.data.msg)
