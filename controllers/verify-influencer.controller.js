@@ -3,10 +3,10 @@
 
     angular
         .module('app')
-        .controller('VerifyEmailController', VerifyEmailController);
+        .controller('_VerifyInfluencerEmailController', _VerifyInfluencerEmailController);
 
-    VerifyEmailController.$inject = ['$rootScope', '$scope','$location','$http','API'];
-    function VerifyEmailController($rootScope, $scope,$location,$http,API) {
+    _VerifyInfluencerEmailController.$inject = ['$rootScope', '$scope', '$location', '$http', 'API'];
+    function _VerifyInfluencerEmailController($rootScope, $scope, $location, $http, API) {
         var url = $location.path().split('/');
         $scope._id = url[3];
         $scope.verified = false

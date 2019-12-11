@@ -14,6 +14,7 @@
             if (wowPlayer != null) {
                 wowPlayer.destroy();
             }
+            $scope.videoObject = null
             close();
         };
         $scope.videoObject = videoObject;

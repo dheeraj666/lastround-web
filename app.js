@@ -403,7 +403,7 @@
             })
             .when('/verify/influencer/:id', {
                 cache: false,
-                controller: 'VerifyEmailController',
+                controller: '_VerifyInfluencerEmailController',
                 templateUrl: 'views/verifysuccess.view.html',
                 meta: {
                     'title': 'Verify Email Address',
@@ -593,7 +593,7 @@
             //         });
             // }
             //Handle Global Login
-            $scope.onLoginGoogle = function (response) {
+            function onLoginGoogle(response) {
                 var id_token = response.getAuthResponse().id_token;
                 // Do whatever you need to do to authenticate on your site.
                 let data = {
@@ -672,8 +672,7 @@
                 }
                 var GoogleAuth = gapi.auth2.getAuthInstance();
                 GoogleAuth.signIn().then(function (response) {//request to sign in
-
-                    $scope.onLoginGoogle({ response: response });
+                    onLoginGoogle(response);
                 });
             };
             function loadFBInfoForRegister(res) {
@@ -764,7 +763,7 @@
             angular.element(document).ready(function () {
                 setTimeout(function () {
                     initGoogle()
-                }, 2000)
+                }, 3000)
             })
         }]);
 

@@ -66,6 +66,10 @@
     function GenericVideoPlayer($rootScope, $scope, API, toaster, close, videoObject, $http) {
         $scope.dataIsLoaded = false;
         $scope.close = close;
+        $scope.close = function () {
+            $scope.videoObject = null
+            close();
+        };
         $scope.videoObject = videoObject;
         $scope.videoElement = null;
         $scope.callApi = function () {
