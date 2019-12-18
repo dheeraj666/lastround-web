@@ -374,7 +374,7 @@
                                 <a href="#!/feedback" title="Feedback">{{ 'feedback' | translate }}</a> |
                                 <a href="#!/terms-of-use" title="Terms of Use">{{ 'termofuse' | translate }}</a>
                                 <div class="login-btn" id="appleid-signin" data-color="black" data-border="true"
-                                data-type="sign in"></div>
+                                    data-type="sign in"></div>
                             </div>
                         </div>
                     </div>
@@ -495,7 +495,7 @@
             AppleID.auth.init({
                 clientId: 'com.AshokLRTV',
                 scope: 'name email',
-                redirectURI: 'https://lastroundtv.com/api/login'
+                redirectURI: 'https://lastroundtv.com/api/auth-apple'
             });
             const buttonElement = document.getElementById('appleid-signin');
             buttonElement.addEventListener('click', () => {
