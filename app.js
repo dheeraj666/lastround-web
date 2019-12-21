@@ -409,7 +409,18 @@
                     'title': 'Verify Email Address',
                     'description': 'Verify Email Address',
                     'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
-                    'og:url': 'https://lastroundtv.com/#!//verify/influencer/:id'
+                    'og:url': 'https://lastroundtv.com/#!/verify/influencer/:id'
+                }
+            })
+            .when('/auth-apple', {
+                cache: false,
+                controller: 'AuthAppleController',
+                templateUrl: 'views/authApple.view.html',
+                meta: {
+                    'title': 'Apple Sign In',
+                    'description': 'Apple Sign In',
+                    'og:image': 'https://lastroundtv.com/assets/img/logo.jpeg',
+                    'og:url': 'https://lastroundtv.com/#!/auth-apple'
                 }
             })
 
