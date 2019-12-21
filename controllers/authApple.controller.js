@@ -13,7 +13,7 @@
             if ($location.$$search.code) {
                 $http.post(API.BaseUrl + 'auth-apple', { code: $location.$$search.code }, {
                     headers: {
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded'
                     }
                 }).then(function (res) {
                     if (res.data.status == 1) {

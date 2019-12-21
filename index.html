@@ -503,7 +503,8 @@
             });
             const buttonElement = document.getElementById('appleid-signin');
             buttonElement.addEventListener('click', () => {
-                AppleID.auth.signIn();
+                // AppleID.auth.signIn();
+                location.href = 'https://appleid.apple.com/auth/authorize?client_id=com.lastroundtv.lrtv&redirect_uri=https%3A%2F%2Flastroundtv.com%2F%23!%2Fauth-apple&response_type=code&response_mode=query&v=1.4.1'
             });
         }, 2000)
     </script>
