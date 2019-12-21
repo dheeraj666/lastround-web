@@ -636,6 +636,18 @@
                         console.log('User signed out.');
                     });
             }
+            //LOGIN APPLE
+            $scope.loginAppleClick = function () {
+                if (!$scope.check.agree) {
+                    toaster.pop('error', 'Please read and agree to our Terms Of Use!');
+                    return
+                }
+                // AppleID.auth.signIn();
+                location.href = 'https://appleid.apple.com/auth/authorize?client_id=com.lastroundtv.lrtv&redirect_uri=https%3A%2F%2Flastroundtv.com%2F%23!%2Fauth-apple&response_type=code&response_mode=query&v=1.4.1'
+                // const buttonElement = document.getElementById('appleid-signin');
+                // buttonElement.addEventListener('click', () => {
+                // });
+            }
             //LOGIN FACEBOOK
             $scope.fbLogin = function () {
                 if (!$scope.check.agree) {

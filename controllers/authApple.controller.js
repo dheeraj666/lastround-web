@@ -5,8 +5,8 @@
         .module('app')
         .controller('AuthAppleController', AuthAppleController);
 
-    AuthAppleController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http', '$location', 'AuthenService', 'PreloadingService'];
-    function AuthAppleController($rootScope, $scope, API, ModalService, $http, $location, AuthenService, PreloadingService) {
+    AuthAppleController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http', '$location', 'AuthenService', 'PreloadingService', 'toaster'];
+    function AuthAppleController($rootScope, $scope, API, ModalService, $http, $location, AuthenService, PreloadingService, toaster) {
         function init() {
             PreloadingService.loadStart()
             if ($location.$$search.code) {

@@ -373,8 +373,6 @@
                             <div class="fba-right">
                                 <a href="#!/feedback" title="Feedback">{{ 'feedback' | translate }}</a> |
                                 <a href="#!/terms-of-use" title="Terms of Use">{{ 'termofuse' | translate }}</a>
-                                <div class="login-btn" id="appleid-signin" data-color="black" data-border="true"
-                                    data-type="sign in"></div>
                             </div>
                         </div>
                     </div>
@@ -500,11 +498,6 @@
                 // redirectURI: 'https://lastroundtv.com/api/auth-apple',
                 redirectURI: 'https://lastroundtv.com/#!/auth-apple',
                 response_mode: 'query'
-            });
-            const buttonElement = document.getElementById('appleid-signin');
-            buttonElement.addEventListener('click', () => {
-                // AppleID.auth.signIn();
-                location.href = 'https://appleid.apple.com/auth/authorize?client_id=com.lastroundtv.lrtv&redirect_uri=https%3A%2F%2Flastroundtv.com%2F%23!%2Fauth-apple&response_type=code&response_mode=query&v=1.4.1'
             });
         }, 2000)
     </script>
