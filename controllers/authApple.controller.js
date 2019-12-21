@@ -7,7 +7,6 @@
 
     AuthAppleController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http', '$location', 'AuthenService', 'PreloadingService'];
     function AuthAppleController($rootScope, $scope, API, ModalService, $http, $location, AuthenService, PreloadingService) {
-        console.log($location)
         function init() {
             PreloadingService.loadStart()
             $http.get(API.BaseUrl + 'auth-apple').then(function (res) {
