@@ -10,7 +10,7 @@
 
         function init() {
             PreloadingService.loadStart()
-            $http.get(API.BaseUrl + 'api/auth-apple').then(function (res) {
+            $http.get(API.BaseUrl + 'auth-apple').then(function (res) {
                 if (res.data.status == 1) {
                     AuthenService.setAuthen(res.data.data);
                     toaster.pop('success', 'Wellcome back! ' + res.data.data.username);
