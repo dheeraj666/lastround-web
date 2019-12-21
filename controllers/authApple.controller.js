@@ -7,14 +7,14 @@
 
     AuthAppleController.$inject = ['$rootScope', '$scope', 'API', 'ModalService', '$http', '$location', 'AuthenService', 'PreloadingService'];
     function AuthAppleController($rootScope, $scope, API, ModalService, $http, $location, AuthenService, PreloadingService) {
-        console.log($location)
         function init() {
             PreloadingService.loadStart()
             if ($location.$$search.code) {
-                $http.post(API.BaseUrl + 'auth-apple', { code: $location.$$search.code }, {
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
+                $http({
+                    method: 'POST',
+                    url: API.BaseUrl + 'auth-apple',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    data: 'code=' + $location.$$search.code
                 }).then(function (res) {
                     if (res.data.status == 1) {
                         AuthenService.setAuthen(res.data.data);
